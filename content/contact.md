@@ -3,4 +3,4 @@ title = "Contact"
 slug = "contact"
 +++
 
-Follow me, Mehdi
+Follow me, Mehdi Khadem
