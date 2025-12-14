@@ -1,5 +1,8 @@
-{{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ with .Date }}<p><small>{{ .Format "2006-01-02" }}</small></p>{{ end }}
-  {{ .Content }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+
+{{ define "content" }}
+  <section class="container page">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </section>
 {{ end }}

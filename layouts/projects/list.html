@@ -1,15 +1,15 @@
-{{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 
-  <div class="archive">
-    {{ range .Pages.ByDate.Reverse }}
-      <article class="archive-item">
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        {{ with .Summary }}
-          <p>{{ . }}</p>
-        {{ end }}
+{{ define "content" }}
+  <section class="container list">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+
+    {{ range .RegularPages.ByDate.Reverse }}
+      <article>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ with .Summary }}<p>{{ . }}</p>{{ end }}
       </article>
     {{ end }}
-  </div>
+  </section>
 {{ end }}
