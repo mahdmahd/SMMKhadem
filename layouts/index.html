@@ -37,25 +37,59 @@
   <h2>Education</h2>
   <p><em>Academic background and qualifications</em></p>
 
-  <h3>Diagnostic Radiology Residency</h3>
-  <p>
-    <strong>Yale University School of Medicine</strong><br>
-    New Haven, CT, USA<br>
-    <em>2025 – 2030</em>
-  </p>
-  <p>
-    Dissertation TBD.
-  </p>
+  <!-- Education Item 1 -->
+  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:1.5rem; margin-bottom:1.5rem;">
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start;">
 
-  <h3>Internal Medicine Internship</h3>
-  <p>
-    <strong>Griffin Hospital</strong><br>
-    Derby, CT, USA<br>
-    <em>2024 – 2025</em>
-  </p>
-  <p>
-    No dissertation required.
-  </p>
+      <div style="flex:0 0 64px;">
+        <img
+          src="{{ "images/yale.png" | relURL }}"
+          alt="Yale University"
+          style="width:64px; height:auto;"
+        >
+      </div>
+
+      <div style="flex:1; min-width:240px;">
+        <h3 style="margin-top:0;">Diagnostic Radiology Residency</h3>
+        <p>
+          <strong>Yale University School of Medicine</strong><br>
+          New Haven, CT, USA<br>
+          <em>2025 – 2030</em>
+        </p>
+        <p>
+          Dissertation TBD.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Education Item 2 -->
+  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:1.5rem;">
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start;">
+
+      <div style="flex:0 0 64px;">
+        <img
+          src="{{ "images/griffin.png" | relURL }}"
+          alt="Griffin Hospital"
+          style="width:64px; height:auto;"
+        >
+      </div>
+
+      <div style="flex:1; min-width:240px;">
+        <h3 style="margin-top:0;">Internal Medicine Internship</h3>
+        <p>
+          <strong>Griffin Hospital</strong><br>
+          Derby, CT, USA<br>
+          <em>2024 – 2025</em>
+        </p>
+        <p>
+          No dissertation required.
+        </p>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 {{ end }}
