@@ -1,12 +1,20 @@
-{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
-
 {{ define "content" }}
 <section class="container page">
 
   <h1>{{ .Title }}</h1>
 
   {{ with .Params.image }}
-    <img class="project-hero" src="/{{ . }}" alt="{{ $.Title }}">
+    <img
+      src="/{{ . }}"
+      alt="{{ $.Title }}"
+      style="
+        width:100%;
+        max-height:420px;
+        object-fit:cover;
+        border-radius:12px;
+        margin-bottom:1.5rem;
+      "
+    >
   {{ end }}
 
   {{ .Content }}

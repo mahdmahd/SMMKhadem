@@ -1,28 +1,49 @@
-{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
-
 {{ define "content" }}
 <section class="container list">
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 
-  <div class="project-grid">
-    {{ range .RegularPages.ByDate.Reverse }}
-      <article class="project-card">
-        <div class="project-card-text">
-          <h2 class="project-card-title">
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </h2>
+  {{ range .RegularPages.ByDate.Reverse }}
+    <article
+      style="
+        border:1px solid rgba(255,255,255,0.15);
+        border-radius:12px;
+        padding:1.5rem;
+        margin-bottom:1.5rem;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:1.2rem;
+      "
+    >
+      <div style="flex:1;">
+        <h2 style="margin-top:0;">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
 
-          {{ with .Summary }}<p class="project-card-summary">{{ . }}</p>{{ end }}
-        </div>
-
-        {{ with .Params.image }}
-          <a class="project-card-thumb" href="{{ $.RelPermalink }}">
-            <img src="/{{ . }}" alt="{{ $.Title }}">
-          </a>
+        {{ with .Summary }}
+          <p style="margin-bottom:0;">{{ . }}</p>
         {{ end }}
-      </article>
-    {{ end }}
-  </div>
+      </div>
+
+      {{ with .Params.image }}
+        <a href="{{ $.RelPermalink }}">
+          <img
+            src="/{{ . }}"
+            alt="{{ $.Title }}"
+            style="
+              width:140px;
+              height:90px;
+              object-fit:cover;
+              border-radius:10px;
+              flex-shrink:0;
+            "
+          >
+        </a>
+      {{ end }}
+
+    </article>
+  {{ end }}
+
 </section>
 {{ end }}
