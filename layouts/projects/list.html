@@ -5,7 +5,7 @@
 
   {{ range .RegularPages.ByDate.Reverse }}
     <article
-      style="
+      style="color:white;
         position:relative;
         border:1px solid rgba(255,255,255,0.15);
         border-radius:12px;
@@ -38,10 +38,10 @@
           display:flex;
           align-items:center;
           justify-content:space-between;
-          gap:1.2rem;
+          gap:1.2rem;color:white;
         "
       >
-        <div style="flex:1; min-width:0;">
+        <div style="flex:1; min-width:0;color:white;">
           <h2 style="margin-top:0; margin-bottom:0.6rem;">
             <a
               href="{{ .RelPermalink }}"
