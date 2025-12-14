@@ -95,23 +95,82 @@
 
         </div>
 
-        <!-- "..." more actions -->
-        <details class="more-actions">
-          <summary class="more-btn" aria-label="More actions" title="More actions">
-            <span class="dots" aria-hidden="true">⋯</span>
-          </summary>
-
-          <div class="more-menu" role="menu">
-            {{ with $demo }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open demo</a>{{ end }}
-            {{ with $code }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open code</a>{{ end }}
-            {{ with $paper }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open paper</a>{{ end }}
-          </div>
-        </details>
-
       </div>
     {{ end }}
 
   </footer>
 
 </article>
+
+<style>
+  /* Tech Pill Styles */
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tech-pill {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 2px solid #333;
+    border-radius: 50px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+  .tech-pill:hover {
+    background-color: #e0e0e0;
+  }
+
+  .tech-pill-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .tech-pill:hover .tech-pill-icon {
+    transform: scale(1.2);
+  }
+
+  /* Action Button Styles */
+  .action-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid transparent;  /* Default border for the buttons */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .action-buttons .btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .action-buttons .btn-outline {
+    border-color: #333;
+    color: #333;
+  }
+
+  .action-buttons .btn-outline:hover {
+    background-color: #333;
+    color: #fff;
+  }
+
+  .action-buttons .btn-light {
+    border-color: #ccc;
+    color: #333;
+  }
+
+  .action-buttons .btn-light:hover {
+    background-color: #ccc;
+  }
+</style>
+
 {{ end }}
