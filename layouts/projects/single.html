@@ -1,8 +1,15 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 
 {{ define "content" }}
-  <section class="container page">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-  </section>
+<section class="container page">
+
+  <h1>{{ .Title }}</h1>
+
+  {{ with .Params.image }}
+    <img class="project-hero" src="/{{ . }}" alt="{{ $.Title }}">
+  {{ end }}
+
+  {{ .Content }}
+
+</section>
 {{ end }}

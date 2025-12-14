@@ -1,15 +1,28 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 
 {{ define "content" }}
-  <section class="container list">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
+<section class="container list">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
 
+  <div class="project-grid">
     {{ range .RegularPages.ByDate.Reverse }}
-      <article>
-        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        {{ with .Summary }}<p>{{ . }}</p>{{ end }}
+      <article class="project-card">
+        <div class="project-card-text">
+          <h2 class="project-card-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+
+          {{ with .Summary }}<p class="project-card-summary">{{ . }}</p>{{ end }}
+        </div>
+
+        {{ with .Params.image }}
+          <a class="project-card-thumb" href="{{ $.RelPermalink }}">
+            <img src="/{{ . }}" alt="{{ $.Title }}">
+          </a>
+        {{ end }}
       </article>
     {{ end }}
-  </section>
+  </div>
+</section>
 {{ end }}
