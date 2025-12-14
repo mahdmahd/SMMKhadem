@@ -1,33 +1,37 @@
 name: hugo publish
 
 on:
-push:
-branches:
-- main
+  push:
+    branches:
+      - main
 
 jobs:
-build-deploy:
-runs-on: ubuntu-18.04
-steps:
-- uses: actions/checkout@v1
-with:
-submodules: true
+  build-deploy:
+    runs-on: ubuntu-latest
 
-- name: Setup Hugo
-uses: peaceiris/actions-hugo@v2
-with:
-hugo-version: '0.59.1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
-- name: Build
-run: hugo --minify
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.59.1"
+          extended: true
 
-- name: Deploy
-uses: peaceiris/actions-gh-pages@v2
-env:
-ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-EXTERNAL_REPOSITORY: mahdmahd/SMMKhadem.github.io
-PUBLISH_BRANCH: main
-PUBLISH_DIR: ./public
-with:
-emptyCommits: false
-commitMessage: ${{ github.event.head_commit.message }}
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          external_repository: mahdmahd/SMMKhadem.github.io
+          publish_branch: main
+          publish_dir: ./public
+          empty_commits: false
+          commit_message: ${{ github.event.head_commit.message }}
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
