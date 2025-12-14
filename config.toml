@@ -1,5 +1,5 @@
 baseURL = "https://mahdmahd.github.io/SMMKhadem.github.io/"
-title = "mehdiKhadem"
+title = "mahdiKhadem"
 theme = "hugo-coder"
 languageCode = "en"
 defaultContentLanguage = "en"
@@ -21,9 +21,9 @@ noClasses = false
 unsafe = true
 
 [params]
-author = "Mehdi Khadem"
+author = "Mahdi Khadem"
 # license = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA-4.0</a>'
-description = "Mehdi Khadem's personal website"
+description = "Mahdi Khadem's personal website"
 keywords = "blog,researcher,personal,datascientist,medicaldoctor"
 info = ["I am a medical doctor and developer with a strong focus on surgery and AI integration. I leverage AI and machine learning techniques to tackle healthcare issues, particularly in surgical applications. My expertise includes working with diagnostic imaging, patient records, and creating predictive tools for medical applications"]
 avatarURL = "images/avatar.jpg"

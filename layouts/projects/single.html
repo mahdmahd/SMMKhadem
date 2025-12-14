@@ -12,7 +12,7 @@
       </div>
 
       {{ with .Params.year }}
-        <span class="year-pill">
+        <span class="year-pill" style="margin-bottom:1.5rem;">
           <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
           {{ . }}
         </span>
@@ -108,10 +108,10 @@
 <style>
   /* Style the year pill to match the new design */
   .year-pill {
-    display: flex;
+    display: inline-flex; /* Use inline-flex to size based on content */
     align-items: center;
-    padding: 6px 12px; /* Adjust padding for the new design */
-    border-radius: 50px; /* Fully rounded */
+    padding: 4px 8px; /* Reduced padding to fit "2025" text better */
+    border-radius: 8px; /* Reduced border-radius for more subtle rounding */
     background-color: #333; /* Dark background */
     font-size: 14px; /* Slightly larger font */
     color: #fff; /* White text */
@@ -124,9 +124,9 @@
   }
 
   .year-icon {
-    width: 18px; /* Icon size */
-    height: 18px;
-    margin-right: 8px; /* Space between icon and text */
+    width: 16px; /* Reduced icon size to match smaller pill */
+    height: 16px;
+    margin-right: 6px; /* Space between icon and text */
     fill: #fff; /* Ensure icon is white */
     transition: transform 0.3s ease;
   }
@@ -134,7 +134,6 @@
   .year-pill:hover .year-icon {
     transform: scale(1.2);
   }
-
   /* ===== Title Margin ===== */
   .page-title {
     margin-bottom: 20px; /* Adds space below the title */
