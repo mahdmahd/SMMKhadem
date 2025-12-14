@@ -27,7 +27,6 @@
         src="{{ . | relURL }}"
         alt="{{ $.Title }}"
         loading="lazy"
-        srcset="{{ . | relURL }} 1x, {{ . | relURL | relURL }} 2x"
       >
     {{ end }}
 
@@ -38,15 +37,16 @@
     {{ .Content }}
   </div>
 
-  <!-- ===== Footer (Technologies & Action Buttons) ===== -->
+  <!-- ===== End of doc: Technologies + Actions ===== -->
   <footer class="page-footer">
 
-    {{/* Technologies Section (if defined in front matter) */}}
+    {{/* ---------- Technologies (inline CSV in front matter) ---------- */}}
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
         <section class="tech-block">
           <h2 class="tech-title">Technologies</h2>
+
           <div class="tech-tags">
             {{ range $items }}
               {{ $t := trim . " " }}
@@ -62,12 +62,14 @@
       {{ end }}
     {{ end }}
 
-    {{/* Action Buttons (if URLs are provided in front matter) */}}
+    {{/* ---------- Action Buttons (optional URLs from front matter) ---------- */}}
     {{ $demo := .Params.demo_url }}
     {{ $code := .Params.code_url }}
     {{ $paper := .Params.paper_url }}
+
     {{ if or $demo $code $paper }}
       <div class="action-row">
+
         <div class="action-buttons">
 
           {{ with $demo }}
@@ -92,13 +94,13 @@
           {{ end }}
 
         </div>
+
       </div>
     {{ end }}
 
   </footer>
 
 </article>
-{{ end }}
 
 <style>
   /* Tech Pill Styles */
@@ -138,18 +140,17 @@
   /* Action Button Styles */
   .action-buttons {
     display: flex;
-    gap: 15px;
-    justify-content: center;
+    gap: 15px; /* Adds space between buttons */
   }
 
   .action-buttons .btn {
     display: inline-flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px 16px;  /* Reduced padding for a smaller button */
     font-size: 14px;
     border-radius: 5px;
     text-decoration: none;
-    border: 1px solid #333;
+    border: 1px solid #333;  /* Smaller border */
     transition: border-color 0.3s ease, background-color 0.3s ease;
   }
 
@@ -172,3 +173,8 @@
     background-color: #ccc;
   }
 </style>
+
+{{ end }}
+{{ define "content" }}
+
+{{ end }}
