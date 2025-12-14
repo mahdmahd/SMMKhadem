@@ -31,12 +31,17 @@
     {{ end }}
 
   </header>
+  
   <!-- ===== Add Space Between Header and Content ===== -->
   <div class="spacer"></div>
+  
   <!-- ===== Content ===== -->
   <div class="page-content">
     {{ .Content }}
   </div>
+
+  <!-- ===== Add Space Between Content and Footer ===== -->
+  <div class="spacer"></div>
 
   <!-- ===== End of doc: Technologies + Actions ===== -->
   <footer class="page-footer">
@@ -104,6 +109,11 @@
 </article>
 
 <style>
+  /* Add Space Between Title and Content */
+  .page-title {
+    margin-bottom: 20px; /* Adds space below the title */
+  }
+
   /* Tech Pill Styles */
   .tech-tags {
     display: flex;
@@ -142,6 +152,7 @@
   .action-buttons {
     display: flex;
     gap: 15px; /* Adds space between buttons */
+    margin-top: 20px; /* Adds space above buttons */
   }
 
   .action-buttons .btn {
@@ -173,30 +184,36 @@
   .action-buttons .btn-light:hover {
     background-color: #ccc;
   }
+
   @media (prefers-color-scheme: dark) {
-  .action-buttons .btn-outline {
-    color: #fff; /* Ensures text is white */
-    border-color: #fff; /* Ensures border is white */
+    .action-buttons .btn-outline {
+      color: #fff; /* Ensures text is white */
+      border-color: #fff; /* Ensures border is white */
+    }
+
+    .action-buttons .btn-outline:hover {
+      background-color: #555; /* Changes background on hover */
+      color: #fff;
+    }
+
+    .action-buttons .btn-light {
+      color: #fff; /* Text color white in dark mode */
+      border-color: #444; /* Lighter border in dark mode */
+    }
+
+    .action-buttons .btn-light:hover {
+      background-color: #555; /* Changes background on hover */
+    }
   }
 
-  .action-buttons .btn-outline:hover {
-    background-color: #555; /* Changes background on hover */
-    color: #fff;
+  /* Add Space Between Footer and Content */
+  .page-footer {
+    margin-top: 30px; /* Adds space above the footer */
   }
 
-  .action-buttons .btn-light {
-    color: #fff; /* Text color white in dark mode */
-    border-color: #444; /* Lighter border in dark mode */
+  .spacer {
+    height: 20px; /* Adds space wherever it’s used */
   }
-
-  .action-buttons .btn-light:hover {
-    background-color: #555; /* Changes background on hover */
-  }
-}
-
 </style>
-
-{{ end }}
-{{ define "content" }}
 
 {{ end }}
