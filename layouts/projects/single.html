@@ -11,29 +11,30 @@
         {{ end }}
       </div>
 
+      <!-- Move year pill inside titles div to position it on the left -->
       {{ with .Params.year }}
-        <span class="year-pill" style="margin-bottom:1.5rem;">
-          <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
-          {{ . }}
-        </span>
+        <div class="year-container">
+          <span class="year-pill">
+            <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
+            {{ . }}
+          </span>
+        </div>
       {{ end }}
     </div>
 
- {{ with .Params.image }}
-    <img
-      src="{{ . | relURL }}"
-
-      alt="{{ $.Title }}"
-      style="
-        width:100%;
-        max-height:420px;
-        object-fit:cover;
-        border-radius:12px;
-        margin-bottom:1.5rem;
-      "
-    >
-  {{ end }}
-
+    {{ with .Params.image }}
+      <img
+        src="{{ . | relURL }}"
+        alt="{{ $.Title }}"
+        style="
+          width:100%;
+          max-height:420px;
+          object-fit:cover;
+          border-radius:12px;
+          margin-bottom:1.5rem;
+        "
+      >
+    {{ end }}
   </header>
 
   <!-- ===== Content ===== -->
