@@ -107,18 +107,25 @@
 </article>
 
 <style>
+  /* Container for the year pill to position it on the left */
+  .year-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns the pill to the left */
+    width: 100%; /* Ensures full width for proper alignment */
+    margin-bottom: 10px; /* Space below the year pill */
+  }
+
   /* Style the year pill to match the new design */
   .year-pill {
     display: inline-flex; /* Use inline-flex to size based on content */
-    align-items: center; /* Vertically centers items */
-    justify-content: center; /* Horizontally centers content if needed */
+    align-items: center;
     padding: 4px 8px; /* Reduced padding to fit "2025" text better */
     border-radius: 8px; /* Reduced border-radius for more subtle rounding */
     background-color: #333; /* Dark background */
     font-size: 14px; /* Slightly larger font */
     color: #fff; /* White text */
     transition: background-color 0.3s ease, transform 0.3s ease;
-    line-height: 1.4; /* Ensures proper text baseline alignment */
+    /* Remove the margin-bottom from here since we're using year-container */
   }
 
   .year-pill:hover {
@@ -132,13 +139,15 @@
     margin-right: 6px; /* Space between icon and text */
     fill: #fff; /* Ensure icon is white */
     transition: transform 0.3s ease;
-    display: flex; /* Ensure icon itself is centered */
-    align-items: center; /* Center icon vertically */
-    justify-content: center; /* Center icon horizontally */
   }
 
   .year-pill:hover .year-icon {
     transform: scale(1.2);
+  }
+
+  /* Adjust the titles container to handle the year pill placement */
+  .page-header-titles {
+    width: 100%; /* Ensure full width */
   }
   /* ===== Title Margin ===== */
   .page-title {
