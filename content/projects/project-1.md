@@ -5,7 +5,6 @@ summary: "A Neuroimaging Project investigating the relationship between brain im
 image: "images/projects/project-name.jpg"
 draft : false
 technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
-
 demo_url: "https://example.com/demo"
 code_url: "https://github.com/you/repo"
 paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
@@ -22,10 +21,3 @@ Then came the real work: learning, troubleshooting, and optimizing several compl
 Throughout the project, I immersed myself in the primary literature to make sense of what I was seeing. I worked to identify which specific brain regions might underlie particular MMSE and MoCA sub-scores, connecting the dots between structural changes and cognitive symptoms.
 I presented and defended my thesis, "Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul-Akram Hospitals," to a panel of supervisors and professors. The defense went well, and I received a grade of 90% – a validation of months of learning, analysis, and scientific detective work. This project gave me hands-on experience with clinical neuroimaging data, advanced analysis pipelines, and the iterative process of hypothesis-driven research, all while contributing to our understanding of how FTD affects the brain!
 
-
-## Technologies
-
-
-## Links
-- Paper: ...
-- Code: ...

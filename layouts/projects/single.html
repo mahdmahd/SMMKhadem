@@ -1,11 +1,48 @@
 {{ define "content" }}
 <article class="container page">
 
+  <!-- ===== Header ===== -->
   <header class="page-header">
 
-    <h1 class="page-title">{{ .Title }}</h1>
+    <a class="back-link" href="{{ "/portfolio/" | relURL }}">← Back to Portfolio</a>
 
-    {{/* ---------- Technologies (inline CSV) ---------- */}}
+    <div class="page-header-top">
+      <div class="page-header-titles">
+        <h1 class="page-title">{{ .Title }}</h1>
+
+        {{ with .Params.subtitle }}
+          <p class="page-subtitle">{{ . }}</p>
+        {{ end }}
+      </div>
+
+      {{ with .Params.year }}
+        <span class="year-pill">
+          <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
+          {{ . }}
+        </span>
+      {{ end }}
+    </div>
+
+    {{ with .Params.image }}
+      <img
+        class="page-hero"
+        src="{{ . | relURL }}"
+        alt="{{ $.Title }}"
+        loading="lazy"
+      >
+    {{ end }}
+
+  </header>
+
+  <!-- ===== Content ===== -->
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  <!-- ===== End of doc: Technologies + Actions ===== -->
+  <footer class="page-footer">
+
+    {{/* ---------- Technologies (inline CSV in front matter) ---------- */}}
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
@@ -33,46 +70,50 @@
     {{ $paper := .Params.paper_url }}
 
     {{ if or $demo $code $paper }}
-      <div class="action-buttons">
+      <div class="action-row">
 
-        {{ with $demo }}
-          <a class="btn btn-primary" href="{{ . }}" target="_blank" rel="noopener">
-            <span class="btn-icon">{{ partial "icons/external-link.svg" $ }}</span>
-            Online Demo
-          </a>
-        {{ end }}
+        <div class="action-buttons">
 
-        {{ with $code }}
-          <a class="btn btn-light" href="{{ . }}" target="_blank" rel="noopener">
-            <span class="btn-icon">{{ partial "icons/github.svg" $ }}</span>
-            View Source Code
-          </a>
-        {{ end }}
+          {{ with $demo }}
+            <a class="btn btn-outline" href="{{ . }}" target="_blank" rel="noopener">
+              <span class="btn-icon">{{ partial "icons/external-link.svg" $ }}</span>
+              Online Demo
+            </a>
+          {{ end }}
 
-        {{ with $paper }}
-          <a class="btn btn-outline" href="{{ . }}" target="_blank" rel="noopener">
-            <span class="btn-icon">{{ partial "icons/file-text.svg" $ }}</span>
-            Read Publication
-          </a>
-        {{ end }}
+          {{ with $code }}
+            <a class="btn btn-light" href="{{ . }}" target="_blank" rel="noopener">
+              <span class="btn-icon">{{ partial "icons/github.svg" $ }}</span>
+              View Source Code
+            </a>
+          {{ end }}
+
+          {{ with $paper }}
+            <a class="btn btn-light" href="{{ . }}" target="_blank" rel="noopener">
+              <span class="btn-icon">{{ partial "icons/file-text.svg" $ }}</span>
+              Read Publication
+            </a>
+          {{ end }}
+
+        </div>
+
+        <!-- "..." more actions -->
+        <details class="more-actions">
+          <summary class="more-btn" aria-label="More actions" title="More actions">
+            <span class="dots" aria-hidden="true">⋯</span>
+          </summary>
+
+          <div class="more-menu" role="menu">
+            {{ with $demo }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open demo</a>{{ end }}
+            {{ with $code }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open code</a>{{ end }}
+            {{ with $paper }}<a role="menuitem" href="{{ . }}" target="_blank" rel="noopener">Open paper</a>{{ end }}
+          </div>
+        </details>
 
       </div>
     {{ end }}
 
-    {{/* ---------- Hero image (optional) ---------- */}}
-    {{ with .Params.image }}
-      <img
-        class="page-hero"
-        src="{{ . | relURL }}"
-        alt="{{ $.Title }}"
-      >
-    {{ end }}
-
-  </header>
-
-  <div class="page-content">
-    {{ .Content }}
-  </div>
+  </footer>
 
 </article>
 {{ end }}
