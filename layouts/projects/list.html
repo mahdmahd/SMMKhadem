@@ -29,7 +29,7 @@
       {{ with .Params.image }}
         <a href="{{ $.RelPermalink }}">
           <img
-            src="/{{ . }}"
+            src="{{ . | relURL }}"
             alt="{{ $.Title }}"
             style="
               width:140px;

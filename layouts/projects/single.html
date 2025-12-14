@@ -5,7 +5,7 @@
 
   {{ with .Params.image }}
     <img
-      src="/{{ . }}"
+      src="{{ . | relURL }}"
       alt="{{ $.Title }}"
       style="
         width:100%;
