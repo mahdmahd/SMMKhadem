@@ -2,4 +2,4 @@
 title: "Projects"
 ---
 
-Here are some of my projects.
+Explore my coding projects and developed products...
