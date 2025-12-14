@@ -36,33 +36,34 @@
     {{ end }}
   </header>
 
-  <!-- ===== Content with border ===== -->
-  <div class="page-content" style="
+  <!-- ===== Overview Section with border ===== -->
+  <section class="overview-section" style="
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 2rem;
   ">
-    {{ .Content }}
-  </div>
+    <h2 style="margin-top:0; margin-bottom:1rem;">Overview</h2>
+    <div class="overview-content">
+      {{ .Content }}
+    </div>
+  </section>
 
-  <!-- ===== Add Space Between Content and Footer ===== -->
-  <div class="spacer"></div>
-
-  <!-- ===== Footer ===== -->
-  <footer class="page-footer">
-
+  <!-- ===== Project Details Section with border ===== -->
+  <section class="project-details-section" style="
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 2rem;
+  ">
+    <h2 style="margin-top:0; margin-bottom:1rem;">Project Details</h2>
+    
     <!-- Technologies Section -->
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
-        <section class="tech-block" style="
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 15px;
-          margin-bottom: 1.5rem;
-        ">
-          <h2 class="tech-title">Technologies</h2>
+        <section class="tech-block">
+          <h3 class="tech-title" style="margin-bottom:1rem;">Technologies</h3>
           <div class="tech-tags">
             {{ range $items }}
               {{ $t := trim . " " }}
@@ -83,7 +84,7 @@
     {{ $code := .Params.code_url }}
     {{ $paper := .Params.paper_url }}
     {{ if or $demo $code $paper }}
-      <div class="action-row">
+      <div class="action-row" style="margin-top:1.5rem;">
         <div class="action-buttons">
 
           {{ with $demo }}
@@ -110,8 +111,7 @@
         </div>
       </div>
     {{ end }}
-
-  </footer>
+  </section>
 
 </article>
 
@@ -264,12 +264,6 @@
     .action-buttons .btn-light:hover {
       background-color: #555;
     }
-  }
-
-
-  /* ===== Footer Margin ===== */
-  .page-footer {
-    margin-top: 30px; /* Adds space above the footer */
   }
 
   /* ===== Spacer Height ===== */
