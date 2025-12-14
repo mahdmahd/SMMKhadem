@@ -1,18 +1,36 @@
 {{ define "content" }}
 <div class="container">
-  <h1 class="title">Mehdi Khadem</h1>
-  <p class="subtitle">MD</p>
 
-  <h2>Surgery AI Developer & Researcher</h2>
+  <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
 
-  <p>
-    Diagnostic Surgery Resident at ___<br>
-    Adjunct ___ at ___
-  </p>
+    <!-- Text -->
+    <div style="flex:1; min-width:260px;">
+      <h1 class="title">Mehdi Khadem</h1>
+      <p class="subtitle">MD</p>
 
-  <p>
-    I am a physician scientist and developer focused on applying machine learning
-    to solve problems in healthcare.
-  </p>
+      <h2>Surgery AI Developer & Researcher</h2>
+
+      <p>
+        Diagnostic Surgery Resident at ___<br>
+        Adjunct ___ at ___
+      </p>
+
+      <p>
+        I am a physician scientist and developer focused on applying machine learning
+        to solve problems in healthcare.
+      </p>
+    </div>
+
+    <!-- Image -->
+    <div style="flex:0 0 220px;">
+      <img
+        src="{{ "images/avatar.jpg" | relURL }}"
+        alt="Mehdi Khadem"
+        style="width:220px; height:auto; border-radius:8px;"
+      >
+    </div>
+
+  </div>
+
 </div>
 {{ end }}
