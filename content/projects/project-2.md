@@ -2,6 +2,10 @@
 title: "Post-Thesis: Advanced Neuroimaging Analysis Using GenAI"
 date: 2
 summary: "An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans."
+technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
+demo_url: "https://example.com/demo"
+code_url: "https://github.com/you/repo"
+paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
 ---
 
 An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans.
