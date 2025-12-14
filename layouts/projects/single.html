@@ -1,36 +1,52 @@
 {{ define "content" }}
-<section class="container page">
+<article class="container page">
 
-  <h1>{{ .Title }}</h1>
+  <!-- ===== Header ===== -->
+  <header class="page-header">
 
-  {{ with .Params.image }}
-    <img
-      src="{{ . | relURL }}"
-      alt="{{ $.Title }}"
-      style="
-        width:100%;
-        max-height:420px;
-        object-fit:cover;
-        border-radius:12px;
-        margin-bottom:1.5rem;
-      "
-    >
-  {{ end }}
+    <div class="page-header-top">
+      <div class="page-header-titles">
+        <h1 class="page-title">{{ .Title }}</h1>
 
-  {{ .Content }}
+        {{ with .Params.subtitle }}
+          <p class="page-subtitle">{{ . }}</p>
+        {{ end }}
+      </div>
 
-</section>
+      {{ with .Params.year }}
+        <span class="year-pill">
+          <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
+          {{ . }}
+        </span>
+      {{ end }}
+    </div>
 
-  <!-- ===== End of doc: Technologies + Actions ===== -->
+    {{ with .Params.image }}
+      <img
+        class="page-hero"
+        src="{{ . | relURL }}"
+        alt="{{ $.Title }}"
+        loading="lazy"
+        srcset="{{ . | relURL }} 1x, {{ . | relURL | relURL }} 2x"
+      >
+    {{ end }}
+
+  </header>
+
+  <!-- ===== Content ===== -->
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  <!-- ===== Footer (Technologies & Action Buttons) ===== -->
   <footer class="page-footer">
 
-    {{/* ---------- Technologies (inline CSV in front matter) ---------- */}}
+    {{/* Technologies Section (if defined in front matter) */}}
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
         <section class="tech-block">
           <h2 class="tech-title">Technologies</h2>
-
           <div class="tech-tags">
             {{ range $items }}
               {{ $t := trim . " " }}
@@ -46,14 +62,12 @@
       {{ end }}
     {{ end }}
 
-    {{/* ---------- Action Buttons (optional URLs from front matter) ---------- */}}
+    {{/* Action Buttons (if URLs are provided in front matter) */}}
     {{ $demo := .Params.demo_url }}
     {{ $code := .Params.code_url }}
     {{ $paper := .Params.paper_url }}
-
     {{ if or $demo $code $paper }}
       <div class="action-row">
-
         <div class="action-buttons">
 
           {{ with $demo }}
@@ -78,13 +92,13 @@
           {{ end }}
 
         </div>
-
       </div>
     {{ end }}
 
   </footer>
 
 </article>
+{{ end }}
 
 <style>
   /* Tech Pill Styles */
@@ -124,17 +138,18 @@
   /* Action Button Styles */
   .action-buttons {
     display: flex;
-    gap: 15px; /* Adds space between buttons */
+    gap: 15px;
+    justify-content: center;
   }
 
   .action-buttons .btn {
     display: inline-flex;
     align-items: center;
-    padding: 8px 16px;  /* Reduced padding for a smaller button */
+    padding: 8px 16px;
     font-size: 14px;
     border-radius: 5px;
     text-decoration: none;
-    border: 1px solid #333;  /* Smaller border */
+    border: 1px solid #333;
     transition: border-color 0.3s ease, background-color 0.3s ease;
   }
 
@@ -157,8 +172,3 @@
     background-color: #ccc;
   }
 </style>
-
-{{ end }}
-{{ define "content" }}
-
-{{ end }}
