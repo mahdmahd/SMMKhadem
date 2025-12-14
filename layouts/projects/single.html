@@ -1,23 +1,78 @@
 {{ define "content" }}
-<section class="container page">
+<article class="container page">
 
-  <h1>{{ .Title }}</h1>
+  <header class="page-header">
 
-  {{ with .Params.image }}
-    <img
-      src="{{ . | relURL }}"
-      alt="{{ $.Title }}"
-      style="
-        width:100%;
-        max-height:420px;
-        object-fit:cover;
-        border-radius:12px;
-        margin-bottom:1.5rem;
-      "
-    >
-  {{ end }}
+    <h1 class="page-title">{{ .Title }}</h1>
 
-  {{ .Content }}
+    {{/* ---------- Technologies (inline CSV) ---------- */}}
+    {{ with .Params.technologies }}
+      {{ $items := split . "," }}
+      {{ if gt (len $items) 0 }}
+        <section class="tech-block">
+          <h2 class="tech-title">Technologies</h2>
 
-</section>
+          <div class="tech-tags">
+            {{ range $items }}
+              {{ $t := trim . " " }}
+              {{ if $t }}
+                <span class="tech-pill">
+                  <span class="tech-pill-icon">{{ partial "icons/code.svg" $ }}</span>
+                  {{ $t }}
+                </span>
+              {{ end }}
+            {{ end }}
+          </div>
+        </section>
+      {{ end }}
+    {{ end }}
+
+    {{/* ---------- Action Buttons (optional URLs from front matter) ---------- */}}
+    {{ $demo := .Params.demo_url }}
+    {{ $code := .Params.code_url }}
+    {{ $paper := .Params.paper_url }}
+
+    {{ if or $demo $code $paper }}
+      <div class="action-buttons">
+
+        {{ with $demo }}
+          <a class="btn btn-primary" href="{{ . }}" target="_blank" rel="noopener">
+            <span class="btn-icon">{{ partial "icons/external-link.svg" $ }}</span>
+            Online Demo
+          </a>
+        {{ end }}
+
+        {{ with $code }}
+          <a class="btn btn-light" href="{{ . }}" target="_blank" rel="noopener">
+            <span class="btn-icon">{{ partial "icons/github.svg" $ }}</span>
+            View Source Code
+          </a>
+        {{ end }}
+
+        {{ with $paper }}
+          <a class="btn btn-outline" href="{{ . }}" target="_blank" rel="noopener">
+            <span class="btn-icon">{{ partial "icons/file-text.svg" $ }}</span>
+            Read Publication
+          </a>
+        {{ end }}
+
+      </div>
+    {{ end }}
+
+    {{/* ---------- Hero image (optional) ---------- */}}
+    {{ with .Params.image }}
+      <img
+        class="page-hero"
+        src="{{ . | relURL }}"
+        alt="{{ $.Title }}"
+      >
+    {{ end }}
+
+  </header>
+
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+</article>
 {{ end }}

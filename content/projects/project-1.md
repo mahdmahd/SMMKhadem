@@ -4,6 +4,11 @@ date: 2
 summary: "A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques."
 image: "images/projects/project-name.jpg"
 draft : false
+technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
+
+demo_url: "https://example.com/demo"
+code_url: "https://github.com/you/repo"
+paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
 ---
 
 
