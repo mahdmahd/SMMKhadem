@@ -106,6 +106,34 @@
 </article>
 
 <style>
+  /* Adjusting the year pill to match the tech tags */
+  .year-pill {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    border: 2px solid #333;
+    border-radius: 50px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+  .year-pill:hover {
+    background-color: #e0e0e0;
+  }
+
+  .year-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .year-pill:hover .year-icon {
+    transform: scale(1.2);
+  }
+
   /* ===== Title Margin ===== */
   .page-title {
     margin-bottom: 20px; /* Adds space below the title */
@@ -151,36 +179,42 @@
     gap: 15px; /* Adds space between buttons */
     margin-top: 20px; /* Adds space above buttons */
   }
-  /* Default Button Styles (Light Mode) */
+  /* Always black background for buttons */
   .action-buttons .btn {
     display: inline-flex;
     align-items: center;
-    padding: 8px 16px;  /* Reduced padding for a smaller button */
+    padding: 8px 16px;
     font-size: 14px;
     border-radius: 5px;
     text-decoration: none;
-    border: 1px solid #333;  /* Smaller border */
-    color: #000; /* Set text color to black for light mode */
+    border: 1px solid #333;
+    color: #fff; /* Text color is white to stand out against the black background */
+    background-color: #000; /* Always black background */
     transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .action-buttons .btn:hover {
+    background-color: #000; /* Ensure the background stays black on hover */
   }
 
   .action-buttons .btn-outline {
     border-color: #333;
-    color: #000; /* Set text color to black for light mode */
+    color: #fff; /* White text */
   }
 
   .action-buttons .btn-outline:hover {
-    background-color: #333;
-    color: #fff;
+    background-color: #000; /* Keep the background black on hover */
+    color: #fff; /* White text on hover */
   }
 
   .action-buttons .btn-light {
     border-color: #ccc;
-    color: #000; /* Set text color to black for light mode */
+    color: #fff; /* White text */
   }
 
   .action-buttons .btn-light:hover {
-    background-color: #ccc;
+    background-color: #000; /* Keep the background black on hover */
+    color: #fff; /* White text on hover */
   }
 
   /* Dark Mode Styles */
