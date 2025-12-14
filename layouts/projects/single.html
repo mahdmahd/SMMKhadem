@@ -138,19 +138,20 @@
   }
 
   /* Action Button Styles */
+  .action-buttons {
+    display: flex;
+    gap: 15px; /* Adds space between buttons */
+  }
+
   .action-buttons .btn {
     display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 16px;  /* Reduced padding for a smaller button */
     font-size: 14px;
     border-radius: 5px;
     text-decoration: none;
-    border: 2px solid transparent;  /* Default border for the buttons */
+    border: 1px solid #333;  /* Smaller border */
     transition: border-color 0.3s ease, background-color 0.3s ease;
-  }
-
-  .action-buttons .btn:hover {
-    background-color: #f0f0f0;
   }
 
   .action-buttons .btn-outline {
