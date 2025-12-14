@@ -1,41 +1,25 @@
 {{ define "content" }}
-<article class="container page">
+<section class="container page">
 
-  <!-- ===== Header ===== -->
-  <header class="page-header">
+  <h1>{{ .Title }}</h1>
 
-    <div class="page-header-top">
-      <div class="page-header-titles">
-        <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Params.image }}
+    <img
+      src="{{ . | relURL }}"
+      alt="{{ $.Title }}"
+      style="
+        width:100%;
+        max-height:420px;
+        object-fit:cover;
+        border-radius:12px;
+        margin-bottom:1.5rem;
+      "
+    >
+  {{ end }}
 
-        {{ with .Params.subtitle }}
-          <p class="page-subtitle">{{ . }}</p>
-        {{ end }}
-      </div>
+  {{ .Content }}
 
-      {{ with .Params.year }}
-        <span class="year-pill">
-          <span class="year-icon">{{ partial "icons/calendar.svg" $ }}</span>
-          {{ . }}
-        </span>
-      {{ end }}
-    </div>
-
-    {{ with .Params.image }}
-      <img
-        class="page-hero"
-        src="{{ . | relURL }}"
-        alt="{{ $.Title }}"
-        loading="lazy"
-      >
-    {{ end }}
-
-  </header>
-
-  <!-- ===== Content ===== -->
-  <div class="page-content">
-    {{ .Content }}
-  </div>
+</section>
 
   <!-- ===== End of doc: Technologies + Actions ===== -->
   <footer class="page-footer">
@@ -113,7 +97,7 @@
   .tech-pill {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 8px 3px;
     border: 2px solid #333;
     border-radius: 50px;
     background-color: #f5f5f5;
@@ -173,5 +157,8 @@
     background-color: #ccc;
   }
 </style>
+
+{{ end }}
+{{ define "content" }}
 
 {{ end }}
