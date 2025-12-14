@@ -3,7 +3,6 @@
 
   <!-- HERO -->
   <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-
     <div style="flex:1; min-width:260px;">
       <h1 class="title">Mehdi Khadem</h1>
       <p class="subtitle">MD</p>
@@ -28,7 +27,6 @@
         style="width:220px; border-radius:8px;"
       >
     </div>
-
   </div>
 
   <hr>
@@ -38,58 +36,192 @@
   <p><em>Academic background and qualifications</em></p>
 
   <!-- Education Item 1 -->
-  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:1.5rem; margin-bottom:1.5rem;">
-    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start;">
+  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:1.5rem; margin-bottom:1.5rem;">
+    <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap; margin-bottom:1rem;">
+      <div style="display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:0 0 64px;">
+          <img
+            src="{{ "images/yale.png" | relURL }}"
+            alt="Yale University"
+            style="width:64px; height:auto;"
+          >
+        </div>
 
-      <div style="flex:0 0 64px;">
-        <img
-          src="{{ "images/yale.png" | relURL }}"
-          alt="Yale University"
-          style="width:64px; height:auto;"
-        >
+        <div style="min-width:240px;">
+          <h3 style="margin:0;">Diagnostic Radiology Residency</h3>
+          <div><strong>Yale University School of Medicine</strong></div>
+          <div style="opacity:0.85;">New Haven, CT, USA</div>
+        </div>
       </div>
 
-      <div style="flex:1; min-width:240px;">
-        <h3 style="margin-top:0;">Diagnostic Radiology Residency</h3>
-        <p>
-          <strong>Yale University School of Medicine</strong><br>
-          New Haven, CT, USA<br>
-          <em>2025 – 2030</em>
-        </p>
-        <p>
-          Dissertation TBD.
-        </p>
+      <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+        <strong>2025 – 2030</strong>
       </div>
-
     </div>
+
+    <p style="margin:0;">Dissertation TBD.</p>
   </div>
 
   <!-- Education Item 2 -->
-  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:1.5rem;">
-    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start;">
+  <div style="border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:1.5rem;">
+    <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap; margin-bottom:1rem;">
+      <div style="display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:0 0 64px;">
+          <img
+            src="{{ "images/griffin.png" | relURL }}"
+            alt="Griffin Hospital"
+            style="width:64px; height:auto;"
+          >
+        </div>
 
-      <div style="flex:0 0 64px;">
-        <img
-          src="{{ "images/griffin.png" | relURL }}"
-          alt="Griffin Hospital"
-          style="width:64px; height:auto;"
-        >
+        <div style="min-width:240px;">
+          <h3 style="margin:0;">Internal Medicine Internship</h3>
+          <div><strong>Griffin Hospital</strong></div>
+          <div style="opacity:0.85;">Derby, CT, USA</div>
+        </div>
       </div>
 
-      <div style="flex:1; min-width:240px;">
-        <h3 style="margin-top:0;">Internal Medicine Internship</h3>
-        <p>
-          <strong>Griffin Hospital</strong><br>
-          Derby, CT, USA<br>
-          <em>2024 – 2025</em>
-        </p>
-        <p>
-          No dissertation required.
-        </p>
+      <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+        <strong>2024 – 2025</strong>
+      </div>
+    </div>
+
+    <p style="margin:0;">No dissertation required.</p>
+  </div>
+
+  <hr>
+
+  <!-- ACKNOWLEDGMENTS -->
+  <h2>Acknowledgments</h2>
+  <p style="max-width:70ch; margin-bottom:1.25rem;">
+    <em>Mentors and influential people in my career.</em><br>
+    <em>Years, titles and affiliations refer to the time of the mentorship.</em>
+  </p>
+
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:1.5rem;">
+    <!-- Card 1 -->
+    <div style="border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.5rem;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="display:flex; gap:1rem; align-items:center;">
+          <img
+            src="{{ "images/mentor1.jpg" | relURL }}"
+            alt="Prof. Bradley J. Erickson"
+            style="width:64px; height:64px; border-radius:999px; object-fit:cover;"
+          >
+          <div>
+            <div style="font-size:1.25rem; font-weight:700;">Prof. Bradley J. Erickson</div>
+            <div style="opacity:0.85;">M.D., Ph.D.</div>
+          </div>
+        </div>
+
+        <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+          <strong>2020 – 2024</strong>
+        </div>
       </div>
 
+      <div style="margin-top:1rem;">
+        <strong>Director</strong> • Mayo Clinic AI Laboratory, Mayo Clinic, MN, USA
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div style="border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.5rem;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="display:flex; gap:1rem; align-items:center;">
+          <img
+            src="{{ "images/mentor2.jpg" | relURL }}"
+            alt="Prof. Christine Cooky Menias"
+            style="width:64px; height:64px; border-radius:999px; object-fit:cover;"
+          >
+          <div>
+            <div style="font-size:1.25rem; font-weight:700;">Prof. Christine Cooky Menias</div>
+            <div style="opacity:0.85;">M.D.</div>
+          </div>
+        </div>
+
+        <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+          <strong>2024 – Present</strong>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <strong>Editor-in-Chief</strong> • RadioGraphics Journal, Radiological Society of North America (RSNA)
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div style="border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.5rem;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="display:flex; gap:1rem; align-items:center;">
+          <img
+            src="{{ "images/mentor3.jpg" | relURL }}"
+            alt="Dr. Cody C. Wyles"
+            style="width:64px; height:64px; border-radius:999px; object-fit:cover;"
+          >
+          <div>
+            <div style="font-size:1.25rem; font-weight:700;">Dr. Cody C. Wyles</div>
+            <div style="opacity:0.85;">M.D.</div>
+          </div>
+        </div>
+
+        <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+          <strong>2020 – 2024</strong>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <strong>Director</strong> • Orthopedic Surgery AI Laboratory (OSAIL), Mayo Clinic, MN, USA
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div style="border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.5rem;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="display:flex; gap:1rem; align-items:center;">
+          <img
+            src="{{ "images/mentor4.jpg" | relURL }}"
+            alt="Prof. Hilal Maradit Kremers"
+            style="width:64px; height:64px; border-radius:999px; object-fit:cover;"
+          >
+          <div>
+            <div style="font-size:1.25rem; font-weight:700;">Prof. Hilal Maradit Kremers</div>
+            <div style="opacity:0.85;">M.D.</div>
+          </div>
+        </div>
+
+        <div style="padding:.35rem .75rem; border-radius:999px; background:rgba(255,255,255,0.12); white-space:nowrap;">
+          <strong>2020 – 2024</strong>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <strong>Professor of Epidemiology</strong> • Department of Orthopedic Surgery, Mayo Clinic, MN, USA
+      </div>
     </div>
   </div>
 
+  <!-- Make the grid stack on small screens without external CSS -->
+  <script>
+    (function () {
+      function resizeGrid() {
+        const grids = document.querySelectorAll('[data-responsive-grid]');
+        grids.forEach(g => {
+          g.style.gridTemplateColumns = (window.innerWidth < 900) ? '1fr' : 'repeat(2, minmax(0, 1fr))';
+        });
+      }
+      window.addEventListener('resize', resizeGrid);
+      window.addEventListener('load', resizeGrid);
+    })();
+  </script>
+
 </div>
+
+<!-- marker used by the script -->
+<script>
+  (function(){
+    const grids = document.querySelectorAll('div[style*="display:grid"][style*="grid-template-columns"]');
+    grids.forEach(g => g.setAttribute('data-responsive-grid','1'));
+  })();
+</script>
+
 {{ end }}
