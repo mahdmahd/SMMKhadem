@@ -29,7 +29,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           external_repository: mahdmahd/SMMKhadem.github.io
-          publish_branch: main
+          publish_branch: master
           publish_dir: ./public
           empty_commits: false
           commit_message: ${{ github.event.head_commit.message }}
