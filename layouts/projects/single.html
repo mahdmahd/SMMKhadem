@@ -11,7 +11,7 @@
         {{ end }}
       </div>
 
-      <!-- Move year pill inside titles div to position it on the left -->
+      <!-- Move year pill inside titles div to position it on the right -->
       {{ with .Params.year }}
         <div class="year-container">
           <span class="year-pill">
@@ -36,7 +36,6 @@
       >
     {{ end }}
   </header>
-
   <!-- ===== Content ===== -->
   <div class="page-content">
     {{ .Content }}
@@ -107,10 +106,10 @@
 </article>
 
 <style>
-  /* Container for the year pill to position it on the left */
+  /* Container for the year pill to position it on the right */
   .year-container {
     display: flex;
-    justify-content: flex-start; /* Aligns the pill to the left */
+    justify-content: flex-end; /* Aligns the pill to the right */
     width: 100%; /* Ensures full width for proper alignment */
     margin-bottom: 10px; /* Space below the year pill */
   }
