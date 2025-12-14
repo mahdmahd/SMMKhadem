@@ -6,12 +6,10 @@ image: "images/projects/project-name.jpg"
 draft : false
 ---
 
-A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
-<!--more-->
 
 ## Overview
 A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
-
+<!--more-->
 ## Project Details
 Frontotemporal dementia (FTD) is a devastating neurodegenerative disease that affects thinking, behavior, and language. Understanding which brain changes correlate with specific cognitive deficits is crucial for diagnosis and monitoring disease progression. The challenge? Clinical MRI scans often have lower resolution, and connecting structural brain changes to specific cognitive symptoms requires sophisticated analysis pipelines and careful interpretation.
 This was my M.D. thesis project, where I dove deep into the neuroimaging world to explore these connections. I collected clinical MRI scans from FTD patients at Firoozgar and Rasoul Akram Hospitals, along with their neuropsychological test scores (MoCA, MMSE, and various subdomains). The scans were 2D 1.5T clinical images – not the highest resolution you could ask for – so I used SVRTK (Slice-to-Volume Reconstruction Toolkit) to reconstruct higher-quality 3D volumes from them.
