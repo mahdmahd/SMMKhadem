@@ -39,77 +39,74 @@
           gap:1.2rem;
         "
       >
-        <!-- Content section (year pill, title, summary) -->
-        <div style="display:flex; flex-direction:column; gap:0.6rem;">
-          <!-- Year pill row -->
-          <div style="display:flex; align-items:center; gap:0.5rem;">
-            {{ with .Params.year }}
-                <span class="year-pill-list" style="
-                  display: inline-flex;
-                  align-items: center;
-                  padding: 2px 6px;
-                  border-radius: 6px;
-                  background-color: rgba(0,0,0,0.7); /* More opaque background */
-                  font-size: 12px;
-                  color: #fff;
-                  z-index: 2; /* Ensure it's above any potential overlapping */
-                  position: relative;
-                ">
-                <span class="year-icon-list" style="
-                  width: 12px;
-                  height: 12px;
-                  margin-right: 4px;
-                  fill: #fff;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                ">
-                  {{ partial "icons/calendar.svg" $ }}
-                </span>
-                {{ . }}
+        <!-- Top section with year pill on the right -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+          <div style="flex:1;"></div> <!-- Spacer to push pill to the right -->
+          {{ with .Params.year }}
+            <span class="year-pill-list" style="
+              display: inline-flex;
+              align-items: center;
+              padding: 2px 6px;
+              border-radius: 6px;
+              background-color: #333;
+              font-size: 12px;
+              color: #fff;
+              flex-shrink: 0; /* Prevent shrinking */
+            ">
+              <span class="year-icon-list" style="
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+                fill: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              ">
+                {{ partial "icons/calendar.svg" $ }}
               </span>
-            {{ end }}
-          </div>
-          
-          <!-- Title and summary section -->
-          <div style="display:flex; flex-direction:column; gap:0.6rem;">
-            <h2 style="margin-top:0; margin-bottom:0.6rem;color:white;">
-              <a
-                href="{{ .RelPermalink }}"
-                style="color:inherit; text-decoration:none;"
-              >
-                {{ .Title }}
-              </a>
-            </h2>
+              {{ . }}
+            </span>
+          {{ end }}
+        </div>
+        
+        <!-- Middle section with title and summary -->
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <h2 style="margin-top:0; margin-bottom:0.6rem;color:white;">
+            <a
+              href="{{ .RelPermalink }}"
+              style="color:inherit; text-decoration:none;"
+            >
+              {{ .Title }}
+            </a>
+          </h2>
 
-            {{ with .Summary }}
-              <p style="margin:0; opacity:0.92;">
-                {{ . }}
-              </p>
-            {{ end }}
-          </div>
+          {{ with .Summary }}
+            <p style="margin:0; opacity:0.92;">
+              {{ . }}
+            </p>
+          {{ end }}
         </div>
 
-        <!-- Read button at the bottom -->
-        <a
-          href="{{ .RelPermalink }}"
-          aria-label="Open {{ .Title }}"
-          style="
-            position:relative;
-            z-index:1;
-            align-self:flex-start; /* Align the button to the left */
-            padding:0.55rem 0.9rem;
-            border-radius:999px;
-            border:1px solid rgba(255,255,255,0.25);
-            background:rgba(0,0,0,0.35);
-            color:white;
-            text-decoration:none;
-            white-space:nowrap;
-            margin-top:0.5rem; /* Small top margin to separate from content */
-          "
-        >
-          Read →
-        </a>
+        <!-- Bottom section with read button on the right -->
+        <div style="display:flex; justify-content:flex-end;"> <!-- This aligns the button to the right -->
+          <a
+            href="{{ .RelPermalink }}"
+            aria-label="Open {{ .Title }}"
+            style="
+              position:relative;
+              z-index:1;
+              padding:0.55rem 0.9rem;
+              border-radius:999px;
+              border:1px solid rgba(255,255,255,0.25);
+              background:rgba(0,0,0,0.35);
+              color:white;
+              text-decoration:none;
+              white-space:nowrap;
+            "
+          >
+            Read →
+          </a>
+        </div>
       </div>
     </article>
   {{ end }}
