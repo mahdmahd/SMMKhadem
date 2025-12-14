@@ -28,10 +28,9 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: mahdmahd/SMMKhadem.github.io
-          publish_branch: master
+          publish_branch: main
           publish_dir: ./public
-          empty_commits: false
+          allow_empty_commit: false
           commit_message: ${{ github.event.head_commit.message }}
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
