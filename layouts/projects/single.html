@@ -36,34 +36,35 @@
     {{ end }}
   </header>
 
-  <!-- ===== Overview Section with border ===== -->
-  <section class="overview-section" style="
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
+  <!-- ===== Overview Section with specific border ===== -->
+  <div class="overview-section" style="
+    border: 2px solid #007acc; /* Blue border for overview */
+    border-radius: 10px;
+    padding: 25px;
     margin-bottom: 2rem;
+    background-color: #f9fbfd;
   ">
-    <h2 style="margin-top:0; margin-bottom:1rem;">Overview</h2>
-    <div class="overview-content">
-      {{ .Content }}
-    </div>
-  </section>
+    {{ .Content }}
+  </div>
 
-  <!-- ===== Project Details Section with border ===== -->
-  <section class="project-details-section" style="
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 2rem;
-  ">
-    <h2 style="margin-top:0; margin-bottom:1rem;">Project Details</h2>
-    
+  <!-- ===== Add Space Between Content and Footer ===== -->
+  <div class="spacer"></div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="page-footer">
+
     <!-- Technologies Section -->
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
-        <section class="tech-block">
-          <h3 class="tech-title" style="margin-bottom:1rem;">Technologies</h3>
+        <section class="project-details" style="
+          border: 2px dashed #ff6b6b; /* Red dashed border for project details */
+          border-radius: 8px;
+          padding: 20px;
+          margin-bottom: 1.5rem;
+          background-color: #fff5f5;
+        ">
+          <h2 class="tech-title">Technologies</h2>
           <div class="tech-tags">
             {{ range $items }}
               {{ $t := trim . " " }}
@@ -84,7 +85,13 @@
     {{ $code := .Params.code_url }}
     {{ $paper := .Params.paper_url }}
     {{ if or $demo $code $paper }}
-      <div class="action-row" style="margin-top:1.5rem;">
+      <div class="project-details action-row" style="
+        border: 2px solid #4caf50; /* Green border for action buttons */
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 1.5rem;
+        background-color: #f0f7f0;
+      ">
         <div class="action-buttons">
 
           {{ with $demo }}
@@ -111,7 +118,8 @@
         </div>
       </div>
     {{ end }}
-  </section>
+
+  </footer>
 
 </article>
 
@@ -264,6 +272,12 @@
     .action-buttons .btn-light:hover {
       background-color: #555;
     }
+  }
+
+
+  /* ===== Footer Margin ===== */
+  .page-footer {
+    margin-top: 30px; /* Adds space above the footer */
   }
 
   /* ===== Spacer Height ===== */
