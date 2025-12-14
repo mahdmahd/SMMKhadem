@@ -11,7 +11,6 @@
         {{ end }}
       </div>
 
-      <!-- Move year pill inside titles div to position it on the right -->
       {{ with .Params.year }}
         <div class="year-container">
           <span class="year-pill">
@@ -36,8 +35,14 @@
       >
     {{ end }}
   </header>
-  <!-- ===== Content ===== -->
-  <div class="page-content">
+
+  <!-- ===== Content with border ===== -->
+  <div class="page-content" style="
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 2rem;
+  ">
     {{ .Content }}
   </div>
 
@@ -51,7 +56,12 @@
     {{ with .Params.technologies }}
       {{ $items := split . "," }}
       {{ if gt (len $items) 0 }}
-        <section class="tech-block">
+        <section class="tech-block" style="
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 1.5rem;
+        ">
           <h2 class="tech-title">Technologies</h2>
           <div class="tech-tags">
             {{ range $items }}
@@ -264,7 +274,7 @@
 
   /* ===== Spacer Height ===== */
   .spacer {
-    height: 20px; /* Adds space wherever it’s used */
+    height: 20px; /* Adds space wherever it's used */
   }
 </style>
 
