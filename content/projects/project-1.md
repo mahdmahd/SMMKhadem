@@ -2,7 +2,7 @@
 title: "M.D. Thesis: Frontotemporal Dementia Neuroimaging Analysis"
 date: 2
 summary: "A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques."
-image: "images/projects/project-name.jpg"
+image: "images/projects/1.jpg"
 ---
 
 A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
