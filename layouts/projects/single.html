@@ -109,13 +109,15 @@
   /* Style the year pill to match the new design */
   .year-pill {
     display: inline-flex; /* Use inline-flex to size based on content */
-    align-items: center;
+    align-items: center; /* Vertically centers items */
+    justify-content: center; /* Horizontally centers content if needed */
     padding: 4px 8px; /* Reduced padding to fit "2025" text better */
     border-radius: 8px; /* Reduced border-radius for more subtle rounding */
     background-color: #333; /* Dark background */
     font-size: 14px; /* Slightly larger font */
     color: #fff; /* White text */
     transition: background-color 0.3s ease, transform 0.3s ease;
+    line-height: 1.4; /* Ensures proper text baseline alignment */
   }
 
   .year-pill:hover {
@@ -129,6 +131,9 @@
     margin-right: 6px; /* Space between icon and text */
     fill: #fff; /* Ensure icon is white */
     transition: transform 0.3s ease;
+    display: flex; /* Ensure icon itself is centered */
+    align-items: center; /* Center icon vertically */
+    justify-content: center; /* Center icon horizontally */
   }
 
   .year-pill:hover .year-icon {
