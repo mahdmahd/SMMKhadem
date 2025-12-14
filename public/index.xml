@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mehdiKhadem</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on mehdiKhadem</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Build a Hugo Site</title>
+      <link>http://localhost:1313/content/posts/hugo/</link>
+      <pubDate>Fri, 17 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/content/posts/hugo/</guid>
+      <description>&lt;p&gt;This article offers a instruction that can be used in to build a Hugo Site.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to Build a Hugo Site</title>
+      <link>http://localhost:1313/posts/hugo/</link>
+      <pubDate>Fri, 17 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/hugo/</guid>
+      <description>&lt;p&gt;This article offers a instruction that can be used in to build a Hugo Site.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;-about-me&#34;&gt;&#xA;  🙋‍♂️ About Me&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#-about-me&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-my-story&#34;&gt;&#xA;  🤓 My Story&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#-my-story&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Two years ago,  I finished my medical School and began my career as a full-time medical doctor in Tehran, Iran. but ,as the time went on,I realized that I love mathematics and statistics, and I enjoy applying my medical background to work with large medical datasets so I started working as a part-time data analyst at the Minimally Invasive Surgery Research Center under the supervision of Dr. KermanSaravi and Dr. Shahabi. This collaboration led to  projects such as &lt;strong&gt;Weight Loss Trajectory of Patients After Bariatric Surgery&lt;/strong&gt; &lt;strong&gt;Hypoalbuminemia Prediction Scoring After OAGB&lt;/strong&gt; and &lt;strong&gt;Measuring Biliopancreatic Limb Length Using a Computer Vision Approach&lt;/strong&gt; In these projects, I served as a data scientist . Before that, I gained experience working with &lt;strong&gt;medical imaging data&lt;/strong&gt;, specifically brain MRIs, while completing my MD degree thesis on &lt;strong&gt;&amp;ldquo;Analyzing Brain MRI Features Among Different Subtypes of Frontotemporal Dementia”&lt;/strong&gt; While working on my thesis, I was fortunate to gain experience using tools like SPM and FreeSurfer for analyzing neuroimaging data.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/content/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/content/about/</guid>
+      <description>&lt;h2 id=&#34;-about-me&#34;&gt;&#xA;  🙋‍♂️ About Me&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#-about-me&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-my-story&#34;&gt;&#xA;  🤓 My Story&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#-my-story&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Two years ago,  I finished my medical School and began my career as a full-time medical doctor in Tehran, Iran. but ,as the time went on,I realized that I love mathematics and statistics, and I enjoy applying my medical background to work with large medical datasets so I started working as a part-time data analyst at the Minimally Invasive Surgery Research Center under the supervision of Dr. KermanSaravi and Dr. Shahabi. This collaboration led to  projects such as &lt;strong&gt;Weight Loss Trajectory of Patients After Bariatric Surgery&lt;/strong&gt; &lt;strong&gt;Hypoalbuminemia Prediction Scoring After OAGB&lt;/strong&gt; and &lt;strong&gt;Measuring Biliopancreatic Limb Length Using a Computer Vision Approach&lt;/strong&gt; In these projects, I served as a data scientist . Before that, I gained experience working with &lt;strong&gt;medical imaging data&lt;/strong&gt;, specifically brain MRIs, while completing my MD degree thesis on &lt;strong&gt;&amp;ldquo;Analyzing Brain MRI Features Among Different Subtypes of Frontotemporal Dementia”&lt;/strong&gt; While working on my thesis, I was fortunate to gain experience using tools like SPM and FreeSurfer for analyzing neuroimaging data.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>&lt;p&gt;Follow me, @johndoe.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:1313/content/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/content/contact/</guid>
+      <description>&lt;p&gt;Follow me, @johndoe.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>http://localhost:1313/content/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/content/projects/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Weight Loss Trajectory of Patients After Bariatric Surgery&lt;/strong&gt;&#xA;&lt;strong&gt;Hypoalbuminemia Prediction Scoring After OAGB&lt;/strong&gt;&#xA;&lt;strong&gt;Measuring Biliopancreatic Limb Length Using a Computer Vision Approach&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>http://localhost:1313/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Weight Loss Trajectory of Patients After Bariatric Surgery&lt;/strong&gt;&#xA;&lt;strong&gt;Hypoalbuminemia Prediction Scoring After OAGB&lt;/strong&gt;&#xA;&lt;strong&gt;Measuring Biliopancreatic Limb Length Using a Computer Vision Approach&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
