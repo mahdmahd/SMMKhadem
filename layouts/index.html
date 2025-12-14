@@ -1,9 +1,9 @@
 {{ define "content" }}
 <div class="container">
 
+  <!-- HERO -->
   <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
 
-    <!-- Text -->
     <div style="flex:1; min-width:260px;">
       <h1 class="title">Mehdi Khadem</h1>
       <p class="subtitle">MD</p>
@@ -21,16 +21,41 @@
       </p>
     </div>
 
-    <!-- Image -->
     <div style="flex:0 0 220px;">
       <img
         src="{{ "images/avatar.jpg" | relURL }}"
         alt="Mehdi Khadem"
-        style="width:220px; height:auto; border-radius:8px;"
+        style="width:220px; border-radius:8px;"
       >
     </div>
 
   </div>
+
+  <hr>
+
+  <!-- EDUCATION -->
+  <h2>Education</h2>
+  <p><em>Academic background and qualifications</em></p>
+
+  <h3>Diagnostic Radiology Residency</h3>
+  <p>
+    <strong>Yale University School of Medicine</strong><br>
+    New Haven, CT, USA<br>
+    <em>2025 – 2030</em>
+  </p>
+  <p>
+    Dissertation TBD.
+  </p>
+
+  <h3>Internal Medicine Internship</h3>
+  <p>
+    <strong>Griffin Hospital</strong><br>
+    Derby, CT, USA<br>
+    <em>2024 – 2025</em>
+  </p>
+  <p>
+    No dissertation required.
+  </p>
 
 </div>
 {{ end }}
