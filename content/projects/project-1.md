@@ -9,11 +9,10 @@ demo_url: "https://example.com/demo"
 code_url: "https://github.com/you/repo"
 paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
 ---
-
-
+<!--more-->
 ## Overview
 A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
-<!--more-->
+
 
 
 ## Project Details
