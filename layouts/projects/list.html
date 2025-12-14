@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  <div class="archive">
+    {{ range .Pages.ByDate.Reverse }}
+      <article class="archive-item">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ with .Summary }}
+          <p>{{ . }}</p>
+        {{ end }}
+      </article>
+    {{ end }}
+  </div>
+{{ end }}
