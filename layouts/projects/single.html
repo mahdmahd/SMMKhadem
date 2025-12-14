@@ -154,7 +154,7 @@
     gap: 15px; /* Adds space between buttons */
     margin-top: 20px; /* Adds space above buttons */
   }
-  /* Action Button Styles */
+  /* Default Button Styles (Light Mode) */
   .action-buttons .btn {
     display: inline-flex;
     align-items: center;
@@ -163,13 +163,13 @@
     border-radius: 5px;
     text-decoration: none;
     border: 1px solid #333;  /* Smaller border */
-    color: #333; /* Ensures text is dark in light mode */
+    color: #000; /* Set text color to black for light mode */
     transition: border-color 0.3s ease, background-color 0.3s ease;
   }
 
   .action-buttons .btn-outline {
     border-color: #333;
-    color: #333; /* Ensures text is dark in light mode */
+    color: #000; /* Set text color to black for light mode */
   }
 
   .action-buttons .btn-outline:hover {
@@ -179,18 +179,18 @@
 
   .action-buttons .btn-light {
     border-color: #ccc;
-    color: #333; /* Ensures text is dark in light mode */
+    color: #000; /* Set text color to black for light mode */
   }
 
   .action-buttons .btn-light:hover {
     background-color: #ccc;
   }
 
-  /* ===== Dark Mode Styles ===== */
+  /* Dark Mode Styles */
   @media (prefers-color-scheme: dark) {
     .action-buttons .btn-outline {
-      color: #fff;
-      border-color: #fff;
+      color: #fff; /* Ensures text is white in dark mode */
+      border-color: #fff; /* Ensures border is white */
     }
 
     .action-buttons .btn-outline:hover {
@@ -199,14 +199,15 @@
     }
 
     .action-buttons .btn-light {
-      color: #fff;
-      border-color: #444;
+      color: #fff; /* Ensures text is white in dark mode */
+      border-color: #444; /* Lighter border in dark mode */
     }
 
     .action-buttons .btn-light:hover {
       background-color: #555;
     }
   }
+
 
   /* ===== Footer Margin ===== */
   .page-footer {
