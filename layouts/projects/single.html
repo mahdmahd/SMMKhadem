@@ -106,34 +106,34 @@
 </article>
 
 <style>
-  /* Style the year pill to be small like the image */
+  /* Style the year pill to match the new design */
   .year-pill {
     display: flex;
     align-items: center;
-    padding: 4px 8px;  /* Adjust padding to make it smaller */
-    border: 2px solid #333;
-    border-radius: 50px;
-    background-color: #f5f5f5;
-    font-size: 12px;  /* Adjust font size */
-    color: #333;
-    transition: background-color 0.3s ease;
+    padding: 6px 12px; /* Adjust padding for the new design */
+    border-radius: 50px; /* Fully rounded */
+    background-color: #333; /* Dark background */
+    font-size: 14px; /* Slightly larger font */
+    color: #fff; /* White text */
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
   .year-pill:hover {
-    background-color: #e0e0e0;
+    background-color: #555; /* Slightly lighter on hover */
+    transform: scale(1.05); /* Subtle zoom effect */
   }
 
   .year-icon {
-    width: 16px;  /* Smaller icon size */
-    height: 16px;  /* Smaller icon size */
-    margin-right: 6px;  /* Adjust margin */
+    width: 18px; /* Icon size */
+    height: 18px;
+    margin-right: 8px; /* Space between icon and text */
+    fill: #fff; /* Ensure icon is white */
     transition: transform 0.3s ease;
   }
 
   .year-pill:hover .year-icon {
     transform: scale(1.2);
   }
-
 
   /* ===== Title Margin ===== */
   .page-title {
