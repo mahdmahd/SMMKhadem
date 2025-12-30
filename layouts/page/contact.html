@@ -1,0 +1,179 @@
+{{ define "content" }}
+
+<style>
+/* ===== Contact Page Layout ===== */
+
+.contact-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px){
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+.contact-card{
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--bg, #fff);
+}
+
+.contact-list{
+  margin: 16px 0;
+  display: grid;
+  gap: 10px;
+}
+
+.contact-item{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.contact-label{
+  font-size: 0.9rem;
+  opacity: .7;
+}
+
+.contact-social{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top: 14px;
+}
+
+.social-btn{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact-form{
+  display:grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: transparent;
+  color: inherit;
+}
+
+.contact-submit{
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+
+.contact-note{
+  margin-top: 12px;
+  font-size: 0.9rem;
+  opacity: .75;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark){
+  .contact-card{
+    border-color: rgba(255,255,255,.16);
+  }
+
+  .social-btn,
+  .contact-submit,
+  .contact-form input,
+  .contact-form textarea{
+    border-color: rgba(255,255,255,.16);
+  }
+}
+</style>
+
+<div class="container">
+
+  <h1 class="title">{{ .Title }}</h1>
+  {{ with .Params.subtitle }}
+    <p class="subtitle">{{ . }}</p>
+  {{ end }}
+
+  <div class="contact-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="contact-card">
+      <h2>Get in touch</h2>
+      <p>
+        If you’d like to collaborate, discuss research, or have a question,
+        feel free to reach out.
+      </p>
+
+      <div class="contact-list">
+        {{ with .Params.email }}
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a href="mailto:{{ . }}">{{ . }}</a>
+        </div>
+        {{ end }}
+
+        {{ with .Params.location }}
+        <div class="contact-item">
+          <span class="contact-label">Location</span>
+          <span>{{ . }}</span>
+        </div>
+        {{ end }}
+      </div>
+
+      {{ with .Params.social }}
+      <div class="contact-social">
+        {{ range . }}
+          <a class="social-btn" href="{{ .url }}" target="_blank" rel="noopener">
+            {{ .name }}
+          </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="contact-card">
+      <h2>Message</h2>
+
+      <form method="POST" action="{{ .Params.form_action }}" class="contact-form">
+        <label>
+          Name
+          <input type="text" name="name" required>
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+
+        <button type="submit" class="contact-submit">
+          Send message
+        </button>
+      </form>
+
+      <p class="contact-note">
+        If the form does not submit, please use the email link instead.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+{{ end }}
