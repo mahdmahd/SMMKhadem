@@ -1,6 +1,27 @@
 {{ define "content" }}
 <div class="container">
-
+  <!-- Add CSS variables in style tag -->
+  <style>
+    :root {
+      --icon-color: black; /* Light mode default */
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --icon-color: white; /* Dark mode override */
+      }
+    }
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+      filter: brightness(0) saturate(100%) 
+              invert(var(--icon-filter, 0%)); /* Dynamic filter */
+    }
+    .social-icon:hover {
+      opacity: 1;
+    }
+  </style>
   <!-- HERO -->
   <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
     <div style="flex:1; min-width:260px;">
@@ -27,14 +48,15 @@
       >
     </div>
   </div>
-  <!-- SOCIAL LINKS -->
+ <!-- SOCIAL LINKS - MODIFIED -->
   <div style="
     margin-top:1.25rem;
-    margin-bottom:2.25rem;   /* SPACE before HR */
+    margin-bottom:2.25rem;
     display:flex;
     gap:1.5rem;
     align-items:center;
   ">
+
     <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/YOUR_USERNAME"
       target="_blank"
@@ -43,15 +65,7 @@
       style="display:inline-flex; align-items:center;">
       <img src="{{ "images/icons/linkedin.svg" | relURL }}"
           alt="LinkedIn"
-          style="
-            width:32px;
-            height:32px;
-            /* Remove the filter: brightness(0) invert(1); line */
-            opacity:0.9;
-            transition:opacity 0.2s;
-          "
-          onmouseover="this.style.opacity='1'"
-          onmouseout="this.style.opacity='0.9'">
+          class="social-icon">
     </a>
 
     <!-- GitHub -->
@@ -62,15 +76,7 @@
       style="display:inline-flex; align-items:center;">
       <img src="{{ "images/icons/github.svg" | relURL }}"
           alt="GitHub"
-          style="
-            width:32px;
-            height:32px;
-            /* Remove the filter: brightness(0) invert(1); line */
-            opacity:0.9;
-            transition:opacity 0.2s;
-          "
-          onmouseover="this.style.opacity='1'"
-          onmouseout="this.style.opacity='0.9'">
+          class="social-icon">
     </a>
 
     <!-- ORCID -->
@@ -81,15 +87,7 @@
       style="display:inline-flex; align-items:center;">
       <img src="{{ "images/icons/orcid.svg" | relURL }}"
           alt="ORCID"
-          style="
-            width:32px;
-            height:32px;
-            /* Remove the filter: brightness(0) invert(1); line */
-            opacity:0.9;
-            transition:opacity 0.2s;
-          "
-          onmouseover="this.style.opacity='1'"
-          onmouseout="this.style.opacity='0.9'">
+          class="social-icon">
     </a>
   </div>
 
