@@ -1,226 +1,182 @@
 {{ define "content" }}
 
 <style>
-/* ===== Contact Page Layout ===== */
+/* ===== Modern Contact Page — Light & Dark Mode Support ===== */
 
-.contact-grid{
-  display:grid;
+:root {
+  --bg-primary: #ffffff;
+  --bg-card: #fafafa;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --border-color: #dcdcdc;
+  --input-bg: #ffffff;
+  --focus-ring: #4d9de0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #121212;
+    --bg-card: #1e1e1e;
+    --text-primary: #f0f0f0;
+    --text-secondary: #bbbbbb;
+    --border-color: #333333;
+    --input-bg: #2a2a2a;
+    --focus-ring: #5a9fd4;
+  }
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.contact-grid {
+  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 24px;
+  gap: 28px;
+  margin-top: 32px;
 }
 
-@media (max-width: 900px){
-  .contact-grid{ grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.contact-card{
+.contact-card {
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px;
   background: var(--bg-card);
-  box-shadow: 0 4px 6px var(--shadow-color);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s, border-color 0.3s;
 }
 
-.contact-card:hover {
-  box-shadow: 0 6px 12px var(--shadow-color);
+.contact-card h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
-.contact-list{
-  margin: 16px 0;
-  display: grid;
-  gap: 10px;
+.contact-list {
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.contact-item{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.contact-label{
-  font-size: 0.85rem;
+.contact-label {
+  font-size: 0.875rem;
   color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
-.contact-value {
-  font-size: 1.1rem;
-  color: var(--text-primary);
-}
-
-.contact-social{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top: 14px;
-}
-
-.social-btn{
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
+.contact-card a {
+  color: inherit;
   text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
+.contact-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.social-btn {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   color: var(--text-primary);
-  background-color: var(--bg-secondary);
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .social-btn:hover {
-  background-color: var(--accent-color);
-  color: var(--accent-text-color);
-  border-color: var(--accent-color);
+  background: var(--input-bg);
+  border-color: var(--focus-ring);
 }
 
-.contact-form{
-  display:grid;
-  gap: 12px;
-  margin-top: 10px;
+/* Form styling */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
 }
 
 .contact-form label {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .contact-form input,
-.contact-form textarea{
-  width:100%;
-  padding: 12px 14px;
-  border-radius: 10px;
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
-  background: var(--bg-input);
+  background: var(--input-bg);
   color: var(--text-primary);
+  font-family: inherit;
   font-size: 1rem;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px var(--accent-color-focus);
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 2px rgba(77, 157, 224, 0.2);
 }
 
-.contact-submit{
-  padding: 12px 14px;
+.contact-submit {
+  padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid var(--border-color);
+  border: none;
+  background: var(--focus-ring);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  background: var(--bg-button);
-  color: var(--text-button);
-  font-weight: 500;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  margin-top: 8px;
+  transition: background 0.2s;
 }
 
 .contact-submit:hover {
-  background: var(--accent-color);
-  color: var(--accent-text-color);
-  border-color: var(--accent-color);
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
-.contact-note{
-  margin-top: 12px;
-  font-size: 0.85rem;
+.contact-note {
+  margin-top: 16px;
+  font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
-/* Light Mode Variables */
-:root {
-  --bg-body: #ffffff;
-  --bg-card: #ffffff;
-  --bg-input: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-button: transparent;
-  --text-primary: #1a1a1a;
-  --text-secondary: #666666;
-  --border-color: #e0e0e0;
-  --shadow-color: rgba(0, 0, 0, 0.08);
-  --accent-color: #007bff;
-  --accent-text-color: #ffffff;
-  --accent-color-focus: rgba(0, 123, 255, 0.25);
-}
-
-/* Dark Mode Variables */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-body: #121212;
-    --bg-card: #1e1e1e;
-    --bg-input: #2d2d2d;
-    --bg-secondary: #2d2d2d;
-    --bg-button: transparent;
-    --text-primary: #f0f0f0;
-    --text-secondary: #aaaaaa;
-    --border-color: #444444;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-color: #0d6efd;
-    --accent-text-color: #ffffff;
-    --accent-color-focus: rgba(13, 110, 253, 0.25);
-  }
-
-  /* Optional: Force dark mode if class is applied */
-  .dark-mode {
-    --bg-body: #121212;
-    --bg-card: #1e1e1e;
-    --bg-input: #2d2d2d;
-    --bg-secondary: #2d2d2d;
-    --bg-button: transparent;
-    --text-primary: #f0f0f0;
-    --text-secondary: #aaaaaa;
-    --border-color: #444444;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-color: #0d6efd;
-    --accent-text-color: #ffffff;
-    --accent-color-focus: rgba(13, 110, 253, 0.25);
-  }
-}
-
-/* Force Dark Mode Override */
-.dark-mode .contact-card,
-[data-theme="dark"] .contact-card {
-  border-color: var(--border-color);
-  background: var(--bg-card);
-  box-shadow: 0 4px 6px var(--shadow-color);
-}
-
-.dark-mode .social-btn,
-[data-theme="dark"] .social-btn,
-.dark-mode .contact-submit,
-[data-theme="dark"] .contact-submit,
-.dark-mode .contact-form input,
-[data-theme="dark"] .contact-form input,
-.dark-mode .contact-form textarea,
-[data-theme="dark"] .contact-form textarea {
-  border-color: var(--border-color);
-  background: var(--bg-input);
-  color: var(--text-primary);
-}
-
-.dark-mode .contact-label,
-[data-theme="dark"] .contact-label {
-  color: var(--text-secondary);
-}
-
-.dark-mode .contact-value,
-[data-theme="dark"] .contact-value {
-  color: var(--text-primary);
-}
 </style>
 
 <div class="container">
-
   <h1 class="title">{{ .Title }}</h1>
   {{ with .Params.subtitle }}
     <p class="subtitle">{{ . }}</p>
   {{ end }}
 
   <div class="contact-grid">
-
     <!-- LEFT COLUMN -->
     <div class="contact-card">
       <h2>Get in touch</h2>
@@ -233,14 +189,14 @@
         {{ with .Params.email }}
         <div class="contact-item">
           <span class="contact-label">Email</span>
-          <a href="mailto:{{ . }}" class="contact-value">{{ . }}</a>
+          <a href="mailto:{{ . }}">{{ . }}</a>
         </div>
         {{ end }}
 
         {{ with .Params.location }}
         <div class="contact-item">
           <span class="contact-label">Location</span>
-          <span class="contact-value">{{ . }}</span>
+          <span>{{ . }}</span>
         </div>
         {{ end }}
       </div>
@@ -259,7 +215,6 @@
     <!-- RIGHT COLUMN -->
     <div class="contact-card">
       <h2>Message</h2>
-
       <form method="POST" action="{{ .Params.form_action }}" class="contact-form">
         <label>
           Name
@@ -285,7 +240,6 @@
         If the form does not submit, please use the email link instead.
       </p>
     </div>
-
   </div>
 </div>
 
