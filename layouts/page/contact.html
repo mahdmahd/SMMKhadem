@@ -171,16 +171,13 @@
         {{ end }}
       </div>
 
-      <!-- SOCIAL ICONS -->
+      <!-- SOCIAL LINKS -->
       <div style="
         margin-top:1.25rem;
-        display:inline-flex;
-        gap:1.25rem;
+        margin-bottom:2.25rem;   /* SPACE before HR */
+        display:flex;
+        gap:1.5rem;
         align-items:center;
-        padding:14px 18px;
-        border-radius:18px;
-        background:rgba(96,165,250,0.08);
-        border:1px solid rgba(96,165,250,0.18);
       ">
 
         <!-- LinkedIn -->
@@ -188,24 +185,18 @@
           target="_blank"
           rel="noopener"
           title="LinkedIn"
-          style="
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:44px;
-            height:44px;
-            border-radius:12px;
-            border:1px solid rgba(96,165,250,0.25);
-            background:transparent;
-            transition:transform .2s, background .2s, border-color .2s;
-          "
-          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
-          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
-        >
+          style="display:inline-flex; align-items:center;">
           <img src="{{ "images/icons/linkedin.svg" | relURL }}"
               alt="LinkedIn"
-              style="width:30px;height:30px;opacity:.9;"
-          >
+              style="
+                width:32px;
+                height:32px;
+                filter:brightness(0) invert(1);
+                opacity:0.9;
+                transition:opacity 0.2s;
+              "
+              onmouseover="this.style.opacity='1'"
+              onmouseout="this.style.opacity='0.9'">
         </a>
 
         <!-- GitHub -->
@@ -213,24 +204,18 @@
           target="_blank"
           rel="noopener"
           title="GitHub"
-          style="
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:44px;
-            height:44px;
-            border-radius:12px;
-            border:1px solid rgba(96,165,250,0.25);
-            background:transparent;
-            transition:transform .2s, background .2s, border-color .2s;
-          "
-          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
-          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
-        >
+          style="display:inline-flex; align-items:center;">
           <img src="{{ "images/icons/github.svg" | relURL }}"
               alt="GitHub"
-              style="width:30px;height:30px;opacity:.9;"
-          >
+              style="
+                width:32px;
+                height:32px;
+                filter:brightness(0) invert(1);
+                opacity:0.9;
+                transition:opacity 0.2s;
+              "
+              onmouseover="this.style.opacity='1'"
+              onmouseout="this.style.opacity='0.9'">
         </a>
 
         <!-- ORCID -->
@@ -238,24 +223,18 @@
           target="_blank"
           rel="noopener"
           title="ORCID"
-          style="
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:44px;
-            height:44px;
-            border-radius:12px;
-            border:1px solid rgba(96,165,250,0.25);
-            background:transparent;
-            transition:transform .2s, background .2s, border-color .2s;
-          "
-          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
-          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
-        >
+          style="display:inline-flex; align-items:center;">
           <img src="{{ "images/icons/orcid.svg" | relURL }}"
               alt="ORCID"
-              style="width:30px;height:30px;opacity:.9;"
-          >
+              style="
+                width:32px;
+                height:32px;
+                filter:brightness(0) invert(1);
+                opacity:0.9;
+                transition:opacity 0.2s;
+              "
+              onmouseover="this.style.opacity='1'"
+              onmouseout="this.style.opacity='0.9'">
         </a>
 
       </div>
