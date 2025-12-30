@@ -171,15 +171,95 @@
         {{ end }}
       </div>
 
-      {{ with .Params.social }}
-      <div class="contact-social">
-        {{ range . }}
-          <a class="social-btn" href="{{ .url }}" target="_blank" rel="noopener">
-            {{ .name }}
-          </a>
-        {{ end }}
+      <!-- SOCIAL ICONS -->
+      <div style="
+        margin-top:1.25rem;
+        display:inline-flex;
+        gap:1.25rem;
+        align-items:center;
+        padding:14px 18px;
+        border-radius:18px;
+        background:rgba(96,165,250,0.08);
+        border:1px solid rgba(96,165,250,0.18);
+      ">
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/YOUR_USERNAME"
+          target="_blank"
+          rel="noopener"
+          title="LinkedIn"
+          style="
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:44px;
+            height:44px;
+            border-radius:12px;
+            border:1px solid rgba(96,165,250,0.25);
+            background:transparent;
+            transition:transform .2s, background .2s, border-color .2s;
+          "
+          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
+          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
+        >
+          <img src="{{ "images/icons/linkedin.svg" | relURL }}"
+              alt="LinkedIn"
+              style="width:30px;height:30px;opacity:.9;"
+          >
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/YOUR_USERNAME"
+          target="_blank"
+          rel="noopener"
+          title="GitHub"
+          style="
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:44px;
+            height:44px;
+            border-radius:12px;
+            border:1px solid rgba(96,165,250,0.25);
+            background:transparent;
+            transition:transform .2s, background .2s, border-color .2s;
+          "
+          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
+          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
+        >
+          <img src="{{ "images/icons/github.svg" | relURL }}"
+              alt="GitHub"
+              style="width:30px;height:30px;opacity:.9;"
+          >
+        </a>
+
+        <!-- ORCID -->
+        <a href="https://orcid.org/YOUR-ORCID-ID"
+          target="_blank"
+          rel="noopener"
+          title="ORCID"
+          style="
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:44px;
+            height:44px;
+            border-radius:12px;
+            border:1px solid rgba(96,165,250,0.25);
+            background:transparent;
+            transition:transform .2s, background .2s, border-color .2s;
+          "
+          onmouseover="this.style.transform='translateY(-2px)';this.style.background='rgba(96,165,250,0.15)';this.style.borderColor='rgba(96,165,250,0.45)'"
+          onmouseout="this.style.transform='';this.style.background='transparent';this.style.borderColor='rgba(96,165,250,0.25)'"
+        >
+          <img src="{{ "images/icons/orcid.svg" | relURL }}"
+              alt="ORCID"
+              style="width:30px;height:30px;opacity:.9;"
+          >
+        </a>
+
       </div>
-      {{ end }}
+
     </div>
 
     <!-- RIGHT COLUMN -->
