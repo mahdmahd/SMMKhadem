@@ -5,7 +5,7 @@ layout: "contact"
 subtitle: "Collaborations, consulting, and research inquiries"
 email: "youremail@example.com"
 location: "Brussels, Belgium"
-form_action: "https://formspree.io/f/YOUR_FORM_ID"
+form_action: "https://formspree.io/f/xkonleag"
 social:
   - name: "LinkedIn"
     url: "https://linkedin.com/in/YOUR_ID"
