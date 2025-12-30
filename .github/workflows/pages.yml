@@ -34,3 +34,4 @@ jobs:
           publish_dir: ./public
           allow_empty_commit: false
           commit_message: ${{ github.event.head_commit.message }}
+          cname: mahdikhadem.com
