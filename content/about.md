@@ -9,34 +9,62 @@ author = "Hugo Authors"
 
 ## 🙋‍♂️ About Me
 
+I’m a medical doctor and data analyst based in Tehran, Iran. I work at the intersection of **clinical medicine and data science**, focused on applying **AI** (machine learning, computer vision, NLP/LLMs, predictive modeling, and explainable AI) to improve decision-making and patient outcomes.
+
+---
+
 ## 🤓 My Story
-Two years ago,  I finished my medical School and began my career as a full-time medical doctor in Tehran, Iran. but ,as the time went on,I realized that I love mathematics and statistics, and I enjoy applying my medical background to work with large medical datasets so I started working as a part-time data analyst at the Minimally Invasive Surgery Research Center under the supervision of Dr. KermanSaravi and Dr. Shahabi. This collaboration led to  projects such as **Weight Loss Trajectory of Patients After Bariatric Surgery** **Hypoalbuminemia Prediction Scoring After OAGB** and **Measuring Biliopancreatic Limb Length Using a Computer Vision Approach** In these projects, I served as a data scientist . Before that, I gained experience working with **medical imaging data**, specifically brain MRIs, while completing my MD degree thesis on **"Analyzing Brain MRI Features Among Different Subtypes of Frontotemporal Dementia”** While working on my thesis, I was fortunate to gain experience using tools like SPM and FreeSurfer for analyzing neuroimaging data.
+
+My path into medical data science started during my **M.D. thesis** at **Iran University of Medical Sciences**, where I studied neuroimaging findings in hospital MRI scans of patients with **frontotemporal dementia (FTD)** and related them to neuropsychological test scores (e.g., **MoCA** and **MMSE** and their subdomains). I worked with routine **1.5T low-resolution 2D clinical MRI data**, used slice-to-volume reconstruction methods, and built analysis pipelines using **FreeSurfer** and **SPM**. That experience taught me how to handle messy real-world medical data and turn it into evidence.
+
+After graduating, I began working as a full-time physician in Tehran. Over time, I realized I genuinely enjoy **mathematics and statistics**, especially when I can apply them to real clinical problems using large datasets.
+
+That led me to the **Minimally Invasive Surgery Research Center**, where I work as a data analyst and researcher under the supervision of **Dr. Mohammad Kermansaravi** and **Dr. Shahab Shahabi Shahmiri**. My work focuses on bariatric and metabolic surgery projects.
+
+More recently, I also work as a **certified physician at Saman Insurance Company**, where I help improve medical-record workflows and explore AI use cases for claims assessment and fraud detection.
+
+---
 
 ## 📋 Interests
-- 🩺 **Medicince**
-- 🧬 **Biology**
-- 📊 **Statistics**
-- 🔢 **Mathematics**
-- 🤖 **Artifial Inteligence**
-- 🎶 **Music**
+
+* 🩺 Medicine
+* 🧬 Biology
+* 🧠 Neuroimaging Analysis
+* 📊 Statistics
+* 🔢 Mathematics
+* 🤖 Artificial Intelligence
+* 🎶 Music
+
+---
 
 ## 👷🏼 Work Experience
 
-### Minimally Invasive Surgery Research Center
-- **Location**: Tehran, Iran
-- **Dates**: April 2024 - Present  
-- **Role**: Data Analyst 
+### Minimally Invasive Surgery Research Center (IUMS)
+
+* **Location:** Tehran, Iran
+* **Dates:** 2024 – Present
+* **Role:** Data Analyst / Researcher
+* **Focus:** Predictive modeling and explainable AI for bariatric surgery, computer vision for surgical measurement, and LLM/RAG clinical QA.
+
+### Saman Insurance Company
+
+* **Location:** Tehran, Iran
+* **Dates:** 2025 – Present
+* **Role:** Certified Physician
+* **Focus:** Medical-record workflow optimization and evidence-based insurance medicine; exploring AI for claims/fraud assessment.
+
+---
 
 ## 📚 Education
 
-### Iran University of Medical Science
-- **Degree**: Graduate, MD  
-- **Location**: Tehran, Iran
-- **Dates**: September 2015 - November 2022 
-- **Thesis**: Analyzing Brain MRI Features Among Different Subtypes of Frontotemporal Dementia
+### Iran University of Medical Sciences
 
-<!-- ## 🎯 Milestones -->
+* **Degree:** M.D. (Medical Doctor)
+* **Location:** Tehran, Iran
+* **Dates:** 2015 – 2022
+* **Thesis:** *Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients*
 
 
 ## 👋 Let’s Connect
-I am always open to new opportunities and collaborations. Whether you’re looking to hire a data scientist or simply want to chat about data science and medicine, feel free to reach out. I look forward to connecting with you!
+
+I’m open to collaborations and new opportunities—especially projects at the intersection of **clinical medicine and applied AI**. If you want to discuss research, data science, or healthcare AI (or you’re hiring), feel free to reach out.
