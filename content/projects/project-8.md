@@ -6,7 +6,7 @@ summary: "A machine learning-based clinical scoring system designed to predict h
 image: "images/projects/1.png"
 draft : false
 technologies: "Machine Learning (XGBoost, Random Forest), Explainable AI (SHAP values), AutoScore Framework, AutoScore, Python (Scikit-learn, XGBoost), Scoring System"
-paper_url: "https://link.springer.com/article/10.1007/s11695-025-08348-9"
+paper_url: "https://pubmed.ncbi.nlm.nih.gov/41201758/"
 code_url: "https://github.com/mahdmahd/SnapExplain"
 
 ---
