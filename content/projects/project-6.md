@@ -3,7 +3,7 @@ title: "PERSiMED: PERSian Intelligent MEDical Document Reader :A Smart NLP-based
 date: 2025-10-12
 year: 2025
 summary: "A deep learning–based framework for intelligent extraction, semantic understanding, and structured digitization of Persian medical documents, designed to automate health insurance workflows and fraud detection."
-image: "images/projects/persimed_flowchart_Page1.png"
+image: "images/projects/persimed_flowchart_Page2.png"
 draft : false
 technologies: "Python, Deep Learning (CNNs),Vision-Language Models,Computer Vision,Natural Language Processing (NLP),HTML Parsing (BeautifulSoup),Structured Data Pipelines,Privacy-Preserving Data Architecture"
 code_url: "https://github.com/mahdmahd/PERSiMED"
