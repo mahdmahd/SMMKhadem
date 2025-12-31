@@ -8,9 +8,9 @@ location: "Brussels, Belgium"
 form_action: "https://formspree.io/f/xkonleag"
 social:
   - name: "LinkedIn"
-    url: "https://linkedin.com/in/YOUR_ID"
+    url: "https://www.linkedin.com/in/mohammad-mehdi-khadem-09bb8910b/"
   - name: "GitHub"
-    url: "https://github.com/YOUR_ID"
+    url: "https://github.com/mahdmahd"
   - name: "ORCID"
-    url: "https://orcid.org/YOUR_ID"
+    url: "https://orcid.org/0009-0005-4294-7934"
 ---

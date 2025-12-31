@@ -1,25 +1,47 @@
 ---
-title: "M.D. Thesis: Frontotemporal Dementia Neuroimaging Analysis"
+title: "SnapExplain"
 date: 2025-10-12
 year: 2025
-summary: "A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques."
-image: "images/projects/project-name.jpg"
+summary: "SnapExplain is an Android utility that brings large language model (LLM) explanations directly into your reading workflow.It integrates with Android’s native text-selection menu, allowing users to highlight any sentence in a PDF, ebook, or article and receive an instant, contextual explanation — without leaving the app they’re reading in."
+image: "images/projects/Screenshot2.jpg"
 draft : false
-technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
-demo_url: "https://example.com/demo"
-code_url: "https://github.com/you/repo"
-paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
+technologies: "Kotlin, Android SDK, HTTP/REST APIs (OpenAI-compatible), Large Language Models (LLMs), Android Text Selection API, Gradle"
+demo_url: "https://github.com/mahdmahd/SnapExplain/releases/tag/V0.1"
+code_url: "https://github.com/mahdmahd/SnapExplain"
+
 ---
 <!--more-->
 ## Overview
-A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
+SnapExplain is an Android utility that brings large language model (LLM) explanations directly into your reading workflow.
+It integrates with Android’s native text-selection menu, allowing users to highlight any sentence in a PDF, ebook, or article and receive an instant, contextual explanation — without leaving the app they’re reading in.
+No app switching. No prompt rewriting. No broken focus.
 
 
 
 ## Project Details
-Frontotemporal dementia (FTD) is a devastating neurodegenerative disease that affects thinking, behavior, and language. Understanding which brain changes correlate with specific cognitive deficits is crucial for diagnosis and monitoring disease progression. The challenge? Clinical MRI scans often have lower resolution, and connecting structural brain changes to specific cognitive symptoms requires sophisticated analysis pipelines and careful interpretation.
-This was my M.D. thesis project, where I dove deep into the neuroimaging world to explore these connections. I collected clinical MRI scans from FTD patients at Firoozgar and Rasoul Akram Hospitals, along with their neuropsychological test scores (MoCA, MMSE, and various subdomains). The scans were 2D 1.5T clinical images – not the highest resolution you could ask for – so I used SVRTK (Slice-to-Volume Reconstruction Toolkit) to reconstruct higher-quality 3D volumes from them.
-Then came the real work: learning, troubleshooting, and optimizing several complex neuroimaging analysis pipelines. I used FreeSurfer and SPM (Statistical Parametric Mapping) for segmentation and statistical analysis, figuring out the quirks and optimal settings for each tool. This wasn't just running pre-set analyses – I independently led the project, refined my hypotheses as patterns emerged in the data, and proposed additional analyses to dig deeper into the findings.
-Throughout the project, I immersed myself in the primary literature to make sense of what I was seeing. I worked to identify which specific brain regions might underlie particular MMSE and MoCA sub-scores, connecting the dots between structural changes and cognitive symptoms.
-I presented and defended my thesis, "Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul-Akram Hospitals," to a panel of supervisors and professors. The defense went well, and I received a grade of 90% – a validation of months of learning, analysis, and scientific detective work. This project gave me hands-on experience with clinical neuroimaging data, advanced analysis pipelines, and the iterative process of hypothesis-driven research, all while contributing to our understanding of how FTD affects the brain!
+reading dense academic or technical text on mobile is inefficient.
+You hit a sentence that needs interpretation, nuance, or translation — and the workflow collapses:
 
+Copy.
+Switch apps.
+Paste.
+Re-explain context.
+Read.
+Switch back.
+
+That friction kills comprehension and momentum.
+
+I built SnapExplain to remove that friction entirely.
+
+SnapExplain hooks into Android’s text-selection action menu. When you highlight text, an Explain action appears. One tap sends the highlighted text — along with your own predefined system prompt — to an LLM of your choice. The response appears instantly in a lightweight popup, letting you continue reading without disruption.
+
+You stay inside your book.
+The explanation comes to you.
+
+The system is intentionally model-agnostic. You can use OpenAI-compatible APIs, AvalAI, self-hosted endpoints, or local servers. You control the prompt, model, temperature, and output limits — not the app.
+
+A core design principle of SnapExplain is minimizing cognitive and interface overhead. The popup interface is deliberately constrained, with an optional word limit to keep explanations readable and non-intrusive. The user’s custom prompt defines the explanation style (e.g., simplified language, comparative analysis, translation with nuance), eliminating the need to restate instructions repeatedly.
+
+SnapExplain works with most Android reader applications, including Moon+ Reader and Librera, and requires no special integration from those apps beyond standard text selection. API keys are stored locally on the device, and highlighted text is transmitted only to the endpoint explicitly configured by the user. The application performs no data collection, logging, or analytics.
+
+The project is aimed at readers of academic, technical, or linguistically complex material who need rapid, contextual understanding without interrupting their reading flow. The long-term roadmap focuses on features that further reduce friction—such as offline LLM support, explanation history, and prompt presets—while avoiding unnecessary complexity.
