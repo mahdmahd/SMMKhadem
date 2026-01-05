@@ -21,7 +21,9 @@ After graduating, I began working as a full-time physician in Tehran. Over time,
 
 That led me to the **Minimally Invasive Surgery Research Center**, where I work as a data analyst and researcher under the supervision of **Dr. Mohammad Kermansaravi** and **Dr. Shahab Shahabi Shahmiri**. My work focuses on bariatric and metabolic surgery projects.
 
-More recently, I also work as a **certified physician at Saman Insurance Company**, where I help improve medical-record workflows and explore AI use cases for claims assessment and fraud detection.
+I’ve returned to my original research interest in neuroimaging analysis through a collaboration with **Dr. AmirHussein Abdolalizadeh** (Postdoc, Carl von Ossietzky University of Oldenburg). In this work, I focus on hippocampal shape analysis and how it may relate to ApoE genotype differences.
+
+More recently, I also work as a **certified physician at Saman Insurance Company**, where I help improve medical-record workflows and explore AI use cases for claims assessment and fraud detection. I’m also intentionally building stronger ties with industry, because I want my work to translate into practical systems that improve healthcare operations—not just research outcomes.
 
 ---
 
