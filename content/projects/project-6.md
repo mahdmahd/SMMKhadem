@@ -7,6 +7,7 @@ image: "images/projects/persimed_flowchart_Page2.png"
 draft : false
 technologies: "Python, Deep Learning (CNNs),Vision-Language Models,Computer Vision,Natural Language Processing (NLP),HTML Parsing (BeautifulSoup),Structured Data Pipelines,Privacy-Preserving Data Architecture"
 code_url: "https://github.com/mahdmahd/PERSiMED"
+paper_url: "https://en.civilica.com/doc/2472372/"
 ---
 <!--more-->
 ## Overview

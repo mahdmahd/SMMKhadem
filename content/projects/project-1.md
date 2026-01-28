@@ -1,25 +1,29 @@
 ---
-title: "M.D. Thesis: Frontotemporal Dementia Neuroimaging Analysis"
+title: "M.D. Thesis: Neuroimaging–Cognition Relationships in Frontotemporal Dementia Using Routine Clinical MRI"
 date: 2025-10-12
 year: 2025
-summary: "A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques."
+summary: "An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data."
 image: "images/projects/project-name.jpg"
 draft : false
-technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
-demo_url: "https://example.com/demo"
-code_url: "https://github.com/you/repo"
-paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
+technologies: "SVRTK (Slice-to-Volume Reconstruction Toolkit) , FreeSurfer , SPM (Statistical Parametric Mapping) , SynthSeg ,Clinical MRI, Slice-to-Volume Reconstruction "
+
 ---
+An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.
 <!--more-->
 ## Overview
-A Neuroimaging Project investigating the relationship between brain imaging patterns and cognitive test performance in frontotemporal dementia patients using advanced neuroimaging analysis techniques.
+An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.
 
 
 
 ## Project Details
-Frontotemporal dementia (FTD) is a devastating neurodegenerative disease that affects thinking, behavior, and language. Understanding which brain changes correlate with specific cognitive deficits is crucial for diagnosis and monitoring disease progression. The challenge? Clinical MRI scans often have lower resolution, and connecting structural brain changes to specific cognitive symptoms requires sophisticated analysis pipelines and careful interpretation.
-This was my M.D. thesis project, where I dove deep into the neuroimaging world to explore these connections. I collected clinical MRI scans from FTD patients at Firoozgar and Rasoul Akram Hospitals, along with their neuropsychological test scores (MoCA, MMSE, and various subdomains). The scans were 2D 1.5T clinical images – not the highest resolution you could ask for – so I used SVRTK (Slice-to-Volume Reconstruction Toolkit) to reconstruct higher-quality 3D volumes from them.
-Then came the real work: learning, troubleshooting, and optimizing several complex neuroimaging analysis pipelines. I used FreeSurfer and SPM (Statistical Parametric Mapping) for segmentation and statistical analysis, figuring out the quirks and optimal settings for each tool. This wasn't just running pre-set analyses – I independently led the project, refined my hypotheses as patterns emerged in the data, and proposed additional analyses to dig deeper into the findings.
-Throughout the project, I immersed myself in the primary literature to make sense of what I was seeing. I worked to identify which specific brain regions might underlie particular MMSE and MoCA sub-scores, connecting the dots between structural changes and cognitive symptoms.
-I presented and defended my thesis, "Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul-Akram Hospitals," to a panel of supervisors and professors. The defense went well, and I received a grade of 90% – a validation of months of learning, analysis, and scientific detective work. This project gave me hands-on experience with clinical neuroimaging data, advanced analysis pipelines, and the iterative process of hypothesis-driven research, all while contributing to our understanding of how FTD affects the brain!
+Frontotemporal dementia is a clinically and biologically heterogeneous neurodegenerative disorder in which cognitive and behavioral deficits are often poorly captured by routine imaging reports. As part of my M.D. thesis, I studied whether structural patterns observable in standard hospital MRI scans could be meaningfully linked to neuropsychological performance in patients with FTD.
 
+I analyzed 1.5T, low-resolution 2D clinical MRI scans obtained from Firoozgar and Rasoul Akram Hospitals and related regional brain findings to neuropsychological test scores, including MMSE, MoCA, and their subdomains. Because the available imaging data were not optimized for research use, I applied slice-to-volume reconstruction using the Slice-to-Volume Reconstruction Toolkit (SVRTK) to generate higher-quality volumetric representations suitable for downstream analysis.
+
+I independently learned, implemented, and optimized neuroimaging pipelines using FreeSurfer and SPM, including segmentation, cortical and subcortical analysis, and statistical modeling. As the project progressed, I refined the original hypotheses based on data quality and preliminary results and proposed additional analyses to strengthen interpretability and robustness.
+
+A key component of the work was integrating imaging findings with cognitive data. I routinely reviewed primary neurodegeneration and neuroanatomy literature to interpret associations between regional brain changes and specific MMSE and MoCA sub-scores, rather than relying solely on global cognitive scores.
+
+I presented and defended this work in my thesis, “Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul-Akram Hospitals”, receiving a final grade of 90%.
+
+Following the thesis defense, I extended the project by improving slice-to-volume reconstruction and segmentation of 2D clinical MRIs using SynthSeg, a generative AI–based framework capable of handling heterogeneous contrasts and resolutions. This continuation reflects my broader research position: understanding neurodegenerative disease mechanisms should not rely exclusively on high-resolution research scans, but must also leverage the vast and underused body of routine hospital imaging data.

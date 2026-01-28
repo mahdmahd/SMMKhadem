@@ -1,11 +1,10 @@
 ---
 title: "Post-Thesis: Advanced Neuroimaging Analysis Using GenAI"
-date: 2
+date: 2023
+year: 2023
 summary: "An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans."
-technologies: "Python, Large Language Models (LLMs), AI Agents, Asyncio"
-demo_url: "https://example.com/demo"
-code_url: "https://github.com/you/repo"
-paper_url: "https://arxiv.org/abs/xxxx.xxxxx"
+draft : false
+technologies: "FreeSurfer , SynthSeg ,Clinical MRI, Slice-to-Volume Reconstruction"
 ---
 
 An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans.
@@ -21,9 +20,3 @@ After successfully defending my M.D. thesis, I wasn't quite done with the neuroi
 My working hypothesis drives this whole effort: if we want to truly understand neurodegenerative disease mechanisms, we shouldn't limit ourselves to the relatively small number of high-resolution research MRIs out there. Instead, we should be exploiting the massive volumes of routine hospital imaging data that already exist. These clinical scans represent real-world patient populations, diverse scanning protocols, and longitudinal follow-up data that you just can't get easily in traditional research settings.
 By combining improved slice-to-volume reconstruction with SynthSeg's flexible segmentation capabilities, I'm working to make these lower-quality clinical scans analyzable at scale. This could potentially transform how we study neurodegeneration – moving from small, highly controlled studies to large-scale analyses that better represent the full spectrum of disease. It's ongoing work, but the goal is to bridge the gap between clinical reality and research potential!
 
-## Technologies
-
-
-## Links
-- Paper: ...
-- Code: ...

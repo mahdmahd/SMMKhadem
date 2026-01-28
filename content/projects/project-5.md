@@ -1,7 +1,10 @@
 ---
 title: "Retrieval-Augmented Clinical Question Answering for Bariatric Surgery"
-date: 2
+date: 2025-10-12
+year: 2025
 summary: "A retrieval-augmented generation (RAG) system that uses the ASMBS bariatric surgery textbook as a knowledge base to answer medical questions with higher accuracy and fewer hallucinations than general-purpose AI models."
+draft : false
+technologies: "retrieval-augmented generation (RAG) , LangChain , ChromaDB  "
 ---
 
 A retrieval-augmented generation (RAG) system that uses the ASMBS bariatric surgery textbook as a knowledge base to answer medical questions with higher accuracy and fewer hallucinations than general-purpose AI models.
