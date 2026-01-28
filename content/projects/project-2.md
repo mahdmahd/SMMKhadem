@@ -6,9 +6,6 @@ summary: "An ongoing research effort to improve brain MRI reconstruction techniq
 draft : false
 technologies: "FreeSurfer , SynthSeg ,Clinical MRI, Slice-to-Volume Reconstruction"
 ---
-
-An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans.
-
 <!--more-->
 
 ## Overview

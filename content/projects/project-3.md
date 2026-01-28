@@ -6,7 +6,6 @@ summary: "A neuroimaging study investigating how hippocampal subfield structure 
 draft : false
 technologies: "FreeSurfer, HIPSTA , Computational Geometry , High-Resolution MRI , ADNI Dataset"
 ---
-A neuroimaging study investigating how hippocampal subfield structure and shape differ across ApoE genotypes, using high-resolution MRI and computational geometry–based morphometric analysis.
 
 <!--more-->
 ## Overview

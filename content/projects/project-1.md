@@ -8,11 +8,10 @@ draft : false
 technologies: "SVRTK (Slice-to-Volume Reconstruction Toolkit) , FreeSurfer , SPM (Statistical Parametric Mapping) , SynthSeg ,Clinical MRI, Slice-to-Volume Reconstruction "
 
 ---
-An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.
 <!--more-->
+
 ## Overview
 An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.
-
 
 
 ## Project Details
