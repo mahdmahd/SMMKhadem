@@ -41,7 +41,7 @@ hugo version
 hugo new site site_name
 ```
 
-That’s the official CLI command for creating a new Hugo site directory. ([gohugo.io][2])
+That’s the official CLI command for creating a new Hugo site directory.
 
 ---
 
@@ -57,7 +57,7 @@ Now initialize git (you’ll need it for submodules and GitHub anyway):
 git init
 ```
 
-> Hugo’s own docs note Git is commonly required if you install a theme as a submodule. ([gohugo.io][1])
+> Hugo’s own docs note Git is commonly required if you install a theme as a submodule. 
 
 ---
 
@@ -69,7 +69,7 @@ Inside your site folder:
 git submodule add https://github.com/<theme-author>/<theme-repo>.git themes/<theme-name>
 ```
 
-This is the same pattern Hugo shows in its quick start (theme as a submodule). ([gohugo.io][3])
+This is the same pattern Hugo shows in its quick start (theme as a submodule). 
 
 Then set the theme in config (example):
 
@@ -80,15 +80,6 @@ theme = "<theme-name>"
 ---
 
 ## 5) Config file: don’t do the “rename” step blindly
-
-You said: “rename `hugo.toml` to `config.toml`”.
-
-Here’s the tough truth: **that’s backwards for modern Hugo.** Current Hugo recommends `hugo.toml` / `hugo.yaml` / `hugo.json` as the config filename; the old `config.*` naming is legacy. ([gohugo.io][4])
-
-### What you should do instead
-
-* **Keep `hugo.toml`** (recommended).
-* Only use `config.toml` if you have a specific reason (old tooling, old docs, or a theme/tutorial that hardcodes it).
 
 ### The one setting you can’t mess up: `baseURL`
 
@@ -105,7 +96,6 @@ Typical values:
 
   * `baseURL = "https://username.github.io/repo-name/"`
 
-If you’re publishing into `SMMKhadem.github.io`, your `baseURL` should match that final public URL.
 
 ---
 
@@ -124,7 +114,7 @@ ssh-keygen -t rsa -b 4096 -C "$(git config user.email)" -f master -N ""
 This creates:
 
 * `master` (private key)
-* `master.pub` (public key) ([Zoltán's Blog][5])
+* `master.pub` (public key) 
 
 ### Put keys in the right places
 
@@ -132,14 +122,14 @@ This creates:
 
 * Add `master` (private key contents) into a GitHub Actions secret named:
 
-  * `ACTIONS_DEPLOY_KEY` ([Zoltán's Blog][5])
+  * `ACTIONS_DEPLOY_KEY` 
 
-**In the *publish* repo** (e.g. `mahdmahd/SMMKhadem.github.io`):
+**In the *publish* repo** (e.g. `username/repo-name.github.io`):
 
 * Add `master.pub` as a **Deploy key**
-* You must allow write access, because the workflow will push generated files. ([GitHub Docs][6])
+* You must allow write access, because the workflow will push generated files. 
 
-> Security note: deploy keys are scoped to a single repo, which is the whole point here. ([GitHub Docs][6])
+> Security note: deploy keys are scoped to a single repo, which is the whole point here.
 
 ---
 
@@ -197,7 +187,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          external_repository: mahdmahd/SMMKhadem.github.io
+          external_repository: usersrepo-name.github.io
           publish_branch: main
           publish_dir: ./public
           allow_empty_commit: false
@@ -206,5 +196,5 @@ jobs:
 
 ### Two critical details people forget
 
-1. **Submodules must be enabled** in checkout, or your theme won’t exist in CI and the build will fail or look unstyled. ([gohugo.io][3])
-2. Your **publish repo Pages settings** must publish from the branch you push to (here: `main`, root). GitHub’s Pages docs describe configuring the publishing source under Settings → Pages. ([GitHub Docs][7])
+1. **Submodules must be enabled** in checkout, or your theme won’t exist in CI and the build will fail or look unstyled.
+2. Your **publish repo Pages settings** must publish from the branch you push to (here: `main`, root). GitHub’s Pages docs describe configuring the publishing source under Settings → Pages.
