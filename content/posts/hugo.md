@@ -17,42 +17,194 @@ series = ["Theme Demo"]
 
 This article offers a instruction that can be used in to build a Hugo Site.
 
-<!--more-->
-## Step 1 : Install Hugo
+## 1) Install Hugo with winget
 
-first you need to download hugo from the official website. you can download it from [here](https://github.com/gohugoio/hugo/releases/latest) and then you can simply on windows run following command to create new site:
+On Windows PowerShell:
 
-```bash
-.\hugo.exe new site quickstart
-cd quickstart
+```powershell
+winget install Hugo.Hugo.Extended
+````
+
+Hugo’s official Windows install docs explicitly list `winget install Hugo.Hugo.Extended` for the extended edition. ([gohugo.io][1])
+
+Quick check:
+
+```powershell
+hugo version
 ```
 
--   To enable KaTeX globally set the parameter `math` to `true` in a project's configuration
--   To enable KaTeX on a per page basis include the parameter `math: true` in content files
+---
 
-**Note:** Use the online reference of [Supported TeX Functions](https://katex.org/docs/supported.html)
+## 2) Create a new site
 
-{{< math.inline >}}
-{{ if or .Page.Params.math .Site.Params.math }}
+```powershell
+hugo new site site_name
+```
 
-<!-- KaTeX -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-{{ end }}
-{{</ math.inline >}}
+That’s the official CLI command for creating a new Hugo site directory. ([gohugo.io][2])
 
-### Examples
+---
 
-{{< math.inline >}}
+## 3) `cd` into your site
 
-<p>
-Inline math: \(\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…\)
-</p>
-{{</ math.inline >}}
+```powershell
+cd site_name
+```
 
-Block math:
+Now initialize git (you’ll need it for submodules and GitHub anyway):
 
-$$
- \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
-$$
+```powershell
+git init
+```
+
+> Hugo’s own docs note Git is commonly required if you install a theme as a submodule. ([gohugo.io][1])
+
+---
+
+## 4) Add a theme template using a git submodule
+
+Inside your site folder:
+
+```powershell
+git submodule add https://github.com/<theme-author>/<theme-repo>.git themes/<theme-name>
+```
+
+This is the same pattern Hugo shows in its quick start (theme as a submodule). ([gohugo.io][3])
+
+Then set the theme in config (example):
+
+```toml
+theme = "<theme-name>"
+```
+
+---
+
+## 5) Config file: don’t do the “rename” step blindly
+
+You said: “rename `hugo.toml` to `config.toml`”.
+
+Here’s the tough truth: **that’s backwards for modern Hugo.** Current Hugo recommends `hugo.toml` / `hugo.yaml` / `hugo.json` as the config filename; the old `config.*` naming is legacy. ([gohugo.io][4])
+
+### What you should do instead
+
+* **Keep `hugo.toml`** (recommended).
+* Only use `config.toml` if you have a specific reason (old tooling, old docs, or a theme/tutorial that hardcodes it).
+
+### The one setting you can’t mess up: `baseURL`
+
+If your `baseURL` is wrong, you’ll get the classic “theme loads locally but CSS breaks on Pages” behavior because URLs get generated differently.
+
+Hugo’s config docs show `baseURL` as a core “new site” setting. ([gohugo.io][4])
+
+Typical values:
+
+* User/Org Pages repo (`username.github.io`):
+
+  * `baseURL = "https://username.github.io/"`
+* Project Pages repo (`username.github.io/repo-name/`):
+
+  * `baseURL = "https://username.github.io/repo-name/"`
+
+If you’re publishing into `SMMKhadem.github.io`, your `baseURL` should match that final public URL.
+
+---
+
+## 6) The `master/master.pub` deploy-key technique (source repo ➜ publish repo)
+
+This is the technique from bzoltan’s guide you linked: generate an SSH keypair, store the **private key** in the **source repo secrets**, and add the **public key** as a **Deploy key** on the **publish repo**. ([Zoltán's Blog][5])
+
+### Generate the keypair locally
+
+From your machine:
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "$(git config user.email)" -f master -N ""
+```
+
+This creates:
+
+* `master` (private key)
+* `master.pub` (public key) ([Zoltán's Blog][5])
+
+### Put keys in the right places
+
+**In the *source* repo** (the Hugo repo):
+
+* Add `master` (private key contents) into a GitHub Actions secret named:
+
+  * `ACTIONS_DEPLOY_KEY` ([Zoltán's Blog][5])
+
+**In the *publish* repo** (e.g. `mahdmahd/SMMKhadem.github.io`):
+
+* Add `master.pub` as a **Deploy key**
+* You must allow write access, because the workflow will push generated files. ([GitHub Docs][6])
+
+> Security note: deploy keys are scoped to a single repo, which is the whole point here. ([GitHub Docs][6])
+
+---
+
+## 7) Push your Hugo source repo
+
+Create your GitHub repo (source), then:
+
+```powershell
+git add .
+git commit -m "Initial Hugo site"
+git branch -M main
+git remote add origin git@github.com:<you>/<source-repo>.git
+git push -u origin main
+```
+
+---
+
+## 8) Add the GitHub Action workflow (`.github/workflows/pages.yaml`)
+
+Create:
+
+* `.github/workflows/pages.yaml`
+
+Then paste your workflow (this is basically the modernized version of the approach in the bzoltan post, but using newer action versions). ([Zoltán's Blog][5])
+
+```yaml
+name: hugo publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: mahdmahd/SMMKhadem.github.io
+          publish_branch: main
+          publish_dir: ./public
+          allow_empty_commit: false
+          commit_message: ${{ github.event.head_commit.message }}
+```
+
+### Two critical details people forget
+
+1. **Submodules must be enabled** in checkout, or your theme won’t exist in CI and the build will fail or look unstyled. ([gohugo.io][3])
+2. Your **publish repo Pages settings** must publish from the branch you push to (here: `main`, root). GitHub’s Pages docs describe configuring the publishing source under Settings → Pages. ([GitHub Docs][7])
