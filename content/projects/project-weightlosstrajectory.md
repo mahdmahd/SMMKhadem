@@ -3,7 +3,6 @@ title: "Post-Bariatric Weight Trajectory Modelling and Clinical Prediction"
 date: 2025-10-12
 year: 2025
 summary: "A data-driven project that models long-term postoperative weight trajectories after bariatric surgery and translates these patterns into clinically interpretable, patient-level predictions."
-image: "images/projects/1.png"
 draft : false
 technologies: "Python,Mplus,scikit-learn,matplotlib,SHAP,LIME,Structural Equation Modeling (SEM),latent class analysis"
 paper_url: "https://pubmed.ncbi.nlm.nih.gov/41201758/"
