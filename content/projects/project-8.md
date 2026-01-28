@@ -5,9 +5,8 @@ year: 2025
 summary: "A machine learning-based clinical scoring system designed to predict hypoalbuminemia risk following One-Anastomosis Gastric Bypass (OAGB) surgery, enabling early intervention and personalized patient care."
 image: "images/projects/1.png"
 draft : false
-technologies: "Machine Learning (XGBoost, Random Forest), Explainable AI (SHAP values), AutoScore Framework, AutoScore, Python (Scikit-learn, XGBoost), Scoring System"
+technologies: "Machine Learning , XGBoost, Random Forest Explainable AI (SHAP values), AutoScore Framework, AutoScore, Python ,Scikit-learn, XGBoost, Scoring System"
 paper_url: "https://pubmed.ncbi.nlm.nih.gov/41201758/"
-code_url: "https://github.com/mahdmahd/SnapExplain"
 
 ---
 <!--more-->
