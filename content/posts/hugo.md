@@ -25,7 +25,7 @@ On Windows PowerShell:
 winget install Hugo.Hugo.Extended
 ````
 
-Hugo’s official Windows install docs explicitly list `winget install Hugo.Hugo.Extended` for the extended edition. ([gohugo.io][1])
+Hugo’s official Windows install docs explicitly list `winget install Hugo.Hugo.Extended` for the extended edition.
 
 Quick check:
 
@@ -85,7 +85,7 @@ theme = "<theme-name>"
 
 If your `baseURL` is wrong, you’ll get the classic “theme loads locally but CSS breaks on Pages” behavior because URLs get generated differently.
 
-Hugo’s config docs show `baseURL` as a core “new site” setting. ([gohugo.io][4])
+Hugo’s config docs show `baseURL` as a core “new site” setting.
 
 Typical values:
 
@@ -101,7 +101,7 @@ Typical values:
 
 ## 6) The `master/master.pub` deploy-key technique (source repo ➜ publish repo)
 
-This is the technique from bzoltan’s guide you linked: generate an SSH keypair, store the **private key** in the **source repo secrets**, and add the **public key** as a **Deploy key** on the **publish repo**. ([Zoltán's Blog][5])
+This is the technique from bzoltan’s guide: generate an SSH keypair, store the **private key** in the **source repo secrets**, and add the **public key** as a **Deploy key** on the **publish repo**. 
 
 ### Generate the keypair locally
 
@@ -153,7 +153,7 @@ Create:
 
 * `.github/workflows/pages.yaml`
 
-Then paste your workflow (this is basically the modernized version of the approach in the bzoltan post, but using newer action versions). ([Zoltán's Blog][5])
+Then paste your workflow (this is basically the modernized version of the approach in the bzoltan post, but using newer action versions).
 
 ```yaml
 name: hugo publish
