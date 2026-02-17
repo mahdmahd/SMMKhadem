@@ -14,9 +14,9 @@ categories = [
 ]
 series = ["Theme Demo"]
 +++
+
 {{< math.inline >}}
 {{ if or .Page.Params.math .Site.Params.math }}
-
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
@@ -136,18 +136,15 @@ Suppose you have **10 floors × 10 rooms** = **100 rooms** and you test each roo
 The probability of getting **at least one false alarm** is:
 
 {{< math.inline >}}
-
-<p>
-Inline math: P(\text{≥1 false positive} \mid H_0)=1-(1-\alpha)^{m}
-</p>
+P(\text{≥1 false positive} \mid H_0)=1-(1-\alpha)^{m}
+{{</ math.inline >}}
 
 With \( \alpha=0.05 \) and \( m=100 \):
 
-\[
+$$
 1-0.95^{100}\approx 0.994 \Rightarrow 99.4\%
-\]
+$$
 {{</ math.inline >}}
-
 
 So even if there is **no real party**, your “suspicious room” list will almost surely contain something. That’s why we don’t trust uncorrected point‑by‑point testing.
 
@@ -176,16 +173,12 @@ Instead of using just the mean difference, you use the *t‑statistic* because i
 
 For a one-sample test on differences:
 {{< math.inline >}}
-\[
-t=\frac{\bar{x}}{s/\sqrt{n}}
-\]
+t = \dfrac{\bar{x}}{s/\sqrt{n}}
+{{</ math.inline >}}
 
 - \(\bar{x}\): mean difference across subjects  
 - \(s\): standard deviation of differences  
 - \(n\): number of subjects  
-
-{{</ math.inline >}}
-
 
 Big mean difference → bigger \(t\).  
 More subjects → bigger \(t\) (if effect is consistent).  
@@ -244,11 +237,7 @@ TFCE replaces “pick one cutoff” with “use **all** cutoffs.”
 TFCE assigns a score to each room (sample/voxel/time point) by integrating over thresholds:
 
 {{< math.inline >}}
-
-\[
-\mathrm{TFCE}(v)=\int e(h)^{E}\, h^{H}\, dh
-\]
-
+TFCE(v) = \int e(h)^E \, h^H \, dh
 {{</ math.inline >}}
 
 - \(h\): threshold level (noise cutoff)
