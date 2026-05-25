@@ -5,6 +5,7 @@ year: 2025
 summary: "A cross-sectional clinical study examining presentation patterns, diagnostic delays, and treatment outcomes in patients with pemphigus vulgaris, highlighting systemic barriers to early diagnosis."
 draft : false
 technologies: "SPSS , Cross-Sectional Study Design , Clinical Data Collection ,Statistical Association Analysis"
+paper_url: "https://pubmed.ncbi.nlm.nih.gov/41640030/"
 ---
 <!--more-->
 ## Overview
