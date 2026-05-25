@@ -6,6 +6,7 @@ summary: "A comprehensive systematic review and meta-analysis examining how meta
 image: "images/projects/uricacid.png"
 draft : false
 technologies: "R (meta, metafor) , PRISMA Guidelines,Random-Effects Meta-Analysis , Meta-Regression , Sensitivity and Bias Analysis"
+paper_url: "https://pubmed.ncbi.nlm.nih.gov/41840314/"
 ---
 <!--more-->
 ## Overview
