@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../App'
 import ContactForm from '../components/ContactForm'
 import { formAction, posts, profile } from '../data/portfolio'
+import { POST_BODIES } from './PostPage'
 
 function renderAt(path: string) {
   window.history.pushState({}, '', path)
@@ -100,6 +101,10 @@ describe('PostPage', () => {
 
     expect(screen.getByRole('heading', { name: /not found/i })).toBeInTheDocument()
   })
+
+  it('carries exactly one body per post — the map and the data cannot drift', () => {
+    expect(Object.keys(POST_BODIES).sort()).toEqual(posts.map((post) => post.slug).sort())
+  })
 })
 
 describe('PostsIndex', () => {
@@ -192,6 +197,33 @@ describe('ContactPage', () => {
     expect(document.querySelector('.channel-row a[href^="mailto:"]')).not.toBeNull()
     expect(document.querySelector('.channel-row a[href*="github.com"]')).not.toBeNull()
     expect(document.querySelector('.channel-row a[href*="orcid.org"]')).not.toBeNull()
+  })
+
+  it('paints the shipped SVGs as masks and draws mail inline', () => {
+    renderAt('/contact')
+
+    // The three raster icons ship black-filled, so they are painted as a mask
+    // over `currentColor` — without the modifier class they render invisible.
+    const masked = Array.from(
+      document.querySelectorAll<HTMLElement>('.channel-row .channel-icon--mask'),
+    )
+    const raster = ['linkedin', 'github', 'orcid']
+
+    expect(masked).toHaveLength(raster.length)
+
+    masked.forEach((icon, index) => {
+      const style = icon.getAttribute('style') ?? ''
+
+      expect(icon.tagName.toLowerCase()).toBe('span')
+      expect(style).toContain('mask-image')
+      expect(style).toContain(`/images/icons/${raster[index]}.svg`)
+    })
+
+    // mail has no asset: a stroked envelope, and no mask.
+    const mail = document.querySelector('.channel-row a[href^="mailto:"] .channel-icon')
+
+    expect(mail?.tagName.toLowerCase()).toBe('svg')
+    expect(mail).not.toHaveClass('channel-icon--mask')
   })
 
   it('states where he is based', () => {

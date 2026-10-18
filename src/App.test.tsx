@@ -20,6 +20,27 @@ function renderAt(path: string) {
   return render(<App />)
 }
 
+/**
+ * The post slugs the Hugo site served, and the canonical post each one has to
+ * resolve to. Inbound links and citations point at these; `PostPage` aliases
+ * them rather than letting them fall through to the 404 page.
+ */
+const LEGACY_POSTS: Array<[path: string, title: string, needle: RegExp]> = [
+  ['/posts/mem1', 'A tragedy - part 1', /Amir—one of the kind-hearted kids/],
+  // Not the `winget install …` line: it appears twice (fence and inline code).
+  ['/posts/hugo', 'How to Build a Hugo Site', /official Windows install docs explicitly list/],
+  [
+    '/posts/pitfall',
+    'My Linear Model Thinks Getting Older Makes You Poorer (And Other Statistical Tragedies)',
+    /every birthday makes you \$0\.31 poorer per hour/,
+  ],
+  [
+    '/posts/voiceless',
+    'A greeting from the depths of the voiceless',
+    /45 days since the internet was cut off/,
+  ],
+]
+
 // ScrollToTop calls `window.scrollTo` on mount; jsdom does not implement it.
 let scrollTo: MockInstance
 
@@ -72,6 +93,20 @@ describe('App routing', () => {
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('A tragedy - part 1')
     expect(await screen.findByText(/Amir—one of the kind-hearted kids/)).toBeInTheDocument()
+  })
+
+  it.each(LEGACY_POSTS)('serves the frozen legacy slug %s', async (path, title, needle) => {
+    renderAt(path)
+
+    // The alias resolves to the canonical post: title and body both.
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(title)
+    expect(await screen.findByText(needle)).toBeInTheDocument()
+  })
+
+  it.each(LEGACY_POSTS)('serves the legacy slug %s with a trailing slash', async (path, title) => {
+    renderAt(`${path}/`)
+
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(title)
   })
 
   it('renders the PERSiMED case study for legacy /projects/:slug paths', () => {

@@ -85,6 +85,7 @@ describe('compiled stylesheet', () => {
     expect(block).toMatch(/\.reveal[^{]*\{[^}]*transition:\s*none/)
     expect(block).toMatch(/\.reveal[^{]*\{[^}]*transform:\s*none/)
     expect(block).toMatch(/\.tilt[^{]*\{[^}]*transform:\s*none/)
+    expect(block).toMatch(/\.availability__dot[^{]*\{[^}]*animation:\s*none/)
     expect(block).toMatch(/animation-duration:\s*0?\.?\d*m?s/)
     expect(block).toMatch(/scroll-behavior:\s*auto/)
   })
@@ -169,5 +170,14 @@ describe('reduced motion', () => {
     expect(block).toMatch(/\.reveal[^{]*\{[^}]*transform:\s*none/)
     expect(block).toMatch(/animation-duration:\s*0?\.?\d*m?s/)
     expect(block).toMatch(/scroll-behavior:\s*auto/)
+  })
+
+  it('holds the availability light steady instead of blinking it', () => {
+    const block = blockBody(source, '@media (prefers-reduced-motion: reduce)')
+
+    // The dot must stay lit: killing the animation mid-keyframe would leave a
+    // half-faded status light, so the rule resets it to full opacity too.
+    expect(block).toMatch(/\.availability__dot[^{]*\{[^}]*animation:\s*none/)
+    expect(block).toMatch(/\.availability__dot[^{]*\{[^}]*opacity:\s*1/)
   })
 })

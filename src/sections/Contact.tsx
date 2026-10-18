@@ -15,7 +15,9 @@ import { channels, profile } from '../data/portfolio'
 export default function Contact() {
   const email = channels.find((channel) => channel.icon === 'mail')
   const linkedin = channels.find((channel) => channel.icon === 'linkedin')
-  const elsewhere = channels.filter((channel) => channel.icon !== 'mail' && channel.icon !== 'linkedin')
+  const elsewhere = channels.filter(
+    (channel) => channel.icon !== 'mail' && channel.icon !== 'linkedin',
+  )
 
   return (
     <section id="contact" className="shell section contact">
@@ -40,7 +42,12 @@ export default function Contact() {
             )}
 
             {linkedin && (
-              <a className="pill pill--ghost" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+              <a
+                className="pill pill--ghost"
+                href={linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <ChannelIcon icon="linkedin" />
                 LinkedIn
               </a>
@@ -71,7 +78,12 @@ export default function Contact() {
                 <dt className="eyebrow details__term">Elsewhere</dt>
                 <dd className="details__value details__value--row">
                   {elsewhere.map((channel) => (
-                    <a key={channel.name} href={channel.url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      key={channel.name}
+                      href={channel.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {channel.name} <span aria-hidden="true">↗</span>
                     </a>
                   ))}

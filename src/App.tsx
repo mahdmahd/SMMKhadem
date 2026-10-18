@@ -19,9 +19,14 @@ import ProjectDetail from './routes/ProjectDetail'
  * the previous page's offset and `/#projects` still lands on the section. The
  * `*` route renders NotFound; on GitHub Pages the `postbuild` step copies
  * `dist/index.html` to `dist/404.html`, so a deep path (`/projects/project-6/`)
- * boots the SPA instead of the host's own 404 page. The post and project slugs
- * that render content are the canonical ones — `/posts/<slug-from-title>` and
- * `/projects/<slug>` — not the old Hugo filenames.
+ * boots the SPA instead of the host's own 404 page.
+ *
+ * Two slug families are frozen and served. Projects keep the Hugo slugs
+ * verbatim (`/projects/project-6`). Posts moved to title-derived slugs, so
+ * `PostPage` carries an alias map from the old filenames to the canonical ones
+ * (`/posts/mem1` → `/posts/a-tragedy-part-1`, and three more): an inbound link
+ * to either spelling renders the post, and the canonical slug is the one the
+ * index and the homepage teaser link to.
  */
 function App() {
   return (
