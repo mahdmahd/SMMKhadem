@@ -1,16 +1,16 @@
 import Reveal from '../components/Reveal'
 import About from '../sections/About'
 import Hero from '../sections/Hero'
+import Projects from '../sections/Projects'
+import Research from '../sections/Research'
 import Toolkit from '../sections/Toolkit'
 
 /**
- * Home — Tasks 4–7 fill the blocks in spec order. Hero, About and Toolkit ship
- * here; the remaining anchors still hold the Task 2 stubs, so the header nav
- * targets stay live while those tasks land.
+ * Home — Hero, About, Toolkit, Research and Projects ship here, in spec order.
+ * The remaining anchors still hold the Task 2 stubs, so the header nav targets
+ * stay live while Tasks 6–7 land.
  */
-const HOME_SECTIONS = [
-  { id: 'research', label: 'Research' },
-  { id: 'projects', label: 'Projects' },
+const HOME_STUBS = [
   { id: 'publications', label: 'Publications' },
   { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' },
@@ -22,8 +22,10 @@ export default function Home() {
       <Hero />
       <About />
       <Toolkit />
+      <Research />
+      <Projects />
 
-      {HOME_SECTIONS.map((section, index) => (
+      {HOME_STUBS.map((section, index) => (
         <section key={section.id} id={section.id} className="shell section">
           <Reveal delay={index * 40}>
             <p className="eyebrow">{section.label}</p>

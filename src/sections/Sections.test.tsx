@@ -1,11 +1,23 @@
-import { cleanup, render, within } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { about, profile, timeline, toolkit } from '../data/portfolio'
+import {
+  about,
+  allProjects,
+  featuredProjects,
+  profile,
+  researchAreas,
+  timeline,
+  toolkit,
+  type Project,
+} from '../data/portfolio'
 import Home from '../routes/Home'
+import ProjectDetail from '../routes/ProjectDetail'
 import About from './About'
 import Hero from './Hero'
+import Projects from './Projects'
+import Research from './Research'
 import Toolkit from './Toolkit'
 
 afterEach(cleanup)
@@ -17,6 +29,17 @@ function section(id: string): HTMLElement {
   if (!element) throw new Error(`no section #${id} in the document`)
 
   return element
+}
+
+/** The featured and archived projects in one lookup, as the routes see them. */
+const projects: Project[] = [...featuredProjects, ...allProjects]
+
+function project(slug: string): Project {
+  const found = projects.find((entry) => entry.slug === slug)
+
+  if (!found) throw new Error(`no project ${slug} in the data`)
+
+  return found
 }
 
 describe('Hero', () => {
@@ -194,8 +217,281 @@ describe('Toolkit', () => {
   })
 })
 
+describe('Research', () => {
+  it('renders one numbered row per research area', () => {
+    render(<Research />)
+
+    const research = section('research')
+    const rows = Array.from(research.querySelectorAll('.accordion__item'))
+
+    expect(researchAreas).toHaveLength(5)
+    expect(rows).toHaveLength(5)
+
+    researchAreas.forEach((area, index) => {
+      expect(rows[index].textContent).toContain(area.index)
+      expect(rows[index].textContent).toContain(area.title)
+    })
+  })
+
+  it('opens the first row and prints its bullets', () => {
+    render(<Research />)
+
+    const research = section('research')
+    const triggers = Array.from(research.querySelectorAll<HTMLButtonElement>('.accordion__trigger'))
+
+    expect(triggers[0]).toHaveAttribute('aria-expanded', 'true')
+
+    const openPanel = research.querySelector('.accordion__panel:not([hidden])')
+
+    expect(openPanel).not.toBeNull()
+
+    for (const bullet of researchAreas[0].bullets) {
+      expect(openPanel?.textContent).toContain(bullet)
+    }
+  })
+
+  it('toggles a row on click and keeps a single panel open', () => {
+    render(<Research />)
+
+    const research = section('research')
+    const triggers = Array.from(research.querySelectorAll<HTMLButtonElement>('.accordion__trigger'))
+    const openPanels = () => research.querySelectorAll('.accordion__panel:not([hidden])')
+
+    expect(triggers[1]).toHaveAttribute('aria-expanded', 'false')
+
+    fireEvent.click(triggers[1])
+
+    expect(triggers[1]).toHaveAttribute('aria-expanded', 'true')
+    expect(triggers[0]).toHaveAttribute('aria-expanded', 'false')
+    expect(openPanels()).toHaveLength(1)
+
+    fireEvent.click(triggers[3])
+
+    expect(openPanels()).toHaveLength(1)
+    expect(triggers[3]).toHaveAttribute('aria-expanded', 'true')
+    expect(triggers[1]).toHaveAttribute('aria-expanded', 'false')
+
+    // Clicking the open row collapses it — nothing is forced open.
+    fireEvent.click(triggers[3])
+
+    expect(triggers[3]).toHaveAttribute('aria-expanded', 'false')
+    expect(openPanels()).toHaveLength(0)
+  })
+
+  it('wires every trigger to a labelled region panel', () => {
+    render(<Research />)
+
+    const research = section('research')
+    const triggers = Array.from(research.querySelectorAll('.accordion__trigger'))
+    const panels = Array.from(research.querySelectorAll('[role="region"]'))
+
+    expect(panels).toHaveLength(researchAreas.length)
+
+    triggers.forEach((trigger, index) => {
+      expect(trigger.getAttribute('aria-controls')).toBe(panels[index].id)
+      expect(panels[index].getAttribute('aria-labelledby')).toBe(trigger.id)
+    })
+  })
+
+  it('keeps the billboard word decorative', () => {
+    render(<Research />)
+
+    const billboard = section('research').querySelector('.research__billboard')
+
+    expect(billboard).not.toBeNull()
+    expect(billboard).toHaveAttribute('aria-hidden', 'true')
+    expect(billboard?.classList.contains('display')).toBe(true)
+    expect(billboard?.textContent).toBe('Research')
+  })
+})
+
+function renderProjects() {
+  return render(
+    <MemoryRouter>
+      <Projects />
+    </MemoryRouter>,
+  )
+}
+
+/** The featured card that links to a project's detail route. */
+function featuredCard(slug: string): HTMLElement {
+  const card = Array.from(section('projects').querySelectorAll<HTMLElement>('.project-card')).find(
+    (element) => element.querySelector(`a[href="/projects/${slug}"]`),
+  )
+
+  if (!card) throw new Error(`no featured card links to ${slug}`)
+
+  return card
+}
+
+describe('Projects', () => {
+  it('renders the four featured case studies with alternating layouts', () => {
+    renderProjects()
+
+    const cards = Array.from(section('projects').querySelectorAll('.project-card'))
+
+    expect(featuredProjects).toHaveLength(4)
+    expect(cards).toHaveLength(4)
+    expect(featuredProjects.map((entry) => entry.slug)).toEqual([
+      'project-6',
+      'project-5',
+      'project-8',
+      'project-3',
+    ])
+
+    const sides = cards.map((card) => {
+      if (card.classList.contains('project-card--image-left')) return 'left'
+      if (card.classList.contains('project-card--image-right')) return 'right'
+      return 'none'
+    })
+
+    expect(sides).toEqual(['right', 'left', 'right', 'left'])
+  })
+
+  it('prints the number, title and summary of every featured project', () => {
+    renderProjects()
+
+    for (const entry of featuredProjects) {
+      const card = featuredCard(entry.slug)
+
+      expect(card.textContent).toContain(entry.index)
+      expect(card.textContent).toContain(entry.title)
+      expect(card.textContent).toContain(entry.summary)
+    }
+  })
+
+  it('links every featured card to its detail route', () => {
+    renderProjects()
+
+    for (const entry of featuredProjects) {
+      const card = featuredCard(entry.slug)
+
+      expect(within(card).getByRole('link', { name: /read more/i })).toHaveAttribute(
+        'href',
+        `/projects/${entry.slug}`,
+      )
+    }
+  })
+
+  it('shows Paper and Code on PERSiMED, and no Demo', () => {
+    renderProjects()
+
+    const card = featuredCard('project-6')
+
+    expect(within(card).getByRole('link', { name: /paper/i })).toHaveAttribute(
+      'href',
+      'https://en.civilica.com/doc/2472372/',
+    )
+    expect(within(card).getByRole('link', { name: /code/i })).toHaveAttribute(
+      'href',
+      'https://github.com/mahdmahd/PERSiMED',
+    )
+    expect(within(card).queryByRole('link', { name: /demo/i })).toBeNull()
+  })
+
+  it('renders no Demo button when the project has no demo URL', () => {
+    renderProjects()
+
+    // The OAGB score (project-8) carries a paperUrl only.
+    const card = featuredCard('project-8')
+
+    expect(within(card).getByRole('link', { name: /paper/i })).toBeInTheDocument()
+    expect(within(card).queryByRole('link', { name: /code/i })).toBeNull()
+    expect(within(card).queryByRole('link', { name: /demo/i })).toBeNull()
+  })
+
+  it('lists the seven archive projects, each linking to its detail route', () => {
+    renderProjects()
+
+    const items = Array.from(section('projects').querySelectorAll<HTMLElement>('.archive__item'))
+
+    expect(allProjects).toHaveLength(7)
+    expect(items).toHaveLength(7)
+
+    items.forEach((item, index) => {
+      const entry = allProjects[index]
+
+      expect(item.textContent).toContain(entry.title)
+      expect(item.textContent).toContain(String(entry.year))
+      expect(item.querySelector(`a[href="/projects/${entry.slug}"]`)).not.toBeNull()
+    })
+  })
+})
+
+describe('ProjectDetail', () => {
+  function renderDetail(slug: string) {
+    return render(
+      <MemoryRouter initialEntries={[`/projects/${slug}`]}>
+        <Routes>
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+        </Routes>
+      </MemoryRouter>,
+    )
+  }
+
+  it('reprints the full PERSiMED prose', () => {
+    renderDetail('project-6')
+
+    const article = document.querySelector('.project-detail')
+    const entry = project('project-6')
+
+    expect(article).not.toBeNull()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(entry.title)
+
+    // A fragment that only exists in the Project Details section.
+    expect(screen.getByText(/mixed Persian–English scripts/i)).toBeInTheDocument()
+
+    expect(screen.getByRole('heading', { name: /^overview$/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /^project details$/i })).toBeInTheDocument()
+
+    // The carried prose, paragraph for paragraph — not a stub.
+    expect(article?.textContent).toContain(entry.overview)
+
+    for (const paragraph of entry.details ?? []) {
+      expect(article?.textContent).toContain(paragraph)
+    }
+  })
+
+  it('states the year, the technologies and a way back', () => {
+    renderDetail('project-3')
+
+    const entry = project('project-3')
+    const article = document.querySelector('.project-detail')
+
+    expect(article?.textContent).toContain(String(entry.year))
+
+    for (const technology of entry.technologies ?? []) {
+      expect(article?.textContent).toContain(technology)
+    }
+
+    expect(screen.getByRole('link', { name: /back to projects/i })).toHaveAttribute(
+      'href',
+      '/#projects',
+    )
+  })
+
+  it('carries the weight-trajectory prose but none of its wrong links', () => {
+    renderDetail('project-weightlosstrajectory')
+
+    const entry = project('project-weightlosstrajectory')
+    const article = document.querySelector('.project-detail')
+
+    expect(article?.textContent).toContain(entry.details?.[0] ?? '')
+    expect(screen.queryByRole('link', { name: /paper/i })).toBeNull()
+    expect(screen.queryByRole('link', { name: /code/i })).toBeNull()
+    expect(screen.queryByRole('link', { name: /demo/i })).toBeNull()
+  })
+
+  it('falls back to NotFound for an unknown slug', () => {
+    renderDetail('project-does-not-exist')
+
+    expect(screen.getByRole('heading', { name: /not found/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /back home/i })).toBeInTheDocument()
+  })
+})
+
 describe('Home composition', () => {
-  it('orders the new sections before the research stub', () => {
+  it('orders the new sections before the publications stub', () => {
     render(
       <MemoryRouter>
         <Home />
@@ -204,7 +500,7 @@ describe('Home composition', () => {
 
     const ids = Array.from(document.querySelectorAll('section[id]')).map((element) => element.id)
 
-    expect(ids.slice(0, 4)).toEqual(['top', 'about', 'toolkit', 'research'])
+    expect(ids.slice(0, 5)).toEqual(['top', 'about', 'toolkit', 'research', 'projects'])
     expect(ids).toContain('contact')
   })
 })

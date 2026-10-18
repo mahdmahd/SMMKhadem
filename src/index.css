@@ -522,6 +522,352 @@
     gap: 0.85rem;
     margin-top: 2.5rem;
   }
+
+  /* Research (Task 5) ---------------------------------------------------- */
+  .research__stage {
+    position: relative;
+    /* The billboard is nowrap; keep a stray pixel from widening the page. */
+    overflow-x: clip;
+  }
+
+  /* Billboard word: oversized, dim, and purely texture. It is aria-hidden in
+     the markup, so the eyebrow above stays the section's only heading. */
+  .research__billboard {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    margin: 0;
+    font-size: clamp(2.75rem, 17vw, 13rem);
+    line-height: 0.78;
+    letter-spacing: -0.055em;
+    opacity: 0.12;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .research__rows {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(3.5rem, 12vw, 9rem);
+  }
+
+  .accordion {
+    border-top: 1px solid var(--border);
+  }
+
+  .accordion__item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .accordion__heading {
+    margin: 0;
+    font: inherit;
+  }
+
+  .accordion__trigger {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.4rem 0;
+    background: none;
+    border: 0;
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .accordion__index {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+  }
+
+  .accordion__title {
+    font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .accordion__trigger:hover .accordion__title,
+  .accordion__item[data-open] .accordion__title {
+    color: var(--accent);
+  }
+
+  .accordion__marker {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--text-dim);
+  }
+
+  .accordion__panel {
+    padding: 0 0 1.75rem;
+  }
+
+  /* The `hidden` attribute must win even if some rule later sets `display`. */
+  .accordion__panel[hidden] {
+    display: none;
+  }
+
+  .research__bullets {
+    display: grid;
+    gap: 0.7rem;
+    max-width: 60rem;
+    margin: 0;
+    padding-left: 1.15rem;
+    color: var(--text-dim);
+  }
+
+  .research__bullets li::marker {
+    color: var(--accent);
+  }
+
+  @media (min-width: 768px) {
+    .accordion__trigger {
+      grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+      padding: 1.75rem 0;
+    }
+  }
+
+  /* Projects (Task 5) ---------------------------------------------------- */
+  .projects__featured {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    margin-top: 2.5rem;
+  }
+
+  .project-card {
+    display: grid;
+    align-items: center;
+    gap: 1.75rem;
+    padding-block: clamp(1.5rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--border);
+  }
+
+  .project-card__body {
+    min-width: 0;
+  }
+
+  /* Image-less rows have nothing to pair with; let the copy use the full row. */
+  .project-card--no-image .project-card__body {
+    grid-column: 1 / -1;
+  }
+
+  .project-card__index {
+    margin: 0 0 0.9rem;
+  }
+
+  .project-card__title {
+    margin: 0;
+    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
+  .project-card__title-lead {
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .project-card__title-soft {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .project-card__summary {
+    max-width: 46ch;
+    margin: 1rem 0 0;
+    color: var(--text-dim);
+  }
+
+  .project-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .project-card__figure {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--panel);
+  }
+
+  .project-card__figure img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 22rem;
+    object-fit: cover;
+    /* Figures are screenshots, not art; hold them back so the type on the row
+       stays the loudest thing. */
+    filter: grayscale(1) contrast(1.05);
+    opacity: 0.9;
+  }
+
+  @media (min-width: 900px) {
+    .project-card {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+
+    /* Alternate the figure side; the DOM order stays body-first for readers. */
+    .project-card--image-left .project-card__body {
+      order: 2;
+    }
+
+    .project-card--image-left .project-card__figure {
+      order: 1;
+    }
+  }
+
+  .projects__archive {
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+
+  .archive {
+    display: grid;
+    gap: 0;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .archive__item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .archive__link {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.25rem 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .archive__link:hover .archive__title {
+    color: var(--accent);
+  }
+
+  .archive__meta {
+    display: flex;
+    gap: 0.9rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+  }
+
+  .archive__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+
+  .archive__summary {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--text-dim);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  @media (min-width: 768px) {
+    .archive {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
+
+  /* Project detail route (Task 5) ---------------------------------------- */
+  /* Narrower than the 72rem shell: this page is prose, not a stage. */
+  .project-detail {
+    max-width: 52rem;
+  }
+
+  .project-detail__title {
+    margin: 0;
+    font-size: clamp(2rem, 5.5vw, 4rem);
+    letter-spacing: -0.03em;
+    text-transform: none;
+  }
+
+  .project-detail__meta {
+    margin: 1rem 0 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .project-detail__figure {
+    margin: 2rem 0 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--panel);
+  }
+
+  .project-detail__figure img {
+    display: block;
+    width: 100%;
+  }
+
+  .project-detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .project-detail__actions:empty {
+    display: none;
+  }
+
+  .project-detail__section {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .project-detail__heading {
+    margin: 0 0 1rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .project-detail__paragraph {
+    margin: 0 0 1.1rem;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    /* Some backups separate paragraphs with a single newline; keep it. */
+    white-space: pre-line;
+  }
+
+  .project-detail__paragraph:last-child {
+    margin-bottom: 0;
+  }
+
+  .project-detail__back {
+    margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  }
 }
 
 /* ---------------------------------------------------------------------------

@@ -51,10 +51,10 @@ describe('App routing', () => {
     expect(screen.getByText(/mem1/)).toBeInTheDocument()
   })
 
-  it('renders the project detail stub for legacy /projects/:slug paths', () => {
+  it('renders the PERSiMED case study for legacy /projects/:slug paths', () => {
     renderAt('/projects/project-6')
 
-    expect(screen.getByText(/project-6/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/PERSiMED/)
   })
 
   it('renders NotFound with a link home for unknown paths', () => {

@@ -1,3 +1,7 @@
+/// <reference types="node" />
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -148,6 +152,16 @@ describe('researchAreas', () => {
       }
     }
   })
+
+  it('describes area 05 by method, not by a vendor attribution claim', () => {
+    // Carryover ruling: the toolkit may keep `SHAP` as a skill chip, but a
+    // research bullet must not claim SHAP/LIME interpretability as the method.
+    const bullets = researchAreas[4].bullets.join(' ')
+
+    expect(bullets).toMatch(/Interpretability methods \(attribution scores, rule-based scores\)/)
+    expect(bullets).not.toMatch(/\bSHAP\b/)
+    expect(bullets).not.toMatch(/\bLIME\b/)
+  })
 })
 
 // Type-level assertions: `tsc -b` typechecks this file during `npm run build`, so
@@ -167,14 +181,75 @@ const publicationSample: Publication = {
   status: 'published',
 }
 
-describe('collections later tasks fill', () => {
-  it('ships the project slots as empty, optional-link-aware arrays', () => {
-    expect(featuredProjects).toHaveLength(0)
-    expect(allProjects).toHaveLength(0)
+describe('projects', () => {
+  it('features four case studies and archives the other seven', () => {
+    expect(featuredProjects).toHaveLength(4)
+    expect(allProjects).toHaveLength(7)
+
+    const slugs = [...featuredProjects, ...allProjects].map((entry) => entry.slug)
+
+    expect(new Set(slugs).size).toBe(11)
+  })
+
+  it('gives every project the fields the cards and the detail routes read', () => {
+    for (const entry of [...featuredProjects, ...allProjects]) {
+      expect(entry.slug).toMatch(/^project-[a-z0-9-]+$/)
+      expect(entry.index).toMatch(/^\d{2}$/)
+      expect(entry.title.trim().length).toBeGreaterThan(0)
+      expect(entry.summary.trim().length).toBeGreaterThan(0)
+      expect(entry.year).toBeGreaterThan(2000)
+      expect(entry.overview?.trim().length).toBeGreaterThan(80)
+      expect(entry.details?.length).toBeGreaterThan(0)
+      expect(entry.technologies?.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('keeps every link and the carried prose optional on the type', () => {
     expect(projectSample.image).toBeUndefined()
     expect(projectSample.paperUrl).toBeUndefined()
     expect(projectSample.codeUrl).toBeUndefined()
     expect(projectSample.demoUrl).toBeUndefined()
+    expect(projectSample.overview).toBeUndefined()
+    expect(projectSample.details).toBeUndefined()
+  })
+
+  it('carries only URLs verified for that same project', () => {
+    // project-weightlosstrajectory's frontmatter reuses project-8's PMID and
+    // points code_url at the SnapExplain repo — both dropped by owner ruling.
+    const weightTrajectory = allProjects.find(
+      (entry) => entry.slug === 'project-weightlosstrajectory',
+    )
+
+    expect(weightTrajectory?.paperUrl).toBeUndefined()
+    expect(weightTrajectory?.codeUrl).toBeUndefined()
+
+    // medrag.liararun.ir no longer resolves, so project-5 ships no Demo button.
+    const rag = featuredProjects.find((entry) => entry.slug === 'project-5')
+
+    expect(rag?.demoUrl).toBeUndefined()
+  })
+
+  it('keeps every attached URL on https', () => {
+    const urls = [...featuredProjects, ...allProjects].flatMap((entry) =>
+      [entry.paperUrl, entry.codeUrl, entry.demoUrl].filter((url): url is string => Boolean(url)),
+    )
+
+    expect(urls.length).toBeGreaterThan(0)
+
+    for (const url of urls) {
+      expect(url).toMatch(/^https:\/\//)
+    }
+  })
+
+  it('points every figure at a file that ships in public/', () => {
+    const figures = [...featuredProjects, ...allProjects].filter((entry) => entry.image)
+
+    expect(figures.length).toBeGreaterThan(0)
+
+    for (const entry of figures) {
+      expect(entry.image).toMatch(/^\/images\/projects\/[\w.-]+$/)
+      expect(existsSync(join(process.cwd(), 'public', entry.image ?? ''))).toBe(true)
+    }
   })
 
   it('ships the publication slot as an empty array', () => {
