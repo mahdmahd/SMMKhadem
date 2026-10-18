@@ -19,7 +19,12 @@ export type MarqueeProps = {
  */
 const COPIES = 4
 
-const DEFAULT_DURATION = 44
+/**
+ * Seconds for one full loop. Exported so a caller that varies the speed per
+ * row (see `Toolkit.tsx`) still takes its base from here rather than repeating
+ * the number.
+ */
+export const DEFAULT_MARQUEE_DURATION = 44
 
 /**
  * One marquee row: a chip list repeated `COPIES` times inside an overflowing
@@ -30,7 +35,7 @@ export default function Marquee({
   items,
   label,
   reverse = false,
-  duration = DEFAULT_DURATION,
+  duration = DEFAULT_MARQUEE_DURATION,
 }: MarqueeProps) {
   const style = {
     '--marquee-duration': `${duration}s`,

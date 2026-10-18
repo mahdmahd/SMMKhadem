@@ -1,9 +1,8 @@
-import Marquee from '../components/Marquee'
+import Marquee, { DEFAULT_MARQUEE_DURATION } from '../components/Marquee'
 import Reveal from '../components/Reveal'
 import { toolkit } from '../data/portfolio'
 
-/** Seconds per loop for the first row; each row below drifts a little slower. */
-const BASE_DURATION = 44
+/** Seconds each row below the first adds to its loop, so the rows drift apart. */
 const DURATION_STEP = 6
 
 /**
@@ -25,7 +24,7 @@ export default function Toolkit() {
               items={row}
               label={`Toolkit row ${index + 1}`}
               reverse={index % 2 === 1}
-              duration={BASE_DURATION + index * DURATION_STEP}
+              duration={DEFAULT_MARQUEE_DURATION + index * DURATION_STEP}
             />
           ))}
         </div>

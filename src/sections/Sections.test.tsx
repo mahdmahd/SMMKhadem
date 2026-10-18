@@ -80,14 +80,14 @@ describe('About', () => {
     expect(words.length).toBeLessThanOrEqual(200)
   })
 
-  it('highlights at least eight key phrases in the bio', () => {
+  it('highlights the eight load-bearing phrases in the bio', () => {
     render(<About />)
 
     const marks = Array.from(section('about').querySelectorAll('mark')).map(
       (mark) => mark.textContent ?? '',
     )
 
-    expect(marks.length).toBeGreaterThanOrEqual(8)
+    expect(marks).toHaveLength(8)
 
     for (const phrase of [
       'frontotemporal dementia',

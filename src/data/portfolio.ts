@@ -102,7 +102,7 @@ export const channels: Channel[] = [
 export const about: string[] = [
   'I came to data science through medicine. My M.D. thesis at Iran University of Medical Sciences asked how regional structural change on **routine clinical MRI** tracks cognitive decline in **frontotemporal dementia** — and answering it meant learning **neuroimaging** properly: slice-to-volume reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
   'Then came the years I value most: full-time general practice at Foolad Clinic, where research questions arrive as people rather than as datasets — and where I found that I genuinely enjoy mathematics and statistics once they meet a real clinical problem.',
-  'At the Minimally Invasive Research Center I moved to **bariatric surgery**, building predictive models and **explainable AI** that clinicians can inspect: SHAP values and bedside scores instead of black boxes. Now, at Saman Insurance, I work on **clinical NLP** — **RAG** pipelines over **Persian medical documents**, and LLM workflows for claims, fraud detection and patient records.',
+  'At the Minimally Invasive Research Center I moved to **bariatric surgery**: predictive models and **explainable AI** that clinicians can inspect, bedside scores instead of black boxes, and **RAG** clinical question answering grounded in the bariatric surgery textbook. Now, at Saman Insurance, I work on **clinical NLP** — **Persian medical documents**, and LLM workflows for claims, fraud detection and patient records.',
 ]
 
 export type TimelineEntry = {
