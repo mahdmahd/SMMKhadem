@@ -1,0 +1,33 @@
++++
+authors = ["Mehdi Khadem"]
+title = "A greeting from the depths of the voiceless"
+date = "2026-04-12"
+description = "A greeting from the depths of the voiceless"
+math = true
+tags = [
+    "hugo",
+    "site"
+]
+categories = [
+    "instruction",
+    "site"
+]
+series = ["Theme Demo"]
++++
+
+Right now, as I write this, it has been 45 days since the internet was cut off. I am frustrated. The days do not pass. I cannot do anything. My morning routine has become scanning for new DNS resolvers to find something that lets me at least transfer 500 kilobytes so I can read my emails.
+Writing code, browsing the web, digging through GitHub, reading interesting papers from PubMed, or even installing a library with pip have become impossible wishes. My only consolation these days is being able to connect to the internet for a few seconds or minutes to receive a notification from Stijin, or an email requesting to review a manuscript (that I cannot even download the PDF file attached!!). 
+Stijin has become a symbol of the scientific community for me: When I see the notification of his WhatsApp messages, I feel a rush of dopamine. But does it matter? The voices of us, the people of Iran, were cut with the push of a button. The issue is not whether our opinions matter — they never have. The issue is that we are no longer even allowed to have opinions. What should we say? Say it's fine and accept this calamity that has befallen us? Or refuse to accept it? Do we even exist to confirm or deny? Do we even have the right to protest? 
+
+Now, as I write these lines, connecting to the internet is nothing but a miracle. But a meaningless miracle  like being allowed a short breath of fresh air outside prison. It is not joyful. You feel more disgusted when your fellow inmates remain behind bars. Having the internet is like swimming in a dried-up river in a hot desert where all the fish are dead and only their bones remain.
+
+Now that this ugly miraculous moment has happened and I have come out for some air, I want to tell you how I feel. It would be a lie to say I am not tired. It would be a lie to say I am not swinging between fear and hope. Enduring an explosion is not easy. But in these historic moments for Iran, my homeland, “hope” is not a choice — it is compulsory. We must protect our hopes and dreams like a beautiful phoenix with colorful feathers, wounded and trapped in our chests. We Iranians have been patient and united since the protests and still are. You can count on our patience and resilience.Maybe I started this blog to write my scientific biography and achievements. But I feel like deleting everything and writing in my bio only “I am an Iranian.” That single pride from my whole life is enough for me.
+
+Thanks to Delaram , Stijin and Donya:friends through the hard times of war
+
+
+One of the people of Iran
+Hoping for the victory of light over darkness
+
+From the prison, April 12, 2026 (23 Farvardin 1405)
+Long live Iran
