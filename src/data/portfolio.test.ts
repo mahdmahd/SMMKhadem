@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
@@ -8,7 +8,10 @@ import {
   allProjects,
   channels,
   featuredProjects,
+  formAction,
+  formatPostDate,
   nav,
+  posts,
   profile,
   publications,
   researchAreas,
@@ -17,6 +20,28 @@ import {
   type Project,
   type Publication,
 } from './portfolio'
+
+/**
+ * The body of a Hugo file: everything after the closing `+++` of its TOML
+ * frontmatter. Both the `about.md` and the post sources are `+++` files, so one
+ * helper covers them.
+ */
+function bodyAfterFrontmatter(text: string): string {
+  const lines = text.split('\n')
+
+  expect(lines[0]).toBe('+++')
+
+  const end = lines.indexOf('+++', 1)
+
+  expect(end).toBeGreaterThan(0)
+
+  return lines.slice(end + 1).join('\n')
+}
+
+/** Reads a repo file, with the single trailing newline normalised away. */
+function readNormalised(...segments: string[]): string {
+  return readFileSync(join(process.cwd(), ...segments), 'utf8').replace(/\n$/, '')
+}
 
 describe('profile', () => {
   it('carries the owner identity verbatim', () => {
@@ -373,5 +398,99 @@ describe('teaching & service', () => {
 describe('CV asset', () => {
   it('ships the CV PDF in public/, ready for the build to copy through', () => {
     expect(existsSync(join(process.cwd(), 'public', 'cv.pdf'))).toBe(true)
+  })
+})
+
+describe('posts', () => {
+  it('lists the four preserved posts, newest first', () => {
+    expect(posts).toHaveLength(4)
+
+    const dates = posts.map((post) => post.date)
+
+    expect([...dates].sort().reverse()).toEqual(dates)
+    expect(posts.map((post) => post.slug)).toEqual([
+      'a-greeting-from-the-depths-of-the-voiceless',
+      'a-tragedy-part-1',
+      'my-linear-model-thinks-getting-older-makes-you-poorer-and-other-statistical-tragedies',
+      'how-to-build-a-hugo-site',
+    ])
+  })
+
+  it('carries the frontmatter titles and dates verbatim', () => {
+    const byslug = new Map(posts.map((post) => [post.slug, post]))
+
+    expect(byslug.get('a-tragedy-part-1')?.title).toBe('A tragedy - part 1')
+    expect(byslug.get('a-tragedy-part-1')?.date).toBe('2026-02-16')
+    expect(byslug.get('a-greeting-from-the-depths-of-the-voiceless')?.date).toBe('2026-04-12')
+    expect(byslug.get('how-to-build-a-hugo-site')?.date).toBe('2025-01-17')
+  })
+
+  it('keeps every slug URL-safe', () => {
+    for (const post of posts) {
+      expect(post.slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+    }
+  })
+
+  it('formats the date without leaning on the host locale', () => {
+    expect(formatPostDate('2026-04-12')).toBe('12 April 2026')
+    expect(formatPostDate('2026-02-16')).toBe('16 February 2026')
+    expect(formatPostDate('2025-01-17')).toBe('17 January 2025')
+  })
+})
+
+/**
+ * The spec's "survives" rule: post and about prose stays byte-identical, only
+ * the format changes. These read both the MDX that ships and the Hugo backup it
+ * was carried from, so a well-meaning edit to one side cannot drift silently.
+ */
+describe('MDX bodies against the Hugo backup', () => {
+  const BACKUP = ['docs', 'superpowers', 'specs', 'content-backup']
+  const POSTS = ['src', 'content', 'posts']
+
+  const SOURCES: Array<[label: string, backup: string[], mdx: string[]]> = [
+    [
+      'how-to-build-a-hugo-site',
+      [...BACKUP, 'posts', 'hugo.md'],
+      [...POSTS, 'how-to-build-a-hugo-site.mdx'],
+    ],
+    [
+      'a-tragedy-part-1',
+      [...BACKUP, 'posts', 'Mem1.md'],
+      [...POSTS, 'a-tragedy-part-1.mdx'],
+    ],
+    [
+      'the statistical tragedies',
+      [...BACKUP, 'posts', 'pitfall.md'],
+      [
+        ...POSTS,
+        'my-linear-model-thinks-getting-older-makes-you-poorer-and-other-statistical-tragedies.mdx',
+      ],
+    ],
+    [
+      'the voiceless greeting',
+      [...BACKUP, 'posts', 'Voiceless.md'],
+      [...POSTS, 'a-greeting-from-the-depths-of-the-voiceless.mdx'],
+    ],
+    ['the about story', [...BACKUP, 'about.md'], ['src', 'content', 'about.mdx']],
+  ]
+
+  it.each(SOURCES)('reprints %s byte-for-byte', (_label, backup, mdx) => {
+    expect(readNormalised(...mdx)).toBe(bodyAfterFrontmatter(readNormalised(...backup)))
+  })
+
+  it('ships one MDX file per post', () => {
+    for (const post of posts) {
+      expect(existsSync(join(process.cwd(), 'src', 'content', 'posts', `${post.slug}.mdx`))).toBe(
+        true,
+      )
+    }
+  })
+})
+
+describe('contact form endpoint', () => {
+  it('is either a verified Formspree URL or null for the mailto fallback', () => {
+    expect(formAction === null || /^https:\/\/formspree\.io\/f\/[a-z0-9]+$/.test(formAction)).toBe(
+      true,
+    )
   })
 })

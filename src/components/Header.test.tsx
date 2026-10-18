@@ -57,10 +57,11 @@ describe('Header', () => {
     }
   })
 
-  it('links the CV download button to /cv.pdf', () => {
+  it('links the CV download button to the CV path in the data file', () => {
     renderHeader()
 
-    expect(screen.getByRole('link', { name: /cv/i })).toHaveAttribute('href', '/cv.pdf')
+    expect(profile.cvUrl).toBe('/cv.pdf')
+    expect(screen.getByRole('link', { name: /cv/i })).toHaveAttribute('href', profile.cvUrl)
   })
 
   it('adds the blurred background class only once scrolled past the threshold', () => {

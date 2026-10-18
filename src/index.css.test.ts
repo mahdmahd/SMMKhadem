@@ -134,6 +134,27 @@ describe('marquee (Task 4)', () => {
   })
 })
 
+describe('prose (Task 7)', () => {
+  it('spaces blocks from one sibling rule, not from per-element margins', async () => {
+    const css = await compiledStylesheet()
+
+    expect(ruleBody(css, '.prose>*+*')).toMatch(/margin-top:\s*1\.2em/)
+
+    // `.prose p { margin: 0 }` is the trap: at 0,1,1 it outranks the sibling
+    // rule at 0,1,0, and every paragraph in a post runs into the next one.
+    expect(source).not.toMatch(/\.prose\s+p\s*\{/)
+    expect(css).not.toMatch(/\.prose p\{/)
+  })
+
+  it('paints the body, links and code from the tokens', async () => {
+    const css = await compiledStylesheet()
+
+    expect(ruleBody(css, '.prose{')).toMatch(/color:\s*var\(--text\)/)
+    expect(ruleBody(css, '.prose a')).toMatch(/color:\s*var\(--accent\)/)
+    expect(ruleBody(css, '.prose pre')).toMatch(/background:\s*var\(--panel\)/)
+  })
+})
+
 describe('reduced motion', () => {
   it('ships a prefers-reduced-motion block', () => {
     expect(source).toContain('prefers-reduced-motion: reduce')

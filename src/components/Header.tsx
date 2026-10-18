@@ -48,7 +48,7 @@ export default function Header() {
         </nav>
 
         <div className="site-header__actions">
-          <a className="pill" href="/cv.pdf" download>
+          <a className="pill" href={profile.cvUrl} download>
             CV
           </a>
           <button

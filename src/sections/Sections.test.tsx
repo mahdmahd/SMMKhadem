@@ -5,7 +5,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import {
   about,
   allProjects,
+  channels,
   featuredProjects,
+  posts,
   profile,
   publications,
   researchAreas,
@@ -17,7 +19,9 @@ import {
 import Home from '../routes/Home'
 import ProjectDetail from '../routes/ProjectDetail'
 import About from './About'
+import Contact from './Contact'
 import Hero from './Hero'
+import LatestWriting from './LatestWriting'
 import Projects from './Projects'
 import Publications from './Publications'
 import Research from './Research'
@@ -504,15 +508,32 @@ describe('Publications', () => {
     expect(items).toHaveLength(8)
   })
 
-  it('prints the venue and the impact factor, with Obesity Surgery twice', () => {
+  it('prints the venue and the impact factor for the two Obesity Surgery papers', () => {
+    render(<Publications />)
+
+    const text = section('publications').textContent ?? ''
+    const bariatric = publications.filter((entry) => entry.venue.includes('Obesity Surgery'))
+
+    // Pinned by identity, not by a text count: the RAG manuscript's note also
+    // names Obesity Surgery, so counting occurrences would pin the wrong fact.
+    expect(bariatric).toHaveLength(2)
+    expect(bariatric.map((entry) => entry.title)).toEqual([
+      expect.stringContaining('Unveiling Predictors of Hypoalbuminemia'),
+      expect.stringContaining('Effects of Metabolic and Bariatric Surgery on Serum Uric Acid'),
+    ])
+    expect(text.match(/Obesity Surgery/g)?.length ?? 0).toBeGreaterThanOrEqual(2)
+    expect(text).toContain('Immunity, Inflammation and Disease')
+    expect(text).toContain('IF 3.1')
+    expect(text).toContain('IF 2.7')
+  })
+
+  it('discloses the RAG manuscript review status in its note', () => {
     render(<Publications />)
 
     const text = section('publications').textContent ?? ''
 
-    expect(text.match(/Obesity Surgery/g)).toHaveLength(2)
-    expect(text).toContain('Immunity, Inflammation and Disease')
-    expect(text).toContain('IF 3.1')
-    expect(text).toContain('IF 2.7')
+    expect(text).toContain('Retrieval-Augmented Clinical Question-Answering System')
+    expect(text).toContain('Under review at Obesity Surgery')
   })
 
   it('preserves the corresponding-author asterisk in the author lists', () => {
@@ -574,8 +595,137 @@ describe('Teaching & Service', () => {
   })
 })
 
+function renderLatestWriting() {
+  return render(
+    <MemoryRouter>
+      <LatestWriting />
+    </MemoryRouter>,
+  )
+}
+
+describe('Latest writing', () => {
+  it('teases exactly the three newest posts, newest first', () => {
+    renderLatestWriting()
+
+    const cards = Array.from(section('blog').querySelectorAll<HTMLElement>('.post-card'))
+    const newest = posts.slice(0, 3)
+
+    expect(posts).toHaveLength(4)
+    expect(cards).toHaveLength(3)
+
+    expect(cards.map((card) => card.querySelector('.post-card__title')?.textContent)).toEqual(
+      newest.map((post) => post.title),
+    )
+    expect(newest.map((post) => post.slug)).toEqual([
+      'a-greeting-from-the-depths-of-the-voiceless',
+      'a-tragedy-part-1',
+      'my-linear-model-thinks-getting-older-makes-you-poorer-and-other-statistical-tragedies',
+    ])
+
+    // The oldest post — the Hugo how-to — is deliberately not teased.
+    expect(section('blog').textContent).not.toContain('How to Build a Hugo Site')
+  })
+
+  it('links every card to its post and offers the full index', () => {
+    renderLatestWriting()
+
+    for (const post of posts.slice(0, 3)) {
+      expect(
+        section('blog').querySelector(`a[href="/posts/${post.slug}"]`),
+      ).not.toBeNull()
+    }
+
+    expect(within(section('blog')).getByRole('link', { name: /all posts/i })).toHaveAttribute(
+      'href',
+      '/posts',
+    )
+  })
+
+  it('prints the date of each teased post', () => {
+    renderLatestWriting()
+
+    const dates = Array.from(section('blog').querySelectorAll('time')).map((time) =>
+      time.getAttribute('datetime'),
+    )
+
+    expect(dates).toEqual(posts.slice(0, 3).map((post) => post.date))
+  })
+})
+
+describe('Contact (home)', () => {
+  it('states the academic availability, not a freelance pitch', () => {
+    render(
+      <MemoryRouter>
+        <Contact />
+      </MemoryRouter>,
+    )
+
+    const text = section('contact').textContent ?? ''
+
+    expect(text).toContain('Open to PhD and research collaborations')
+    expect(section('contact').querySelector('.availability__dot')).not.toBeNull()
+    expect(text).not.toMatch(/freelance|hire me|available for work/i)
+  })
+
+  it('leads with the gradient display line and the one-line arc', () => {
+    render(
+      <MemoryRouter>
+        <Contact />
+      </MemoryRouter>,
+    )
+
+    const title = section('contact').querySelector('.display')
+
+    expect(title?.textContent).toMatch(/get in touch/i)
+    expect(section('contact').textContent).toContain(profile.tagline)
+  })
+
+  it('offers the email and LinkedIn pills', () => {
+    render(
+      <MemoryRouter>
+        <Contact />
+      </MemoryRouter>,
+    )
+
+    const email = channels.find((channel) => channel.icon === 'mail')
+    const linkedin = channels.find((channel) => channel.icon === 'linkedin')
+
+    expect(
+      section('contact').querySelector(`a[href="${email?.url}"]`),
+    ).not.toBeNull()
+    expect(
+      section('contact').querySelector(`a[href="${linkedin?.url}"]`),
+    ).not.toBeNull()
+  })
+
+  it('carries the details card: email, location, and the other channels', () => {
+    render(
+      <MemoryRouter>
+        <Contact />
+      </MemoryRouter>,
+    )
+
+    const text = section('contact').textContent ?? ''
+
+    expect(text).toContain('Email')
+    expect(text).toContain(profile.email)
+    expect(text).toContain('Based in')
+    expect(text).toContain(profile.location)
+    expect(text).toContain('Elsewhere')
+    expect(text).toContain('GitHub')
+    expect(text).toContain('ORCID')
+
+    expect(
+      section('contact').querySelector('a[href*="github.com"]'),
+    ).not.toBeNull()
+    expect(
+      section('contact').querySelector('a[href*="orcid.org"]'),
+    ).not.toBeNull()
+  })
+})
+
 describe('Home composition', () => {
-  it('orders the sections: hero → about → toolkit → research → projects → publications → teaching', () => {
+  it('orders all nine blocks: hero → about → toolkit → research → projects → publications → teaching → writing → contact', () => {
     render(
       <MemoryRouter>
         <Home />
@@ -584,7 +734,7 @@ describe('Home composition', () => {
 
     const ids = Array.from(document.querySelectorAll('section[id]')).map((element) => element.id)
 
-    expect(ids.slice(0, 7)).toEqual([
+    expect(ids).toEqual([
       'top',
       'about',
       'toolkit',
@@ -592,8 +742,8 @@ describe('Home composition', () => {
       'projects',
       'publications',
       'teaching',
+      'blog',
+      'contact',
     ])
-    expect(ids).toContain('blog')
-    expect(ids).toContain('contact')
   })
 })

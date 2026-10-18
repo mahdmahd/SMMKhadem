@@ -91,6 +91,18 @@ export const channels: Channel[] = [
   },
 ]
 
+/* ------------------------------------------------------------ contact form */
+
+/**
+ * Formspree endpoint for the contact form, verified by hand once (Task 7):
+ * `POST https://formspree.io/f/xkonleag` answers `200 {"ok":true}`. When a
+ * future verification returns 4xx the value becomes `null` and both contact
+ * surfaces fall back to a `mailto:` call to action instead of a form that
+ * silently swallows submissions — the spec's rule is "no new backend", not
+ * "keep a dead form".
+ */
+export const formAction: string | null = 'https://formspree.io/f/xkonleag'
+
 /* ------------------------------------------------------------------- about */
 
 /**
@@ -609,7 +621,7 @@ export const publications: Publication[] = [
   },
   {
     title:
-      'A Retrieval Augmented Clinical Question Answering System for Bariatric Surgery Built on the ASMBS Textbook: From Good to Great',
+      'Retrieval-Augmented Clinical Question-Answering System for Bariatric Surgery Built on the ASMBS Textbook: From Good to Great',
     authors: [
       'SMM Khadem*',
       'Delaram Moosavi',
@@ -620,6 +632,7 @@ export const publications: Publication[] = [
     venue: 'Research Square',
     year: 2026,
     status: 'under-review',
+    note: 'Under review at Obesity Surgery',
   },
   {
     title: 'Biliopancreatic Limb Length: From Estimation to Measurement: A Pilot Study',
@@ -758,4 +771,76 @@ export const teaching: TeachingService = {
       since: '2025 – present',
     },
   ],
+}
+
+/* ------------------------------------------------------------------- posts */
+
+export type Post = {
+  /** Route slug under `/posts/`, derived from the title, kebab-cased. */
+  slug: string
+  title: string
+  /** ISO `YYYY-MM-DD`, verbatim from the Hugo frontmatter. */
+  date: string
+  /** One-line summary, verbatim from the Hugo frontmatter `description`. */
+  description: string
+}
+
+/**
+ * The four preserved posts, newest first — the order the index and the
+ * homepage teaser both read. The bodies live as MDX in `src/content/posts/`,
+ * byte-identical to `docs/superpowers/specs/content-backup/posts/` after the
+ * `+++` frontmatter is stripped (asserted in `src/data/portfolio.test.ts`);
+ * only this metadata moved into the data model.
+ */
+export const posts: Post[] = [
+  {
+    slug: 'a-greeting-from-the-depths-of-the-voiceless',
+    title: 'A greeting from the depths of the voiceless',
+    date: '2026-04-12',
+    description: 'A greeting from the depths of the voiceless',
+  },
+  {
+    slug: 'a-tragedy-part-1',
+    title: 'A tragedy - part 1',
+    date: '2026-02-16',
+    description: '.....',
+  },
+  {
+    slug: 'my-linear-model-thinks-getting-older-makes-you-poorer-and-other-statistical-tragedies',
+    title: 'My Linear Model Thinks Getting Older Makes You Poorer (And Other Statistical Tragedies)',
+    date: '2025-10-26',
+    description: 'About a Common pitfalls in the interpretation of coefficients of linear models',
+  },
+  {
+    slug: 'how-to-build-a-hugo-site',
+    title: 'How to Build a Hugo Site',
+    date: '2025-01-17',
+    description: 'An Instruction to Build a simple Hugo site',
+  },
+]
+
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+/**
+ * `2026-04-12` → `12 April 2026`. Hand-rolled rather than `Intl.DateTimeFormat`
+ * so the rendered date cannot drift with the host locale or ICU build — the
+ * pages print it in mono meta lines and the tests pin the exact string.
+ */
+export function formatPostDate(iso: string): string {
+  const [year, month, day] = iso.split('-')
+
+  return `${Number(day)} ${MONTHS[Number(month) - 1] ?? ''} ${year}`
 }

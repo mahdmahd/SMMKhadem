@@ -18,8 +18,10 @@ import ProjectDetail from './routes/ProjectDetail'
  * changes and leaves hash navigations anchored, so a detail route never opens at
  * the previous page's offset and `/#projects` still lands on the section. The
  * `*` route renders NotFound; on GitHub Pages the `postbuild` step copies
- * `dist/index.html` to `dist/404.html`, so deep legacy paths (`/posts/mem1/`,
- * `/projects/project-6/`) boot the SPA and resolve here instead of 404ing.
+ * `dist/index.html` to `dist/404.html`, so a deep path (`/projects/project-6/`)
+ * boots the SPA instead of the host's own 404 page. The post and project slugs
+ * that render content are the canonical ones — `/posts/<slug-from-title>` and
+ * `/projects/<slug>` — not the old Hugo filenames.
  */
 function App() {
   return (

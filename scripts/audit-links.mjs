@@ -101,8 +101,19 @@ async function check(url) {
 }
 
 async function main() {
-  const module = await import(DATA_MODULE.href)
-  const urls = [...collectUrls(module)].sort()
+  // `formAction` is a form *endpoint*, not a link: Formspree answers a GET with
+  // `405 Method Not Allowed` by design, which says nothing about whether the
+  // endpoint is live. Its liveness was checked once with a POST (Task 7), and
+  // the contact surfaces fall back to a mailto CTA whenever it is set to null.
+  // Everything else in the module is a link and stays in scope.
+  const { formAction, ...links } = await import(DATA_MODULE.href)
+
+  if (formAction !== null && !/^https:\/\//.test(formAction)) {
+    console.log(`audit-links: formAction is not https — ${formAction}`)
+    return 1
+  }
+
+  const urls = [...collectUrls(links)].sort()
 
   if (urls.length === 0) {
     console.log('audit-links: no external URLs found in src/data/portfolio.ts')

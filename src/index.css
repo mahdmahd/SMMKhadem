@@ -1052,9 +1052,432 @@
     margin-top: clamp(2rem, 5vw, 3rem);
   }
 
+  /* Long-form prose — MDX post bodies and the /about story (Task 7) --------- */
+  .prose {
+    max-width: 46rem;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    color: var(--text);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  /* Zero every block's own margin first, then space the siblings: the two rules
+     have the same specificity, so source order decides — a per-element
+     `margin: 0` (e.g. on `p`) would outrank the spacing rule and collapse the
+     paragraphs into each other. */
+  .prose > * {
+    margin: 0;
+  }
+
+  .prose > * + * {
+    margin-top: 1.2em;
+  }
+
+  /* The story opens on its own `##` heading; it needs no leading gap. */
+  .prose > :first-child {
+    margin-top: 0;
+  }
+
+  .prose h2 {
+    margin: 2.6em 0 0;
+    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .prose h3 {
+    margin: 2.2em 0 0;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .prose a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .prose a:hover {
+    color: var(--accent-hover);
+  }
+
+  .prose strong {
+    font-weight: 600;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+
+  .prose li + li {
+    margin-top: 0.45em;
+  }
+
+  .prose li::marker {
+    color: var(--text-dim);
+  }
+
+  .prose blockquote {
+    margin: 0;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.15rem;
+    color: var(--text-dim);
+  }
+
+  .prose hr {
+    margin: 2.6em 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .prose code {
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
+    padding: 0.12em 0.38em;
+    background: var(--panel);
+    font-family: var(--mono);
+    font-size: 0.875em;
+  }
+
+  .prose pre {
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    padding: 1.05rem 1.2rem;
+    background: var(--panel);
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .prose pre code {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+    font-size: inherit;
+  }
+
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.85rem;
+  }
+
+  /* Post route ------------------------------------------------------------ */
+  .post__title,
+  .posts-index__title,
+  .about-page__title,
+  .contact-page__title {
+    /* Long titles: the display clamp is tuned for the hero's three short words. */
+    max-width: 24ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+
+  .post__meta {
+    margin: 1.1rem 0 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .post__loading {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .post__back {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .posts-index__lead,
+  .contact-page__lead,
+  .writing__lead {
+    max-width: 44rem;
+    margin: 1.1rem 0 0;
+    color: var(--text-dim);
+  }
+
+  /* Writing cards — the homepage teaser and the /posts index -------------- */
+  .writing__grid {
+    display: grid;
+    gap: 1.25rem;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .writing__grid > li {
+    display: flex;
+  }
+
+  .writing__actions {
+    margin-top: clamp(2rem, 5vw, 3rem);
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--panel);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.2s ease;
+  }
+
+  .post-card:hover {
+    border-color: var(--accent);
+  }
+
+  .post-card__date {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .post-card__title {
+    margin: 0;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .post-card__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card__link:hover {
+    color: var(--accent);
+  }
+
+  .post-card__summary {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* Homepage contact block ------------------------------------------------ */
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Teal is the one non-token colour on the page: a live-status light. */
+  .availability__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #2dd4bf;
+    animation: availability-pulse 2.4s ease-in-out infinite;
+  }
+
+  .contact__grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .contact__title {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 6vw, 4.25rem);
+  }
+
+  .contact__line {
+    max-width: 34rem;
+    margin: 1.4rem 0 0;
+    color: var(--text-dim);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .details {
+    display: grid;
+    gap: 1.2rem;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--panel);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .details__row {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .details__term,
+  .details__value {
+    margin: 0;
+  }
+
+  .details__value {
+    color: var(--text);
+  }
+
+  .details__value a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .details__value a:hover {
+    color: var(--accent);
+  }
+
+  .details__value--row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+  }
+
+  /* /contact route -------------------------------------------------------- */
+  .channel-row {
+    display: grid;
+    gap: 0.75rem;
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .channel__link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--panel);
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .channel__link:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .channel__name {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Icons ship as black-filled SVGs; painting them as a mask over
+     `currentColor` keeps them legible here and inherits the hover state. */
+  .channel-icon {
+    display: inline-block;
+    flex: none;
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .channel-icon--mask {
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+
+  .contact-form {
+    margin-top: clamp(2rem, 5vw, 3rem);
+  }
+
+  .contact-form__fields {
+    display: grid;
+    gap: 1.1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .contact-form__lead {
+    max-width: 34rem;
+    margin: 0 0 1.5rem;
+    color: var(--text-dim);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .field__input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--panel);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9375rem;
+    resize: vertical;
+  }
+
+  .field__input:hover {
+    border-color: var(--text-dim);
+  }
+
   @media (min-width: 768px) {
     .teaching__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .writing__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .contact__grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .channel-row {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .contact-form__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field--wide {
+      grid-column: 1 / -1;
     }
   }
 }
@@ -1081,6 +1504,19 @@
 
   50% {
     transform: translateY(5px);
+  }
+}
+
+@keyframes availability-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.5);
+  }
+
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 0 0.35rem rgba(45, 212, 191, 0);
   }
 }
 
@@ -1113,5 +1549,11 @@
   .tilt {
     transform: none !important;
     transition: none !important;
+  }
+
+  /* The availability light stays lit rather than flashing. */
+  .availability__dot {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

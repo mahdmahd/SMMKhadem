@@ -4,6 +4,9 @@ import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } fr
 import App from './App'
 
 const HOME_SECTIONS = [
+  'top',
+  'about',
+  'toolkit',
   'research',
   'projects',
   'publications',
@@ -30,8 +33,10 @@ afterEach(() => {
 })
 
 describe('App routing', () => {
-  it('renders the home shell with the five section anchors', () => {
+  it('renders the home shell with all nine section anchors', () => {
     renderAt('/')
+
+    expect(HOME_SECTIONS).toHaveLength(9)
 
     for (const id of HOME_SECTIONS) {
       expect(document.getElementById(id)).toBeInTheDocument()
@@ -62,10 +67,11 @@ describe('App routing', () => {
     expect(document.getElementById('posts')).toBeInTheDocument()
   })
 
-  it('renders the post stub for legacy /posts/:slug paths', () => {
-    renderAt('/posts/mem1')
+  it('renders the MDX post at /posts/:slug', async () => {
+    renderAt('/posts/a-tragedy-part-1')
 
-    expect(screen.getByText(/mem1/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('A tragedy - part 1')
+    expect(await screen.findByText(/Amir—one of the kind-hearted kids/)).toBeInTheDocument()
   })
 
   it('renders the PERSiMED case study for legacy /projects/:slug paths', () => {
