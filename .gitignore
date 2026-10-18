@@ -27,3 +27,4 @@ pnpm-debug.log*
 
 # Claude Code working state
 .superpowers/
+.impeccable/

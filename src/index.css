@@ -1,1 +1,330 @@
 @import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — values are fixed by the design spec; do not re-tune them
+   without an owner decision.
+   --------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    --bg:#050505; --panel:#0b0b0b; --border:rgba(255,255,255,.12); --text:#f5f5f4; --text-dim:#a3a3a2; --accent:#e8e4dc; --accent-hover:#d6d1c6; --on-accent:#050505;
+
+    /* Derived layout + type tokens */
+    --container:72rem;
+    --gutter:1.5rem;
+    --section-pad:clamp(6rem,7vw,8rem);
+    --header-h:4.5rem;
+    --radius-pill:9999px;
+    --mono:ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --display-glow:linear-gradient(180deg,#fff,#8a8a8a);
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Component grammar
+   --------------------------------------------------------------------------- */
+@layer components {
+  .container {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section {
+    padding-block: var(--section-pad);
+  }
+
+  /* Oversized metallic display type */
+  .display {
+    font-family: var(--sans);
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    background-image: linear-gradient(180deg,#fff,#8a8a8a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Eyebrows, nav, meta */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Pill buttons */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.15rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .pill:hover {
+    background: var(--accent-hover);
+  }
+
+  .pill--ghost {
+    background: transparent;
+    color: var(--text);
+  }
+
+  .pill--ghost:hover {
+    background: var(--panel);
+    border-color: var(--accent);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: 0 0 var(--radius-pill) 0;
+  }
+
+  .skip-link:focus {
+    left: 0;
+  }
+
+  .app-main {
+    padding-top: var(--header-h);
+    min-height: 100vh;
+  }
+
+  /* Fixed header -------------------------------------------------------- */
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .site-header.is-scrolled {
+    background: rgba(5, 5, 5, 0.72);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: var(--header-h);
+  }
+
+  .site-header__mark {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .site-nav {
+    display: none;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+    position: absolute;
+    inset-inline: 0;
+    top: var(--header-h);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem var(--gutter) 1.5rem;
+    background: rgba(5, 5, 5, 0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(14px);
+  }
+
+  .site-nav__link {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .site-nav__link:hover {
+    color: var(--text);
+  }
+
+  .site-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.4rem 0.9rem;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    .site-nav {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      padding: 0;
+      background: none;
+      border: 0;
+      backdrop-filter: none;
+    }
+
+    .site-nav-toggle {
+      display: none;
+    }
+  }
+
+  /* Footer -------------------------------------------------------------- */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+    padding-block: 3rem;
+    margin-top: var(--section-pad);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+  }
+
+  .site-footer__nav,
+  .site-footer__channels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__nav a,
+  .site-footer__channels a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .site-footer__nav a:hover,
+  .site-footer__channels a:hover {
+    color: var(--text);
+  }
+
+  .site-footer__copy {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Reveal (see src/components/Reveal.tsx) ------------------------------ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .section__placeholder {
+    margin: 0.5rem 0 0;
+    color: var(--text-dim);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — the marquee (Task 4), reveal wrapper and tilt effects are
+   pure decoration; kill them, and keep every rule that follows a no-op.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee,
+  .marquee__track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tilt {
+    transform: none !important;
+    transition: none !important;
+  }
+}
