@@ -8,7 +8,7 @@ export default function ProjectDetail() {
   const { slug } = useParams()
 
   return (
-    <article className="container section">
+    <article className="shell section">
       <p className="eyebrow">Project</p>
       <h1 className="display">{slug}</h1>
       <p className="section__placeholder">Project detail lands in a later task.</p>

@@ -64,7 +64,6 @@ export default function Reveal({ children, as, delay = 0, className }: RevealPro
       ref={elementRef}
       className={classes}
       style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
-      data-reveal={visible ? 'visible' : 'hidden'}
     >
       {children}
     </Tag>

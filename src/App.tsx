@@ -7,6 +7,7 @@ import ContactPage from './routes/ContactPage'
 import Home from './routes/Home'
 import NotFound from './routes/NotFound'
 import PostPage from './routes/PostPage'
+import PostsIndex from './routes/PostsIndex'
 import ProjectDetail from './routes/ProjectDetail'
 
 /**
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/posts" element={<PostsIndex />} />
           <Route path="/posts/:slug" element={<PostPage />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="*" element={<NotFound />} />

@@ -30,8 +30,8 @@ export default function Header() {
 
   return (
     <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
-      <div className="container site-header__inner">
-        <Link className="site-header__mark" to="/">
+      <div className="shell site-header__inner">
+        <Link className="mark" to="/">
           {profile.name}
         </Link>
 

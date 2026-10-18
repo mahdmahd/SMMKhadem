@@ -8,8 +8,8 @@ export default function Footer() {
 
   return (
     <footer className="site-footer">
-      <div className="container site-footer__inner">
-        <Link className="site-header__mark" to="/">
+      <div className="shell site-footer__inner">
+        <Link className="mark" to="/">
           {profile.name}
         </Link>
 

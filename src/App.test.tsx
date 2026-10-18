@@ -36,6 +36,15 @@ describe('App routing', () => {
     expect(document.getElementById('contact')).toBeInTheDocument()
   })
 
+  it('renders the posts index at /posts and at the legacy /posts/ path', () => {
+    renderAt('/posts')
+    expect(document.getElementById('posts')).toBeInTheDocument()
+
+    cleanup()
+    renderAt('/posts/')
+    expect(document.getElementById('posts')).toBeInTheDocument()
+  })
+
   it('renders the post stub for legacy /posts/:slug paths', () => {
     renderAt('/posts/mem1')
 

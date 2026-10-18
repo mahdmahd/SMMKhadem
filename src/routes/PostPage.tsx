@@ -8,7 +8,7 @@ export default function PostPage() {
   const { slug } = useParams()
 
   return (
-    <article className="container section">
+    <article className="shell section">
       <p className="eyebrow">Post</p>
       <h1 className="display">{slug}</h1>
       <p className="section__placeholder">Post body lands in a later task.</p>

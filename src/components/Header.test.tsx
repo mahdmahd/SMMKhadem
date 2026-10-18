@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { nav, profile } from '../data/portfolio'
+import { compiledStylesheet, declarations, ruleBody } from '../test/compiled-css'
 import Header from './Header'
 
 function renderHeader() {
@@ -91,5 +92,22 @@ describe('Header', () => {
 
     expect(toggle).toHaveAttribute('aria-expanded', 'true')
     expect(navigation).toHaveClass('is-open')
+  })
+})
+
+/**
+ * The blur lives in the stylesheet, so assert it against the CSS Vite + Tailwind
+ * actually emit — Lightning CSS rewrites this declaration on the way out, and
+ * hand-writing the -webkit- prefix alongside the standard one makes it drop the
+ * standard property (which Chromium/Firefox then ignore).
+ */
+describe('Header scrolled background, in the shipped CSS', () => {
+  it('applies a standard backdrop-filter once scrolled', async () => {
+    const css = await compiledStylesheet()
+    const properties = declarations(ruleBody(css, '.site-header.is-scrolled')).map(
+      (declaration) => declaration.split(':')[0],
+    )
+
+    expect(properties).toContain('backdrop-filter')
   })
 })

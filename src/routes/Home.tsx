@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       {HOME_SECTIONS.map((section, index) => (
-        <section key={section.id} id={section.id} className="container section">
+        <section key={section.id} id={section.id} className="shell section">
           <Reveal delay={index * 40}>
             <p className="eyebrow">{section.label}</p>
             <p className="section__placeholder">

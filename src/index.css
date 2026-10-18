@@ -9,7 +9,7 @@
     --bg:#050505; --panel:#0b0b0b; --border:rgba(255,255,255,.12); --text:#f5f5f4; --text-dim:#a3a3a2; --accent:#e8e4dc; --accent-hover:#d6d1c6; --on-accent:#050505;
 
     /* Derived layout + type tokens */
-    --container:72rem;
+    --shell-width:72rem;
     --gutter:1.5rem;
     --section-pad:clamp(6rem,7vw,8rem);
     --header-h:4.5rem;
@@ -51,7 +51,10 @@
    Component grammar
    --------------------------------------------------------------------------- */
 @layer components {
-  .container {
+  /* Page shell. Deliberately NOT named `.container`: Tailwind v4 emits its own
+     core `.container` utility into the utilities layer, which outranks anything
+     declared here in the components layer, so the 72rem cap would be dead. */
+  .shell {
     width: 100%;
     max-width: 72rem;
     margin-inline: auto;
@@ -151,8 +154,9 @@
   .site-header.is-scrolled {
     background: rgba(5, 5, 5, 0.72);
     border-bottom-color: var(--border);
+    /* Standard property only — Lightning CSS adds the -webkit- prefix itself.
+       Hand-writing the pair makes it drop the unprefixed one. */
     backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
   }
 
   .site-header__inner {
@@ -163,7 +167,7 @@
     height: var(--header-h);
   }
 
-  .site-header__mark {
+  .mark {
     font-size: 15px;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -272,7 +276,6 @@
   .site-footer__channels a:hover {
     color: var(--text);
   }
-
   .site-footer__copy {
     width: 100%;
     margin: 0;
