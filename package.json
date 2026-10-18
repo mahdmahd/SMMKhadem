@@ -9,7 +9,8 @@
     "postbuild": "cp dist/index.html dist/404.html",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "audit:links": "node scripts/audit-links.mjs"
   },
   "dependencies": {
     "lenis": "^1.3.27",
