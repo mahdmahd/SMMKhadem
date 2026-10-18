@@ -90,6 +90,50 @@ describe('compiled stylesheet', () => {
   })
 })
 
+describe('marquee (Task 4)', () => {
+  it('ships a keyframes loop that translates by one copy of the track', async () => {
+    const css = await compiledStylesheet()
+
+    expect(css).toContain('@keyframes marquee-scroll')
+
+    const keyframes = ruleBody(css, '@keyframes marquee-scroll')
+
+    expect(keyframes).toMatch(/transform:\s*translate/)
+    // The distance is the component's `--marquee-shift` (100 / copies), so the
+    // keyframes and the number of rendered copies can never drift apart.
+    expect(keyframes).toMatch(/var\(--marquee-shift/)
+  })
+
+  it('drives the track from one rule, overridden only by reduced motion', async () => {
+    const css = await compiledStylesheet()
+    const trackRules = css.match(/\.marquee__track[^{]*\{/g) ?? []
+
+    // One base rule + the reduced-motion override. A third would mean a
+    // Tailwind core utility of the same name is shadowing the components layer.
+    expect(trackRules).toHaveLength(2)
+
+    const track = ruleBody(css, '.marquee__track')
+
+    // Lightning CSS reorders the animation shorthand, so assert on the parts,
+    // not on their order: the keyframes name, an endless loop, and a duration
+    // that comes from the per-row custom property.
+    expect(track).toMatch(/animation:[^;}]*marquee-scroll/)
+    expect(track).toMatch(/animation:[^;}]*infinite/)
+    expect(track).toMatch(/animation-duration:\s*var\(--marquee-duration/)
+    expect(track).toMatch(/animation-direction:\s*var\(--marquee-direction/)
+
+    const reducedMotion = blockBody(css, 'prefers-reduced-motion')
+
+    expect(reducedMotion).toMatch(/\.marquee__track[^{]*\{[^}]*animation:\s*none/)
+  })
+
+  it('fades the marquee edges with a mask', async () => {
+    const css = await compiledStylesheet()
+
+    expect(css).toMatch(/\.marquee[^{]*\{[^}]*mask-image:\s*linear-gradient\(90deg/)
+  })
+})
+
 describe('reduced motion', () => {
   it('ships a prefers-reduced-motion block', () => {
     expect(source).toContain('prefers-reduced-motion: reduce')

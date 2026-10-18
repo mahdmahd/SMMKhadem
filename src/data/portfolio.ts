@@ -91,6 +91,51 @@ export const channels: Channel[] = [
   },
 ]
 
+/* ------------------------------------------------------------------- about */
+
+/**
+ * Homepage bio, one string per paragraph, condensed to ~150 words from the
+ * owner's about page (narrative voice) and the CV (facts and dates). The
+ * `**…**` spans render as `<mark>` highlights in `src/sections/About.tsx` —
+ * eight of them, the load-bearing phrases of the arc.
+ */
+export const about: string[] = [
+  'I came to data science through medicine. My M.D. thesis at Iran University of Medical Sciences asked how regional structural change on **routine clinical MRI** tracks cognitive decline in **frontotemporal dementia** — and answering it meant learning **neuroimaging** properly: slice-to-volume reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
+  'Then came the years I value most: full-time general practice at Foolad Clinic, where research questions arrive as people rather than as datasets — and where I found that I genuinely enjoy mathematics and statistics once they meet a real clinical problem.',
+  'At the Minimally Invasive Research Center I moved to **bariatric surgery**, building predictive models and **explainable AI** that clinicians can inspect: SHAP values and bedside scores instead of black boxes. Now, at Saman Insurance, I work on **clinical NLP** — **RAG** pipelines over **Persian medical documents**, and LLM workflows for claims, fraud detection and patient records.',
+]
+
+export type TimelineEntry = {
+  role: string
+  organisation: string
+  /** Human-readable period, e.g. `2024 – present`. */
+  period: string
+}
+
+/** Education and appointments for the homepage mini-timeline, CV order. */
+export const timeline: TimelineEntry[] = [
+  {
+    role: 'M.D., Medicine',
+    organisation: 'Iran University of Medical Sciences',
+    period: '2015 – 2022',
+  },
+  {
+    role: 'General Practitioner',
+    organisation: 'Foolad Clinic',
+    period: '2022 – 2024',
+  },
+  {
+    role: 'AI Researcher & Developer',
+    organisation: 'Minimally Invasive Research Center',
+    period: '2024 – present',
+  },
+  {
+    role: 'Medical Insurance Consultant (AI & Analytics)',
+    organisation: 'Saman Insurance',
+    period: '2025 – present',
+  },
+]
+
 /* ----------------------------------------------------------------- toolkit */
 
 /** Chip rows for the methods marquee: one row per method family, CV order. */

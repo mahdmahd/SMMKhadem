@@ -298,6 +298,255 @@
     margin: 0.5rem 0 0;
     color: var(--text-dim);
   }
+
+  /* Hero (Task 4) -------------------------------------------------------- */
+  .hero {
+    display: flex;
+    align-items: center;
+    /* The header is fixed above the page, so its height comes off the fold. */
+    min-height: calc(100svh - var(--header-h));
+    padding-block: var(--section-pad);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* The title sizes against this column rather than the viewport, so the art
+     panel can take its share at any width without the display type overflowing
+     it. The longest line is 6.12em, so 13cqw leaves a fifth of the column free. */
+  .hero__text {
+    container-type: inline-size;
+  }
+
+  .hero__title {
+    margin: 0;
+    /* Louder than .display's default: this is the page's biggest type. */
+    font-size: clamp(2.75rem, 13cqw, 8rem);
+  }
+
+  .hero__line {
+    display: block;
+  }
+
+  .hero__subtitle {
+    margin: 1.75rem 0 0;
+  }
+
+  .hero__tagline {
+    max-width: 44ch;
+    margin: 0.75rem 0 0;
+    color: var(--text-dim);
+    font-size: 1.0625rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .hero__cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .hero__cue:hover {
+    color: var(--text);
+  }
+
+  .hero__cue-arrow {
+    animation: hero-cue 2.6s ease-in-out infinite;
+  }
+
+  /* Generated duotone panel, not a photograph: the only portrait on hand is
+     266px wide, which is unusable at hero scale (owner decision). */
+  .hero__art {
+    display: none;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    }
+
+    .hero__art {
+      display: block;
+    }
+  }
+
+  /* About (Task 4) ------------------------------------------------------- */
+  .about__title {
+    margin: 0;
+  }
+
+  .about__grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .about__bio {
+    max-width: 48rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--panel);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .about__bio p {
+    margin: 0 0 1rem;
+  }
+
+  .about__bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about__bio mark {
+    background: none;
+    color: var(--text);
+    font-weight: 600;
+    /* A soft underline rather than a highlighter block, so the dark stage
+       stays intact and emphasis still reads at a glance. */
+    box-shadow: inset 0 -0.45em 0 rgba(232, 228, 220, 0.16);
+  }
+
+  .timeline {
+    max-width: 34rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .timeline__entry {
+    position: relative;
+    padding: 0 0 1.75rem 1.5rem;
+  }
+
+  .timeline__entry:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__entry::before {
+    content: "";
+    position: absolute;
+    top: 0.45rem;
+    left: -4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .timeline__period {
+    display: block;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .timeline__role {
+    margin: 0.2rem 0 0;
+    font-weight: 600;
+  }
+
+  .timeline__org {
+    margin: 0;
+    color: var(--text-dim);
+  }
+
+  /* Marquee (Task 4) ----------------------------------------------------- */
+  /* The track holds COPIES identical copies of the chip list and the animation
+     shifts it by exactly one copy (`--marquee-shift` = 100 / COPIES %), so the
+     loop is seamless while the copies beyond the first still span the
+     container — which the 72rem shell cap guarantees for the shortest row. */
+  .marquee {
+    overflow: hidden;
+    /* Edge fade: chips dissolve into the page instead of being clipped.
+       Standard property only — Lightning CSS adds the -webkit- prefix itself,
+       and hand-writing the pair makes it drop the unprefixed one. */
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll linear infinite;
+    animation-duration: var(--marquee-duration, 44s);
+    animation-direction: var(--marquee-direction, normal);
+  }
+
+  .marquee__group {
+    display: flex;
+    flex: none;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0 0.75rem 0 0;
+    list-style: none;
+  }
+
+  .marquee__chip {
+    flex: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1.1rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  /* Toolkit (Task 4) ----------------------------------------------------- */
+  .toolkit__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-top: 2.5rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Keyframes — unlayered, so no layer can outrank them.
+   --------------------------------------------------------------------------- */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    /* One copy of the track; set by the Marquee component. */
+    transform: translate3d(var(--marquee-shift, -25%), 0, 0);
+  }
+}
+
+@keyframes hero-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 /* ---------------------------------------------------------------------------
