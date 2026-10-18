@@ -868,6 +868,195 @@
   .project-detail__back {
     margin: clamp(2.5rem, 6vw, 4rem) 0 0;
   }
+
+  /* Publications (Task 6) ------------------------------------------------ */
+  .publications__group {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .publications__group-heading {
+    margin: 0 0 1.25rem;
+  }
+
+  .publications__list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .publication {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .publication__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0 0 0.6rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .publication__status {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.2rem 0.7rem;
+  }
+
+  /* Ongoing manuscripts read a step back from the published record. */
+  .publication--under-review .publication__status,
+  .publication--in-preparation .publication__status {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .publication__title {
+    max-width: 60rem;
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .publication__authors {
+    max-width: 60rem;
+    margin: 0.6rem 0 0;
+    color: var(--text-dim);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .publication__venue {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.9rem;
+    margin: 0.6rem 0 0;
+  }
+
+  .publication__journal {
+    font-style: italic;
+  }
+
+  .publication__impact {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .publication__note {
+    margin: 0.6rem 0 0;
+    color: var(--text-dim);
+    font-size: 0.875rem;
+  }
+
+  .publication__actions {
+    margin: 1.1rem 0 0;
+  }
+
+  .publications__legend {
+    margin: 1.5rem 0 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Teaching & Service (Task 6) ------------------------------------------ */
+  .teaching__grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .teaching__card {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--panel);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .teaching__heading {
+    margin: 0 0 1.1rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .teaching__list,
+  .reviewer__list,
+  .grant__list,
+  .membership__list {
+    display: grid;
+    gap: 1.1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .teaching__item-title,
+  .reviewer__journal,
+  .grant__title,
+  .membership__name {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .teaching__item-meta,
+  .reviewer__role,
+  .membership__role,
+  .membership__since {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--text-dim);
+  }
+
+  .teaching__item-detail {
+    margin: 0.45rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-dim);
+  }
+
+  .grant__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.75rem;
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--text-dim);
+  }
+
+  .grant__amount {
+    font-family: var(--mono);
+    color: var(--accent);
+  }
+
+  .teaching__actions {
+    margin-top: clamp(2rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 768px) {
+    .teaching__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 }
 
 /* ---------------------------------------------------------------------------

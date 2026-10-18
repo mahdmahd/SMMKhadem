@@ -3,7 +3,14 @@ import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } fr
 
 import App from './App'
 
-const HOME_SECTIONS = ['research', 'projects', 'publications', 'blog', 'contact']
+const HOME_SECTIONS = [
+  'research',
+  'projects',
+  'publications',
+  'teaching',
+  'blog',
+  'contact',
+]
 
 function renderAt(path: string) {
   window.history.pushState({}, '', path)

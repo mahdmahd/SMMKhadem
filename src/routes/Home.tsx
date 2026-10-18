@@ -2,16 +2,17 @@ import Reveal from '../components/Reveal'
 import About from '../sections/About'
 import Hero from '../sections/Hero'
 import Projects from '../sections/Projects'
+import Publications from '../sections/Publications'
 import Research from '../sections/Research'
+import Teaching from '../sections/Teaching'
 import Toolkit from '../sections/Toolkit'
 
 /**
- * Home — Hero, About, Toolkit, Research and Projects ship here, in spec order.
- * The remaining anchors still hold the Task 2 stubs, so the header nav targets
- * stay live while Tasks 6–7 land.
+ * Home — Hero, About, Toolkit, Research, Projects, Publications and Teaching
+ * ship here, in spec order. The remaining anchors still hold the Task 2 stubs,
+ * so the header nav targets stay live while Task 7 lands.
  */
 const HOME_STUBS = [
-  { id: 'publications', label: 'Publications' },
   { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' },
 ]
@@ -24,6 +25,8 @@ export default function Home() {
       <Toolkit />
       <Research />
       <Projects />
+      <Publications />
+      <Teaching />
 
       {HOME_STUBS.map((section, index) => (
         <section key={section.id} id={section.id} className="shell section">

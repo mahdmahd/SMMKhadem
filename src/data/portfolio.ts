@@ -529,7 +529,11 @@ export type PublicationStatus = 'published' | 'under-review' | 'in-preparation'
 
 export type Publication = {
   title: string
-  /** Author list, verbatim from the CV, corresponding-author `*` included. */
+  /**
+   * Author list, verbatim from the CV, corresponding-author `*` included. The
+   * CV abbreviates long lists with a dot run (`.....`); that marker is kept so
+   * the page never claims an author order the source does not state.
+   */
   authors: string[]
   venue: string
   year: number
@@ -538,10 +542,101 @@ export type Publication = {
   /** PubMed / civilica / DOI link, only when verified. */
   url?: string
   status: PublicationStatus
+  /** Optional footnote, e.g. a preprint's review status. */
+  note?: string
 }
 
-/** Task 6 fills these from the CV (4 published, 4 ongoing). */
-export const publications: Publication[] = []
+/**
+ * The CV's Publications section, canonical and verbatim: four published
+ * manuscripts (two in Obesity Surgery), then the four ongoing ones. The
+ * `*` on `SMM Khadem*` marks corresponding authorship; the section prints the
+ * legend. The CV's own dot-run placeholder for omitted co-authors is preserved.
+ */
+export const publications: Publication[] = [
+  {
+    title:
+      'Unveiling Predictors of Hypoalbuminemia Following One Anastomosis Gastric Bypass (OAGB): A Retrospective Analysis',
+    authors: [
+      'Arshad Ali',
+      'Shahab Shahabi',
+      'Delaram Moosavi',
+      'SMM Khadem*',
+      '.....',
+      'Mohammad Kermansaravi',
+    ],
+    venue: 'Obesity Surgery (Springer)',
+    year: 2025,
+    impact: 'IF 3.1 · Q1 (2024)',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/41201758/',
+    status: 'published',
+  },
+  {
+    title: 'Navigating the Complexities of Pemphigus Vulgaris: A Comprehensive Iranian Study',
+    authors: ['Delaram Moosavi', 'SMM Khadem*', '.....', 'Azadeh Goodarzi'],
+    venue: 'Immunity, Inflammation and Disease (Wiley)',
+    year: 2025,
+    impact: 'IF 2.7 · Q1 (2024)',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/41640030/',
+    status: 'published',
+  },
+  {
+    title:
+      'Effects of Metabolic and Bariatric Surgery on Serum Uric Acid and its relation with Renal Function, and Visceral Adiposity: A Systematic Review and Meta-Analysis',
+    authors: ['Delaram Moosavi', 'SMM Khadem*', '.....', 'Seyed Arash Javadmoosavi'],
+    venue: 'Obesity Surgery (Springer)',
+    year: 2025,
+    impact: 'IF 3.1 · Q1 (2024)',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/41840314/',
+    status: 'published',
+  },
+  {
+    title:
+      'PERSiMED: PERSian Intelligent MEDical Document Reader: A Smart NLP-based Framework for Persian Medical Documents',
+    authors: ['SMM Khadem*', 'Jamil Seydi Moradi'],
+    venue:
+      'The 32nd National and 13th International Conference on Insurance and Development ("Reimagining Supervision in Insurance")',
+    year: 2025,
+    url: 'https://en.civilica.com/doc/2472372/',
+    status: 'published',
+  },
+  {
+    title:
+      'ApoE Genotype Related Differences in Hippocampal Shape and Subfield Structure in Cognitively Normal Adults',
+    authors: ['SMM Khadem*', 'AmirHussein Abdolalizadeh'],
+    venue: 'Manuscript in preparation',
+    year: 2026,
+    status: 'in-preparation',
+  },
+  {
+    title:
+      'A Retrieval Augmented Clinical Question Answering System for Bariatric Surgery Built on the ASMBS Textbook: From Good to Great',
+    authors: [
+      'SMM Khadem*',
+      'Delaram Moosavi',
+      'Mohammad Qasim Sorush',
+      'Mohammad Kermansaravi',
+      'Shahab Shahabi',
+    ],
+    venue: 'Research Square',
+    year: 2026,
+    status: 'under-review',
+  },
+  {
+    title: 'Biliopancreatic Limb Length: From Estimation to Measurement: A Pilot Study',
+    authors: ['SMM Khadem*', '.....', 'Mohammad Kermansaravi'],
+    venue: 'Manuscript in preparation',
+    year: 2025,
+    status: 'in-preparation',
+  },
+  {
+    title:
+      'Modeling Long-Term Weight Trajectories After Bariatric Surgery Using Latent Class Analysis and Explainable Machine Learning',
+    authors: ['SMM Khadem*', '.....', 'Mohammad Kermansaravi'],
+    venue: 'Manuscript in preparation',
+    year: 2025,
+    status: 'in-preparation',
+  },
+]
 
 /* ------------------------------------------------------ teaching & service */
 
@@ -580,10 +675,87 @@ export type TeachingService = {
   memberships: MembershipEntry[]
 }
 
-/** Task 6 fills these from the CV (4 teaching, 2 journals, 5 grants, 2 memberships). */
+/**
+ * Teaching and service, verbatim from the CV: four teaching activities, two
+ * reviewer journals, five grants/awards and two memberships. `role` carries the
+ * activity title, `organisation` the institution; the capacity he served in
+ * (Lecturer, Lead Organizer) opens each `detail`.
+ */
 export const teaching: TeachingService = {
-  teaching: [],
-  reviewing: [],
-  grants: [],
-  memberships: [],
+  teaching: [
+    {
+      role: 'Meta-Analysis Methods for Neuroimaging Studies',
+      organisation: 'National Brain Center, Tehran',
+      period: '2023',
+      detail:
+        'Lecturer. A hands-on workshop focused on conducting meta-analyses in neuroimaging studies, covering study selection, effect size extraction, and quantitative synthesis to draw robust, reproducible conclusions from brain imaging data.',
+    },
+    {
+      role: '1st National Health Hackathon',
+      organisation: 'IUMS',
+      period: '2018',
+      detail:
+        'Lead organizer. Designed a solution, guided by MIT Health Hackathon frameworks, to bridge collaboration between clinicians and engineers in addressing real-world clinical and healthcare challenges.',
+    },
+    {
+      role: 'Advanced Python Programming for Medical Students',
+      organisation: 'IUMS',
+      period: '2017',
+      detail:
+        'Lecturer. An advanced course that trains medical students to use Python libraries such as scikit-learn and statsmodels for statistical analysis, modeling, and data-driven medical research.',
+    },
+    {
+      role: 'Basic Python Programming for Medical Students',
+      organisation: 'IUMS',
+      period: '2017',
+      detail:
+        'Lecturer. An introductory programming course designed to equip medical students with foundational Python skills for data handling and analysis.',
+    },
+  ],
+  reviewing: [
+    { journal: 'The American Journal of Case Reports', role: 'Peer reviewer' },
+    { journal: 'Medical Science Monitor', role: 'Peer reviewer' },
+  ],
+  grants: [
+    {
+      title: 'PERSiMED — Persian Intelligent Medical Document Reader',
+      funder: 'Saman Insurance Company',
+      year: '2025',
+      amount: '€1,000',
+    },
+    {
+      title: 'Biliopancreatic Limb Length — From Estimation to Measurement (Pilot Study)',
+      funder: 'Minimally Invasive Research Center',
+      year: '2024',
+      amount: '€800',
+    },
+    {
+      title: 'Effects of Metabolic and Bariatric Surgery on Serum Uric Acid',
+      funder: 'IUMS (IR.IUMS.REC.1403.882)',
+      year: '2024',
+      amount: '€300',
+    },
+    {
+      title: 'Gastric Botulinum Toxin Injection and Weight Loss',
+      funder: 'IUMS (IR.IUMS.REC.1403.884)',
+      year: '2023',
+      amount: '€300',
+    },
+    {
+      title: 'Top 1% Rank Nationwide, Iranian University Entrance Examination (Konkur)',
+      year: '2015',
+    },
+  ],
+  memberships: [
+    {
+      name: 'Iran Medical Council (IRIMC)',
+      role: 'Professional membership',
+      since: '2022 – present',
+    },
+    {
+      name: 'iAIMS — AI x MS community',
+      role: 'Board candidate, Coding Lead',
+      since: '2025 – present',
+    },
+  ],
 }

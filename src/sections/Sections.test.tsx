@@ -7,7 +7,9 @@ import {
   allProjects,
   featuredProjects,
   profile,
+  publications,
   researchAreas,
+  teaching,
   timeline,
   toolkit,
   type Project,
@@ -17,7 +19,9 @@ import ProjectDetail from '../routes/ProjectDetail'
 import About from './About'
 import Hero from './Hero'
 import Projects from './Projects'
+import Publications from './Publications'
 import Research from './Research'
+import Teaching from './Teaching'
 import Toolkit from './Toolkit'
 
 afterEach(cleanup)
@@ -490,8 +494,88 @@ describe('ProjectDetail', () => {
   })
 })
 
+describe('Publications', () => {
+  it('renders all eight manuscripts — four published, four ongoing', () => {
+    render(<Publications />)
+
+    const items = section('publications').querySelectorAll('.publication')
+
+    expect(publications).toHaveLength(8)
+    expect(items).toHaveLength(8)
+  })
+
+  it('prints the venue and the impact factor, with Obesity Surgery twice', () => {
+    render(<Publications />)
+
+    const text = section('publications').textContent ?? ''
+
+    expect(text.match(/Obesity Surgery/g)).toHaveLength(2)
+    expect(text).toContain('Immunity, Inflammation and Disease')
+    expect(text).toContain('IF 3.1')
+    expect(text).toContain('IF 2.7')
+  })
+
+  it('preserves the corresponding-author asterisk in the author lists', () => {
+    render(<Publications />)
+
+    expect(section('publications').textContent).toContain('SMM Khadem*')
+  })
+
+  it('explains the asterisk in a legend beneath the list', () => {
+    render(<Publications />)
+
+    expect(screen.getByText(/\* indicates corresponding authorship/i)).toBeInTheDocument()
+  })
+
+  it('links the hypoalbuminemia paper to PubMed and PERSiMED to civilica', () => {
+    render(<Publications />)
+
+    const hrefs = Array.from(
+      section('publications').querySelectorAll<HTMLAnchorElement>('a[href]'),
+    ).map((anchor) => anchor.getAttribute('href'))
+
+    expect(hrefs).toContain('https://pubmed.ncbi.nlm.nih.gov/41201758/')
+    expect(hrefs).toContain('https://en.civilica.com/doc/2472372/')
+  })
+})
+
+describe('Teaching & Service', () => {
+  it('renders four teaching entries, two journals, five grants and two memberships', () => {
+    render(<Teaching />)
+
+    const teachingSection = section('teaching')
+
+    expect(teaching.teaching).toHaveLength(4)
+    expect(teachingSection.querySelectorAll('.teaching__item')).toHaveLength(4)
+    expect(teachingSection.querySelectorAll('.reviewer__item')).toHaveLength(2)
+    expect(teachingSection.querySelectorAll('.grant__item')).toHaveLength(5)
+    expect(teachingSection.querySelectorAll('.membership__item')).toHaveLength(2)
+  })
+
+  it('names the journals, the memberships and a funded amount', () => {
+    render(<Teaching />)
+
+    const text = section('teaching').textContent ?? ''
+
+    expect(text).toContain('The American Journal of Case Reports')
+    expect(text).toContain('Medical Science Monitor')
+    expect(text).toContain('IRIMC')
+    expect(text).toMatch(/AI x MS/)
+    expect(text).toContain('€1,000')
+  })
+
+  it('offers the CV download', () => {
+    render(<Teaching />)
+
+    expect(within(section('teaching')).getByRole('link', { name: /download cv/i })).toHaveAttribute(
+      'href',
+      '/cv.pdf',
+    )
+  })
+})
+
 describe('Home composition', () => {
-  it('orders the new sections before the publications stub', () => {
+  it('orders the sections: hero → about → toolkit → research → projects → publications → teaching', () => {
     render(
       <MemoryRouter>
         <Home />
@@ -500,7 +584,16 @@ describe('Home composition', () => {
 
     const ids = Array.from(document.querySelectorAll('section[id]')).map((element) => element.id)
 
-    expect(ids.slice(0, 5)).toEqual(['top', 'about', 'toolkit', 'research', 'projects'])
+    expect(ids.slice(0, 7)).toEqual([
+      'top',
+      'about',
+      'toolkit',
+      'research',
+      'projects',
+      'publications',
+      'teaching',
+    ])
+    expect(ids).toContain('blog')
     expect(ids).toContain('contact')
   })
 })

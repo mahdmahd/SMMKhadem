@@ -279,16 +279,99 @@ describe('projects', () => {
     }
   })
 
-  it('ships the publication slot as an empty array', () => {
-    expect(publications).toHaveLength(0)
+  it('keeps the optional publication fields optional on the type', () => {
     expect(publicationSample.impact).toBeUndefined()
     expect(publicationSample.url).toBeUndefined()
+    expect(publicationSample.note).toBeUndefined()
+  })
+})
+
+describe('publications', () => {
+  it('lists eight manuscripts: four published and four ongoing', () => {
+    expect(publications).toHaveLength(8)
+    expect(publications.filter((entry) => entry.status === 'published')).toHaveLength(4)
+    expect(publications.filter((entry) => entry.status !== 'published')).toHaveLength(4)
   })
 
-  it('exposes the teaching/service buckets as arrays', () => {
-    expect(Array.isArray(teaching.teaching)).toBe(true)
-    expect(Array.isArray(teaching.reviewing)).toBe(true)
-    expect(Array.isArray(teaching.grants)).toBe(true)
-    expect(Array.isArray(teaching.memberships)).toBe(true)
+  it('preserves the corresponding-author asterisk in every author list', () => {
+    for (const entry of publications) {
+      expect(entry.authors.some((author) => author.includes('SMM Khadem*'))).toBe(true)
+      expect(entry.authors.every((author) => author.trim().length > 0)).toBe(true)
+    }
+  })
+
+  it('names Obesity Surgery for the two bariatric papers, and only those', () => {
+    const bariatric = publications.filter((entry) => entry.venue.includes('Obesity Surgery'))
+
+    expect(bariatric).toHaveLength(2)
+    expect(bariatric.every((entry) => entry.year === 2025)).toBe(true)
+  })
+
+  it('carries the verified PubMed and civilica links', () => {
+    const hypoalbuminemia = publications.find((entry) =>
+      entry.title.startsWith('Unveiling Predictors of Hypoalbuminemia'),
+    )
+    const persimed = publications.find((entry) => entry.title.startsWith('PERSiMED'))
+
+    expect(hypoalbuminemia?.url).toBe('https://pubmed.ncbi.nlm.nih.gov/41201758/')
+    expect(persimed?.url).toBe('https://en.civilica.com/doc/2472372/')
+  })
+
+  it('keeps every publication link on https', () => {
+    const urls = publications
+      .map((entry) => entry.url)
+      .filter((url): url is string => Boolean(url))
+
+    expect(urls.length).toBeGreaterThan(0)
+
+    for (const url of urls) {
+      expect(url).toMatch(/^https:\/\//)
+    }
+  })
+
+  it('marks the RAG manuscript under review and the rest of the ongoing set in preparation', () => {
+    const ongoing = publications.filter((entry) => entry.status !== 'published')
+
+    expect(ongoing.map((entry) => entry.status).sort()).toEqual([
+      'in-preparation',
+      'in-preparation',
+      'in-preparation',
+      'under-review',
+    ])
+  })
+})
+
+describe('teaching & service', () => {
+  it('lists four teaching entries, in CV order', () => {
+    expect(teaching.teaching).toHaveLength(4)
+    expect(teaching.teaching.map((entry) => entry.period)).toEqual(['2023', '2018', '2017', '2017'])
+  })
+
+  it('lists the two reviewer journals', () => {
+    expect(teaching.reviewing.map((entry) => entry.journal)).toEqual([
+      'The American Journal of Case Reports',
+      'Medical Science Monitor',
+    ])
+  })
+
+  it('lists five grants and awards, with the funded amounts', () => {
+    expect(teaching.grants).toHaveLength(5)
+    expect(teaching.grants.filter((entry) => entry.amount === '€300')).toHaveLength(2)
+    expect(teaching.grants.some((entry) => entry.amount === '€1,000')).toBe(true)
+  })
+
+  it('lists the two memberships — IRIMC and the AI x MS community', () => {
+    expect(teaching.memberships).toHaveLength(2)
+
+    const names = teaching.memberships.map((entry) => entry.name).join(' ')
+
+    expect(names).toContain('IRIMC')
+    expect(names).toMatch(/AI x MS/)
+  })
+})
+
+describe('CV asset', () => {
+  it('ships the CV PDF in public/, ready for the build to copy through', () => {
+    expect(existsSync(join(process.cwd(), 'public', 'cv.pdf'))).toBe(true)
   })
 })
