@@ -1,5 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from 'vitest'
 
 import App from './App'
 
@@ -10,7 +10,17 @@ function renderAt(path: string) {
   return render(<App />)
 }
 
-afterEach(cleanup)
+// ScrollToTop calls `window.scrollTo` on mount; jsdom does not implement it.
+let scrollTo: MockInstance
+
+beforeEach(() => {
+  scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
+})
+
+afterEach(() => {
+  cleanup()
+  vi.restoreAllMocks()
+})
 
 describe('App routing', () => {
   it('renders the home shell with the five section anchors', () => {
@@ -69,5 +79,44 @@ describe('App routing', () => {
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
+  })
+})
+
+describe('scroll restoration', () => {
+  let scrollTargets: Element[]
+
+  beforeEach(() => {
+    scrollTargets = []
+
+    // jsdom has no Element.scrollIntoView.
+    Element.prototype.scrollIntoView = function scrollIntoView(this: Element) {
+      scrollTargets.push(this)
+    }
+  })
+
+  afterEach(() => {
+    delete (Element.prototype as { scrollIntoView?: () => void }).scrollIntoView
+  })
+
+  it('scrolls to the top when a card opens its detail route', () => {
+    renderAt('/')
+    scrollTo.mockClear()
+
+    fireEvent.click(screen.getAllByRole('link', { name: /read more/i })[0])
+
+    expect(window.location.pathname).toBe('/projects/project-6')
+    expect(scrollTo).toHaveBeenCalledWith(0, 0)
+  })
+
+  it('leaves a hash navigation anchored to its section', () => {
+    renderAt('/projects/project-6')
+    scrollTo.mockClear()
+
+    fireEvent.click(screen.getByRole('link', { name: /back to projects/i }))
+
+    expect(window.location.pathname).toBe('/')
+    expect(window.location.hash).toBe('#projects')
+    expect(scrollTo).not.toHaveBeenCalled()
+    expect(scrollTargets).toContain(document.getElementById('projects'))
   })
 })

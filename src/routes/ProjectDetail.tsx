@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router'
 
+import ProjectActions from '../components/ProjectActions'
 import { allProjects, featuredProjects } from '../data/portfolio'
 import NotFound from './NotFound'
 
@@ -40,36 +41,7 @@ export default function ProjectDetail() {
       )}
 
       <div className="project-detail__actions">
-        {project.paperUrl && (
-          <a
-            className="pill pill--ghost"
-            href={project.paperUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Paper <span aria-hidden="true">↗</span>
-          </a>
-        )}
-        {project.codeUrl && (
-          <a
-            className="pill pill--ghost"
-            href={project.codeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Code <span aria-hidden="true">↗</span>
-          </a>
-        )}
-        {project.demoUrl && (
-          <a
-            className="pill pill--ghost"
-            href={project.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Demo <span aria-hidden="true">↗</span>
-          </a>
-        )}
+        <ProjectActions project={project} />
       </div>
 
       {project.overview && (

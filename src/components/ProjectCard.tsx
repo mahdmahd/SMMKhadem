@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 
 import type { Project } from '../data/portfolio'
+import ProjectActions from './ProjectActions'
 
 export type ProjectCardProps = {
   project: Project
@@ -48,36 +49,7 @@ export default function ProjectCard({ project, imageSide = 'right' }: ProjectCar
         <p className="project-card__summary">{project.summary}</p>
 
         <div className="project-card__actions">
-          {project.paperUrl && (
-            <a
-              className="pill pill--ghost"
-              href={project.paperUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Paper <span aria-hidden="true">↗</span>
-            </a>
-          )}
-          {project.codeUrl && (
-            <a
-              className="pill pill--ghost"
-              href={project.codeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Code <span aria-hidden="true">↗</span>
-            </a>
-          )}
-          {project.demoUrl && (
-            <a
-              className="pill pill--ghost"
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Demo <span aria-hidden="true">↗</span>
-            </a>
-          )}
+          <ProjectActions project={project} />
 
           <Link className="pill" to={`/projects/${project.slug}`}>
             Read more

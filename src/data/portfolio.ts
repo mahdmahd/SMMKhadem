@@ -477,8 +477,7 @@ export const allProjects: Project[] = [
     summary: 'A comprehensive systematic review and meta-analysis examining how metabolic and bariatric surgery (MBS) affects serum uric acid over time, and how these changes relate to renal function and visceral adiposity.',
     year: 2025,
     technologies: [
-      'R (meta',
-      'metafor)',
+      'R (meta, metafor)',
       'PRISMA Guidelines',
       'Random-Effects Meta-Analysis',
       'Meta-Regression',

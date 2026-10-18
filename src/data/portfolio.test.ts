@@ -204,6 +204,33 @@ describe('projects', () => {
     }
   })
 
+  it('keeps technology tokens verbatim — no naive comma split', () => {
+    // "R (meta, metafor)" has a comma inside the token; a plain split broke it
+    // into "R (meta" + "metafor)".
+    const uricacid = allProjects.find((entry) => entry.slug === 'project-uricacid')
+
+    expect(uricacid?.technologies).toEqual([
+      'R (meta, metafor)',
+      'PRISMA Guidelines',
+      'Random-Effects Meta-Analysis',
+      'Meta-Regression',
+      'Sensitivity and Bias Analysis',
+    ])
+
+    const persimed = featuredProjects.find((entry) => entry.slug === 'project-6')
+
+    expect(persimed?.technologies).toEqual([
+      'Python',
+      'Deep Learning (CNNs)',
+      'Vision-Language Models',
+      'Computer Vision',
+      'Natural Language Processing (NLP)',
+      'HTML Parsing (BeautifulSoup)',
+      'Structured Data Pipelines',
+      'Privacy-Preserving Data Architecture',
+    ])
+  })
+
   it('keeps every link and the carried prose optional on the type', () => {
     expect(projectSample.image).toBeUndefined()
     expect(projectSample.paperUrl).toBeUndefined()
