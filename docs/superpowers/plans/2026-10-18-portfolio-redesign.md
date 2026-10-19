@@ -150,6 +150,25 @@
 - [ ] **Step 2: Fix failures** (fallback config, route gaps). Focus-visible styles, alt text, image sizes (convert hero/project art to WebP where beneficial; avatar stays JPEG).
 - [ ] **Step 3: Run Lighthouse on `vite preview` homepage; record score in commit message. Both scripts green. Commit** (`chore: a11y/perf/route verification`).
 
+### Task 9a: Opening sequence + dot-filtered hero (owner request, 2026-10-19)
+
+**Files:**
+- Create: `src/components/Intro.tsx` (4-stage overlay: "Mehdi !" masked-line reveal → photo clip-path wipe → brain + plexus canvas → curtain lift), `src/components/IntroPlexus.tsx` (particle-network canvas, requestAnimationFrame, DPR-aware, cancels on unmount), `src/components/DotPortrait.tsx` (dot-mosaic hero portrait: photo → halftone dot grid via canvas sampling)
+- Modify: `src/sections/Hero.tsx` (replace abstract HeroArt with DotPortrait + keep split-line title), `src/routes/Home.tsx` (mount Intro overlay above app, click-to-skip), `src/index.css` (intro overlay styles, dot-grid canvas styles)
+- Assets: `src/assets/mehdi.jpg` (owner portrait); NO brain image — the brain stage is a **procedurally-drawn connectome** (canvas point cloud in a brain silhouette, plexus-linked, 3D-rotating; licensing-safe). Portrait optimized to ≤300KB WebP where beneficial.
+- Test: `src/components/Intro.test.tsx`, `DotPortrait.test.tsx`
+
+**Interfaces:**
+- Consumes: Hero (Task 4), profile data (Task 3), GSAP (allowed for the intro timeline — the pasted reference implementation uses it)
+- Produces: `Intro` overlay component (mounts once per session; renders nothing under prefers-reduced-motion, body scroll never locks in that case); `DotPortrait({src, cell, gap})` renders a canvas dot-grid portrait; Hero keeps #top semantics
+
+- [ ] **Step 1: Process assets** — copy the two images into src/assets/, convert portrait to WebP ≤300KB where beneficial.
+- [ ] **Step 2: Write failing tests** — Intro: renders nothing under prefers-reduced-motion; renders overlay + stages under normal motion; click-to-skip jumps to end state; body scroll locks during intro and unlocks after; plays once per session (sessionStorage flag). DotPortrait: canvas element exists; no raw-photo `<img>` at hero scale; dot-grid sampling tested with a small deterministic fixture.
+- [ ] **Step 3: Implement Intro** — adapt the owner-provided GSAP timeline (masked-line reveal, clip-path photo wipe, canvas connectome brain + plexus, curtain lift) into the React component with cleanup on unmount (kill tweens, cancel rAF). Brain = procedural point cloud: ~150-250 dots sampled inside a stylized brain silhouette (parametric outline or precomputed region clusters — cortex arc + cerebellum lump + brainstem stub), plexus lines between near neighbors, slow rotationY sweep like the reference's particle shell.
+- [ ] **Step 4: Implement DotPortrait** — canvas halftone: sample the photo into a grid of dots sized by local luminance, bone-white dots on #050505; static render under reduced motion.
+- [ ] **Step 5: Swap Hero art** — replace HeroArt SVG with DotPortrait(mehdi.jpg); keep split-line name + subtitle; hero height/semantics unchanged.
+- [ ] **Step 6: Run suite + build + verify:routes + audit:links.** Commit `feat: opening sequence + dot-portrait hero`.
+
 ### Task 9: Deploy pipeline rewrite + launch
 
 **Files:**
