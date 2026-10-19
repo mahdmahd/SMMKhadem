@@ -1,16 +1,23 @@
 # Deploy the portfolio to GitHub Pages.
 #
 # This replaces the old Hugo pipeline. The stack is now a Vite + React SPA, so
-# the job is: install -> build -> verify routes (gate) -> audit links (advisory)
-# -> publish `dist/`.
+# the job is: install -> test -> build -> verify routes (gate) -> audit links
+# (advisory) -> publish `dist/`.
 #
 # The deploy *target* is unchanged and deliberately so: the built site is pushed
 # to the external repository mahdmahd/SMMKhadem.github.io on its `main` branch
 # with the ACTIONS_DEPLOY_KEY deploy key, and CNAME'd to mahdikhadem.com.
+#
+# Runs on pull requests too, so a PR gets the full build + gate signal before it
+# can be merged. Only the deploy step is push-only; everything before it runs on
+# both events.
 name: deploy
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -28,8 +35,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Node 24 (Active LTS). The real floor is 22.18 — scripts/verify-routes.mjs
       # and scripts/audit-links.mjs import src/data/portfolio.ts directly, which
@@ -44,10 +49,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # verify:routes drives a real browser (a fetch cannot tell the routes apart
-      # in an SPA). The browser binaries are not committed and are not covered by
-      # the npm cache above, so fetch Chromium here. `playwright` itself is a
-      # devDependency, so npx resolves the lockfile-pinned version.
+      # GATE — the vitest suite had no CI owner at all before this step, which
+      # meant a red suite could still deploy. It is fast, so it blocks.
+      - name: Run tests
+        run: npm test
+
+      # Chromium is what verify:routes drives. The binaries are not committed,
+      # so cache them against the lockfile: `cache: npm` above covers npm only.
+      # A new Playwright version changes the lockfile hash and therefore the key.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
+      # `playwright` is a devDependency, so npx resolves the lockfile-pinned
+      # version. On a cache hit this only re-checks the browsers; `--with-deps`
+      # still installs the system libraries.
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
@@ -79,7 +99,11 @@ jobs:
         run: |
           echo "::warning title=Link audit found unreachable URLs::See the 'Audit external links (advisory)' step log. The deploy continued on purpose (LinkedIn rate-limiting makes this check flaky), but a genuinely dead link is still worth fixing."
 
+      # Publish only from a push to main. A pull_request run stops here: the
+      # gates above are the point of running on PRs, and the deploy key is not
+      # exposed to PR code.
       - name: Deploy
+        if: github.event_name == 'push' && success()
         uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
