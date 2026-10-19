@@ -89,6 +89,30 @@ describe('compiled stylesheet', () => {
     expect(block).toMatch(/animation-duration:\s*0?\.?\d*m?s/)
     expect(block).toMatch(/scroll-behavior:\s*auto/)
   })
+
+  it('keeps a visible focus ring in the shipped CSS', async () => {
+    const css = await compiledStylesheet()
+    const ring = ruleBody(css, ':focus-visible')
+
+    expect(ring).not.toBe('')
+    expect(ring).toMatch(/outline:\s*2px solid/)
+    expect(ring).toMatch(/outline-offset:\s*3px/)
+  })
+
+  /**
+   * `.sr-only` carries the project name inside each "Read more" pill, which is
+   * what stops four links from sharing one name. It comes from Tailwind, not
+   * from this file, so the only way to know it survives the build is to look at
+   * what the build emitted.
+   */
+  it('emits the screen-reader-only utility the Read more links depend on', async () => {
+    const css = await compiledStylesheet()
+    const utility = ruleBody(css, '.sr-only')
+
+    expect(utility).not.toBe('')
+    expect(utility).toMatch(/position:\s*absolute/)
+    expect(utility).toMatch(/clip-path:\s*inset\(50%\)/)
+  })
 })
 
 describe('marquee (Task 4)', () => {

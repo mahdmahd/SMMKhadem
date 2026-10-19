@@ -35,8 +35,7 @@ export default function ProjectDetail() {
 
       {project.image && (
         <div className="project-detail__figure">
-          {/* Decorative: the heading and prose carry the meaning. */}
-          <img src={project.image} alt="" />
+          <img src={project.image} alt={project.imageAlt ?? ''} />
         </div>
       )}
 

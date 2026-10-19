@@ -241,6 +241,13 @@ export type Project = {
   technologies?: string[]
   /** Public image path. Omitted when the project has no verified figure. */
   image?: string
+  /**
+   * Description of that figure, for `alt`. Required whenever `image` is set —
+   * the figures are charts and screenshots that carry information the prose
+   * does not restate, so an empty `alt` would hide them from a screen reader.
+   * A test pins the pairing.
+   */
+  imageAlt?: string
   /** Rendered as a Paper button only when present and verified. */
   paperUrl?: string
   /** Rendered as a Code button only when present and verified. */
@@ -280,7 +287,9 @@ export const featuredProjects: Project[] = [
       'Structured Data Pipelines',
       'Privacy-Preserving Data Architecture',
     ],
-    image: '/images/projects/persimed_flowchart_Page2.png',
+    image: '/images/projects/persimed-flowchart.webp',
+    imageAlt:
+      'Three panels of the PERSiMED pipeline on one Persian sonography report: the scanned page, the extracted text with its bounding boxes and confidence scores as JSON, and the same page with the detected regions outlined.',
     paperUrl: 'https://en.civilica.com/doc/2472372/',
     codeUrl: 'https://github.com/mahdmahd/PERSiMED',
     overview: 'A deep learning–based framework for intelligent extraction, semantic understanding, and structured digitization of Persian medical documents, designed to automate health insurance workflows and fraud detection.',
@@ -325,7 +334,9 @@ export const featuredProjects: Project[] = [
       'Scikit-learn',
       'Scoring System',
     ],
-    image: '/images/projects/1.png',
+    image: '/images/projects/oagb-study-design.webp',
+    imageAlt:
+      'Study-design flow chart: the 3,242-patient OAGB cohort split by year into a 2,536-patient training set and a 706-patient 2023 hold-out, then the machine-learning models, hyperparameter tuning, AutoScore conversion and SHAP feature ranking.',
     paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/41201758/',
     overview: 'A machine learning-based clinical scoring system designed to predict hypoalbuminemia risk following One-Anastomosis Gastric Bypass (OAGB) surgery, enabling early intervention and personalized patient care.',
     details: [
@@ -377,7 +388,9 @@ export const allProjects: Project[] = [
       'Clinical MRI',
       'Slice-to-Volume Reconstruction',
     ],
-    image: '/images/projects/project-name.jpg',
+    image: '/images/projects/cortical-surface.webp',
+    imageAlt:
+      'Three-dimensional cortical surface model in a colour-coded viewer, shown with superior, posterior and anterior orientation labels.',
     overview: 'An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.',
     details: [
       'Frontotemporal dementia is a clinically and biologically heterogeneous neurodegenerative disorder in which cognitive and behavioral deficits are often poorly captured by routine imaging reports. As part of my M.D. thesis, I studied whether structural patterns observable in standard hospital MRI scans could be meaningfully linked to neuropsychological performance in patients with FTD.',
@@ -419,7 +432,9 @@ export const allProjects: Project[] = [
       'Android Text Selection API',
       'Gradle',
     ],
-    image: '/images/projects/Screenshot2.jpg',
+    image: '/images/projects/snapexplain.webp',
+    imageAlt:
+      'SnapExplain on Android: a paper open in a PDF reader with the text-selection menu showing the “Explain (≤100 words)” action.',
     codeUrl: 'https://github.com/mahdmahd/SnapExplain',
     demoUrl: 'https://github.com/mahdmahd/SnapExplain/releases/tag/V0.1',
     overview: 'SnapExplain is an Android utility that brings large language model (LLM) explanations directly into your reading workflow.\nIt integrates with Android’s native text-selection menu, allowing users to highlight any sentence in a PDF, ebook, or article and receive an instant, contextual explanation — without leaving the app they’re reading in.\nNo app switching. No prompt rewriting. No broken focus.',
@@ -449,7 +464,9 @@ export const allProjects: Project[] = [
       'PyTorch',
       'Statistical Agreement Analysis',
     ],
-    image: '/images/projects/frame_001159.jpg',
+    image: '/images/projects/bpll-measurement.webp',
+    imageAlt:
+      'Laparoscopic video frame from the biliopancreatic limb measurement: two instrument tips detected and labelled with 0.92 and 0.86 confidence, with a 4.77 cm segment measured between them.',
     overview: 'A data-driven project that models long-term postoperative weight trajectories after bariatric surgery and translates these patterns into clinically interpretable, patient-level predictions.',
     details: [
       'In gastric bypass surgery, biliopancreatic limb length is a key technical variable that influences metabolic outcomes and nutrition-related complications. Despite this, limb length is commonly estimated visually, a subjective practice that varies widely between surgeons. This project addressed whether a measurement-oriented computer vision system could provide accurate and reproducible intraoperative length estimates.',
@@ -495,7 +512,9 @@ export const allProjects: Project[] = [
       'Meta-Regression',
       'Sensitivity and Bias Analysis',
     ],
-    image: '/images/projects/uricacid.png',
+    image: '/images/projects/uricacid-prisma.webp',
+    imageAlt:
+      'PRISMA flow diagram for the systematic review: records identified from databases and from other methods, screened, assessed for eligibility, and the reports included.',
     paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/41840314/',
     overview: 'A comprehensive systematic review and meta-analysis examining how metabolic and bariatric surgery (MBS) affects serum uric acid over time, and how these changes relate to renal function and visceral adiposity.',
     details: [

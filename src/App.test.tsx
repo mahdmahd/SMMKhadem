@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from 'vitest'
 
 import App from './App'
+import { allProjects, featuredProjects } from './data/portfolio'
 
 const HOME_SECTIONS = [
   'top',
@@ -127,6 +128,116 @@ describe('App routing', () => {
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
+  })
+})
+
+/**
+ * Every route the app can reach, including the two legacy spellings and the
+ * 404 fallback: the semantic pass has to hold on all of them, not just home.
+ */
+const SEMANTIC_ROUTES = [
+  '/',
+  '/about',
+  '/contact',
+  '/posts',
+  '/posts/mem1',
+  '/posts/a-greeting-from-the-depths-of-the-voiceless',
+  '/projects/project-6',
+  '/no/such/page',
+]
+
+describe('document structure', () => {
+  it.each(SEMANTIC_ROUTES)('gives %s the four landmarks', (path) => {
+    renderAt(path)
+
+    expect(screen.getAllByRole('banner')).toHaveLength(1)
+    expect(screen.getAllByRole('main')).toHaveLength(1)
+    expect(screen.getAllByRole('contentinfo')).toHaveLength(1)
+
+    // Header nav and footer nav: both are real navigation landmarks, and each
+    // is labelled, so the two are told apart in a landmark list.
+    const navs = screen.getAllByRole('navigation')
+    expect(navs.length).toBeGreaterThanOrEqual(2)
+
+    for (const nav of navs) {
+      expect(nav).toHaveAccessibleName()
+    }
+  })
+
+  it.each(SEMANTIC_ROUTES)('has exactly one h1 on %s', (path) => {
+    renderAt(path)
+
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
+  })
+
+  it('gives every home section its own h2, under the hero h1', () => {
+    renderAt('/')
+
+    for (const id of HOME_SECTIONS) {
+      if (id === 'top') continue
+
+      const section = document.getElementById(id)
+      expect(section, `#${id} is missing`).not.toBeNull()
+      expect(section?.querySelector('h2'), `#${id} has no h2`).not.toBeNull()
+    }
+  })
+
+  it('never opens a heading level without its parent', () => {
+    renderAt('/')
+
+    const levels = screen
+      .getAllByRole('heading')
+      .map((heading) => Number(heading.tagName.slice(1)))
+
+    let previous = 0
+    for (const level of levels) {
+      expect(level - previous).toBeLessThanOrEqual(1)
+      previous = level
+    }
+  })
+
+  it('describes every project figure instead of leaving alt empty', () => {
+    renderAt('/projects/project-6')
+
+    const figure = document.querySelector('.project-detail__figure img')
+    const project = [...featuredProjects, ...allProjects].find((entry) => entry.slug === 'project-6')
+
+    expect(figure).not.toBeNull()
+    expect(figure?.getAttribute('alt')).toBe(project?.imageAlt)
+    expect(figure?.getAttribute('alt')).not.toBe('')
+  })
+
+  it('carries a non-empty alt on every image it renders on home', () => {
+    renderAt('/')
+
+    const images = [...document.querySelectorAll('img')]
+
+    expect(images.length).toBeGreaterThan(0)
+
+    for (const image of images) {
+      expect(image.getAttribute('alt')).toBeTruthy()
+    }
+  })
+
+  /**
+   * Four featured cards, one visible label. The screen-reader-only span is what
+   * separates them; without it a screen-reader user hears "Read more" four
+   * times with no way to tell which project each one opens, and the text a
+   * crawler indexes is generic on all four.
+   */
+  it('gives each Read more link a name that identifies its project', () => {
+    renderAt('/')
+
+    const links = screen.getAllByRole('link', { name: /read more/i })
+    const names = links.map((link) => link.textContent?.replace(/\s+/g, ' ').trim() ?? '')
+
+    expect(names).toHaveLength(4)
+    expect(new Set(names).size).toBe(4)
+    expect(names[0]).toContain('PERSiMED')
+
+    for (const link of links) {
+      expect(link.querySelector('.sr-only')).not.toBeNull()
+    }
   })
 })
 

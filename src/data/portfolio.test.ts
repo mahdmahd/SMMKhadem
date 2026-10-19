@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
@@ -301,6 +301,43 @@ describe('projects', () => {
     for (const entry of figures) {
       expect(entry.image).toMatch(/^\/images\/projects\/[\w.-]+$/)
       expect(existsSync(join(process.cwd(), 'public', entry.image ?? ''))).toBe(true)
+    }
+  })
+
+  /**
+   * The figures are charts and screenshots, not decoration: the study-design
+   * flow chart and the PRISMA diagram carry numbers the prose does not
+   * restate. An `alt=""` on one of them would drop that from a screen reader,
+   * so the pairing is an invariant, not a nicety.
+   */
+  it('describes every figure it ships', () => {
+    const figures = [...featuredProjects, ...allProjects].filter((entry) => entry.image)
+
+    expect(figures.length).toBeGreaterThan(0)
+
+    for (const entry of figures) {
+      expect(entry.imageAlt, `${entry.slug} has an image but no imageAlt`).toBeTruthy()
+      expect((entry.imageAlt ?? '').length).toBeGreaterThan(40)
+    }
+  })
+
+  /**
+   * The image budget from the Task 8 perf pass. `persimed_flowchart_Page2.png`
+   * (1.07 MB) and `Screenshot2.jpg` (743 KB) dominated the payload; both are
+   * WebP now, and this stops a future full-size PNG from creeping back in.
+   */
+  it('keeps every shipped figure under 300 KB', () => {
+    const figures = [...featuredProjects, ...allProjects].filter((entry) => entry.image)
+
+    expect(figures.length).toBeGreaterThan(0)
+
+    for (const entry of figures) {
+      const path = join(process.cwd(), 'public', entry.image ?? '')
+      const { size } = statSync(path)
+
+      expect(size, `${entry.slug} → ${entry.image} is ${Math.round(size / 1024)} KB`).toBeLessThan(
+        300 * 1024,
+      )
     }
   })
 

@@ -53,14 +53,18 @@ export default function ProjectCard({ project, imageSide = 'right' }: ProjectCar
 
           <Link className="pill" to={`/projects/${project.slug}`}>
             Read more
+            {/* Four cards share the visible label, so the link name has to come
+                from somewhere else: the project itself. Screen readers then
+                announce four different links instead of four "Read more"s, and
+                the crawler-facing text stops being generic. */}
+            <span className="sr-only"> about {project.title}</span>
           </Link>
         </div>
       </div>
 
       {project.image && (
         <div className="project-card__figure">
-          {/* Decorative: the card already names and summarizes the project. */}
-          <img src={project.image} alt="" loading="lazy" />
+          <img src={project.image} alt={project.imageAlt ?? ''} loading="lazy" />
         </div>
       )}
     </article>
