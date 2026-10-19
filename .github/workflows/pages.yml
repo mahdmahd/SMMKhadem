@@ -1,9 +1,25 @@
-name: hugo publish
+# Deploy the portfolio to GitHub Pages.
+#
+# This replaces the old Hugo pipeline. The stack is now a Vite + React SPA, so
+# the job is: install -> build -> verify routes (gate) -> audit links (advisory)
+# -> publish `dist/`.
+#
+# The deploy *target* is unchanged and deliberately so: the built site is pushed
+# to the external repository mahdmahd/SMMKhadem.github.io on its `main` branch
+# with the ACTIONS_DEPLOY_KEY deploy key, and CNAME'd to mahdikhadem.com.
+name: deploy
 
 on:
   push:
     branches:
       - main
+
+# Rapid pushes supersede each other: cancel the in-flight run so the newest
+# commit is the one that ends up deployed, instead of queued runs racing behind
+# a slow one and publishing stale output last.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-deploy:
@@ -13,17 +29,55 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+      # Node 24 (Active LTS). The real floor is 22.18 — scripts/verify-routes.mjs
+      # and scripts/audit-links.mjs import src/data/portfolio.ts directly, which
+      # relies on Node's native TypeScript type stripping (on by default from
+      # 22.18 / 23.6). 24 is also the major that @types/node targets.
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          hugo-version: "latest"
-          extended: true
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # verify:routes drives a real browser (a fetch cannot tell the routes apart
+      # in an SPA). The browser binaries are not committed and are not covered by
+      # the npm cache above, so fetch Chromium here. `playwright` itself is a
+      # devDependency, so npx resolves the lockfile-pinned version.
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Build
-        run: hugo --minify
+        run: npm run build
+
+      # GATE — deterministic, so it is allowed to block the deploy. It serves the
+      # dist/ we are about to publish and asserts that every shipped route renders
+      # its own content. `--no-build` reuses the artifact from the step above, so
+      # the bytes verified here are exactly the bytes deployed.
+      - name: Verify routes
+        run: npm run verify:routes -- --no-build
+
+      # ADVISORY, NOT A GATE (ruling, 2026-10-19).
+      # This step talks to the public internet. LinkedIn answers a rate-limited
+      # client with a status that carries no information about the URL, so the
+      # audit is flaky by nature and must not be able to block a deploy.
+      # `continue-on-error` keeps the run green, while the step log still prints
+      # every PASS/FAIL line and the final summary — and the annotation below
+      # lifts a failure into the run summary — so a genuinely dead link is still
+      # surfaced to the owner.
+      - name: Audit external links (advisory)
+        id: audit
+        continue-on-error: true
+        run: npm run audit:links
+
+      - name: Warn if the link audit failed
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "::warning title=Link audit found unreachable URLs::See the 'Audit external links (advisory)' step log. The deploy continued on purpose (LinkedIn rate-limiting makes this check flaky), but a genuinely dead link is still worth fixing."
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
@@ -31,7 +85,7 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: mahdmahd/SMMKhadem.github.io
           publish_branch: main
-          publish_dir: ./public
+          publish_dir: ./dist
           allow_empty_commit: false
           commit_message: ${{ github.event.head_commit.message }}
           cname: mahdikhadem.com
