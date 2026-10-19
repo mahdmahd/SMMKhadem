@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import Intro, { shouldPlayIntro } from '../components/Intro'
 import About from '../sections/About'
 import Contact from '../sections/Contact'
 import Hero from '../sections/Hero'
@@ -16,10 +19,18 @@ import Toolkit from '../sections/Toolkit'
  *
  * Eight of the nine carry the anchor the header nav and footer link to, so the
  * order here is also the page's table of contents.
+ *
+ * The opening sequence is mounted above them, not instead of them: the page
+ * underneath is fully rendered and ready to scroll the moment the curtain
+ * lifts. It is a sibling rather than a wrapper so that nothing about the
+ * sections depends on it.
  */
 export default function Home() {
+  const [intro, setIntro] = useState(shouldPlayIntro)
+
   return (
     <>
+      {intro ? <Intro onDone={() => setIntro(false)} /> : null}
       <Hero />
       <About />
       <Toolkit />

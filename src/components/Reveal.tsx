@@ -1,6 +1,8 @@
 import type { ElementType, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
+import { prefersReducedMotion } from './motion'
+
 export type RevealProps = {
   children: ReactNode
   /** Element to render — defaults to `div`. */
@@ -12,14 +14,6 @@ export type RevealProps = {
 
 const REVEAL_CLASS = 'reveal'
 const VISIBLE_CLASS = 'is-visible'
-
-function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
-}
 
 /**
  * Reveal-on-scroll wrapper. Adds `is-visible` once, the first time the element

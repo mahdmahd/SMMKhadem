@@ -1,3 +1,5 @@
+import portrait from '../assets/mehdi-portrait.jpg'
+import DotPortrait from '../components/DotPortrait'
 import { profile } from '../data/portfolio'
 
 /**
@@ -7,43 +9,6 @@ import { profile } from '../data/portfolio'
  */
 function nameLines(name: string): string[] {
   return name.trim().split(/\s+/).filter(Boolean)
-}
-
-/**
- * Generated duotone panel: a dot-grid mosaic under a soft radial wash. The
- * hero ships no photograph — the only portrait on hand is 266px wide, which is
- * unusable at this scale (owner decision), and no template imagery is allowed.
- * Deterministic on purpose: no randomness, so the render is stable.
- */
-function HeroArt() {
-  return (
-    <svg
-      className="hero__art"
-      viewBox="0 0 320 400"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <pattern id="hero-dots" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="8" cy="8" r="1.5" fill="var(--text-dim, #a3a3a2)" opacity="0.55" />
-        </pattern>
-        <linearGradient id="hero-duotone" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--accent, #e8e4dc)" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="var(--accent, #e8e4dc)" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id="hero-glow" cx="30%" cy="18%" r="85%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.42" />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.06" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      <rect width="320" height="400" fill="var(--panel, #0b0b0b)" />
-      <rect width="320" height="400" fill="url(#hero-dots)" />
-      <rect width="320" height="400" fill="url(#hero-duotone)" />
-      <rect width="320" height="400" fill="url(#hero-glow)" />
-    </svg>
-  )
 }
 
 /**
@@ -94,7 +59,11 @@ export default function Hero() {
           </div>
         </div>
 
-        <HeroArt />
+        {/* The portrait is sampled into a canvas of dots, so the frame only
+            supplies the geometry and the crop. */}
+        <div className="hero__art">
+          <DotPortrait src={portrait} />
+        </div>
       </div>
     </section>
   )

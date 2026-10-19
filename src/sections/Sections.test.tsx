@@ -72,15 +72,15 @@ describe('Hero', () => {
     expect(hero.textContent).toContain(profile.tagline)
   })
 
-  it('renders no raster portrait — the hero art is generated', () => {
+  it('renders the portrait as a dot mosaic, never as a raster image', () => {
     render(<Hero />)
 
     const hero = section('top')
 
-    // avatar.jpg is 266px wide: unusable at hero scale (owner decision).
+    // The portrait is sampled into a canvas of dots, so the photograph itself
+    // is never an element in the document — at hero scale or any other.
     expect(hero.querySelectorAll('img')).toHaveLength(0)
-    expect(hero.innerHTML).not.toMatch(/avatar/i)
-    expect(hero.querySelector('.hero__art')).not.toBeNull()
+    expect(hero.querySelector('.hero__art canvas')).not.toBeNull()
   })
 
   it('offers a scroll cue and a contact pill', () => {
