@@ -35,7 +35,7 @@ export default function ProjectDetail() {
 
       {project.image && (
         <div className="project-detail__figure">
-          <img src={project.image} alt={project.imageAlt ?? ''} />
+          <img src={project.image} alt={project.imageAlt} />
         </div>
       )}
 

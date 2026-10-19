@@ -64,7 +64,7 @@ export default function ProjectCard({ project, imageSide = 'right' }: ProjectCar
 
       {project.image && (
         <div className="project-card__figure">
-          <img src={project.image} alt={project.imageAlt ?? ''} loading="lazy" />
+          <img src={project.image} alt={project.imageAlt} loading="lazy" />
         </div>
       )}
     </article>

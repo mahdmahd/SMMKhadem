@@ -229,7 +229,7 @@ export const researchAreas: ResearchArea[] = [
 
 /* --------------------------------------------------------------- projects */
 
-export type Project = {
+export type ProjectFields = {
   slug: string
   /** Display number, zero-padded: `01`, `02`, … */
   index: string
@@ -239,15 +239,6 @@ export type Project = {
   year?: number
   /** Technology list, verbatim from the frontmatter, for the detail meta line. */
   technologies?: string[]
-  /** Public image path. Omitted when the project has no verified figure. */
-  image?: string
-  /**
-   * Description of that figure, for `alt`. Required whenever `image` is set —
-   * the figures are charts and screenshots that carry information the prose
-   * does not restate, so an empty `alt` would hide them from a screen reader.
-   * A test pins the pairing.
-   */
-  imageAlt?: string
   /** Rendered as a Paper button only when present and verified. */
   paperUrl?: string
   /** Rendered as a Code button only when present and verified. */
@@ -264,6 +255,20 @@ export type Project = {
   overview?: string
   details?: string[]
 }
+
+/**
+ * A project either ships a figure — and then it also ships the sentence that
+ * figure needs — or it ships neither.
+ *
+ * The union is the point: these are charts and screenshots whose numbers the
+ * prose does not restate (the study-design flow chart, the PRISMA diagram), so
+ * `alt=""` on one of them drops real content from a screen reader. Spelled this
+ * way, `{ image: '/foo.webp' }` with no `imageAlt` does not typecheck, and a
+ * consumer that has narrowed on `image` reads `imageAlt` as a plain `string` —
+ * no `?? ''` fallback to hide a figure that lost its description.
+ */
+export type Project = ProjectFields &
+  ({ image: string; imageAlt: string } | { image?: never; imageAlt?: never })
 
 /**
  * Featured case studies, in the owner's order: PERSiMED, the bariatric RAG

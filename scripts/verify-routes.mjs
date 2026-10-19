@@ -25,6 +25,10 @@
  *         node scripts/verify-routes.mjs --no-build (reuse an existing dist/)
  * Exit:   0 when every route answered 200 and carried its content, 1 otherwise.
  *
+ * Runs on Node's native TypeScript type stripping (Node >= 22.18 / 23.6), which
+ * is how it imports `src/data/portfolio.ts` directly — the same prerequisite as
+ * `scripts/audit-links.mjs`, so there is no tsx/bundler dependency.
+ *
  * Needs a Playwright Chromium. It is resolved from the project, the enclosing
  * `node_modules` chain, or the global npm root; `PLAYWRIGHT_PATH` overrides all
  * three. Without one the script fails loudly rather than downgrading to the
@@ -78,7 +82,18 @@ function normalise(text) {
 function createStaticServer(distDir) {
   return createServer((request, response) => {
     const { pathname } = new URL(request.url ?? '/', 'http://localhost')
-    const decoded = decodeURIComponent(pathname)
+
+    // `decodeURIComponent` throws on a malformed escape (`/%zz`). That is a bad
+    // request, not a server fault: answer 400 rather than letting the throw
+    // escape the listener.
+    let decoded
+    try {
+      decoded = decodeURIComponent(pathname)
+    } catch {
+      response.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' })
+      response.end('Bad Request')
+      return
+    }
 
     // Resolve inside distDir only: `..` in a request must not escape it.
     const candidate = resolve(distDir, `.${normalize(decoded)}`)
@@ -193,12 +208,26 @@ function readLegacySlugs(posts) {
 
   const block = source.slice(start, source.indexOf('}', start))
   const slugs = new Set(posts.map((post) => post.slug))
-  const entries = [...block.matchAll(/(\w+):\s*'([^']+)'/g)]
-    .map(([, alias, canonical]) => [alias, canonical])
-    .filter(([, canonical]) => slugs.has(canonical))
+  const entries = [...block.matchAll(/(\w+):\s*'([^']+)'/g)].map(([, alias, canonical]) => [
+    alias,
+    canonical,
+  ])
 
   if (entries.length === 0) {
-    throw new Error('LEGACY_SLUGS in src/routes/PostPage.tsx holds no known post slug')
+    throw new Error('LEGACY_SLUGS in src/routes/PostPage.tsx holds no alias entries')
+  }
+
+  // An alias retargeted at a slug `posts` does not ship is a dead route. It has
+  // to fail closed: filtering it out would quietly drop that route from the run
+  // while the summary still counted the alias as covered, which is the one
+  // failure mode this script exists to not have.
+  const orphaned = entries.filter(([, canonical]) => !slugs.has(canonical))
+
+  if (orphaned.length > 0) {
+    throw new Error(
+      'src/routes/PostPage.tsx points LEGACY_SLUGS at slug(s) the posts array does not ship: ' +
+        orphaned.map(([alias, canonical]) => `${alias} → ${canonical}`).join(', '),
+    )
   }
 
   return Object.fromEntries(entries)
@@ -261,11 +290,12 @@ async function buildRoutes() {
   }
 
   for (const [alias, canonical] of Object.entries(aliases)) {
-    const post = postBySlug.get(canonical)
+    // `readLegacySlugs` already proved the canonical is a slug `posts` ships,
+    // so the lookup below cannot come back empty.
     routes.push({
       path: `/posts/${alias}/`,
       label: `legacy: ${alias} → ${canonical}`,
-      needles: [postNeedles[canonical] ?? post?.title ?? canonical],
+      needles: [postNeedles[canonical] ?? postBySlug.get(canonical).title],
     })
   }
 
@@ -277,7 +307,14 @@ async function buildRoutes() {
     })
   }
 
-  return { routes, projects }
+  return {
+    routes,
+    counts: {
+      projects: projects.length,
+      posts: posts.length,
+      aliases: Object.keys(aliases).length,
+    },
+  }
 }
 
 /* --------------------------------------------------------------------- main */
@@ -299,7 +336,7 @@ async function main() {
     return 1
   }
 
-  const { routes, projects } = await buildRoutes()
+  const { routes, counts } = await buildRoutes()
   const { chromium } = await loadPlaywright()
 
   const server = createStaticServer(DIST)
@@ -310,12 +347,18 @@ async function main() {
   console.log(`verify-routes: serving dist/ on ${base}`)
   console.log(`verify-routes: ${routes.length} route(s) + /cv.pdf`)
 
-  const browser = await chromium.launch()
-  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } })
-
   const failures = []
 
+  // The launch and the page live *inside* the try: if Chromium is missing on a
+  // clean checkout, `launch()` throws, and a server created outside the guarded
+  // block would keep the event loop alive and hang the process instead of
+  // exiting 1.
+  let browser = null
+
   try {
+    browser = await chromium.launch()
+    const page = await browser.newPage({ viewport: { width: 1280, height: 900 } })
+
     for (const route of routes) {
       const url = `${base}${route.path}`
       const problems = []
@@ -387,16 +430,20 @@ async function main() {
       }
     }
   } finally {
-    await browser.close()
+    await browser?.close()
+    // `fetch` leaves sockets in the keep-alive pool, and `close()` waits for
+    // every open connection before it fires its callback: drop the idle ones so
+    // the process can actually exit.
+    server.closeIdleConnections?.()
     await new Promise((done) => server.close(done))
   }
 
   const total = routes.length + 1
-  const projectCount = projects.length
 
   console.log(
     failures.length === 0
-      ? `verify-routes: all ${total} route(s) pass (${projectCount} project slug(s), 4 canonical post(s) + 4 legacy alias(es))`
+      ? `verify-routes: all ${total} route(s) pass (${counts.projects} project slug(s), ` +
+          `${counts.posts} canonical post(s) + ${counts.aliases} legacy alias(es))`
       : `verify-routes: ${failures.length} of ${total} route(s) failed`,
   )
 
