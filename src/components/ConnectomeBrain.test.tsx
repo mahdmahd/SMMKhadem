@@ -66,9 +66,15 @@ describe('ConnectomeBrain', () => {
   it('draws fibres and dots, and cancels the loop on unmount', () => {
     const { calls } = stubCanvasContext()
     const { container, unmount } = render(<ConnectomeBrain density={120} />)
+    const canvas = container.querySelector('canvas') as HTMLCanvasElement
 
     expect(requestFrame).toHaveBeenCalled()
-    expect(container.querySelector('canvas')).not.toBeNull()
+
+    // The backing store is the layout box (400), not the transformed rect the
+    // stub reports (800): sizing from the rect is the bug the intro's 3D tilt
+    // exposed.
+    expect(canvas.width).toBe(400)
+    expect(canvas.height).toBe(400)
 
     tick()
 

@@ -24,6 +24,11 @@ import Toolkit from '../sections/Toolkit'
  * underneath is fully rendered and ready to scroll the moment the curtain
  * lifts. It is a sibling rather than a wrapper so that nothing about the
  * sections depends on it.
+ *
+ * While the curtain is down the sections are `inert`: they are behind an opaque
+ * overlay, so leaving them in the tab order would walk a keyboard user through
+ * links they cannot see. `inert` also takes them out of the accessibility tree,
+ * which is the same statement.
  */
 export default function Home() {
   const [intro, setIntro] = useState(shouldPlayIntro)
@@ -31,15 +36,17 @@ export default function Home() {
   return (
     <>
       {intro ? <Intro onDone={() => setIntro(false)} /> : null}
-      <Hero />
-      <About />
-      <Toolkit />
-      <Research />
-      <Projects />
-      <Publications />
-      <Teaching />
-      <LatestWriting />
-      <Contact />
+      <div inert={intro}>
+        <Hero />
+        <About />
+        <Toolkit />
+        <Research />
+        <Projects />
+        <Publications />
+        <Teaching />
+        <LatestWriting />
+        <Contact />
+      </div>
     </>
   )
 }

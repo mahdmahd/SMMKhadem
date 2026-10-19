@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { compiledStylesheet, ruleBody } from './test/compiled-css'
+import { compiledStylesheet, declarations, ruleBody } from './test/compiled-css'
 
 // The stylesheet as authored (Vitest does not process `?raw` CSS imports while
 // `css` is disabled, so read it from disk).
@@ -177,6 +177,26 @@ describe('prose (Task 7)', () => {
     expect(ruleBody(css, '.prose{')).toMatch(/color:\s*var\(--text\)/)
     expect(ruleBody(css, '.prose a')).toMatch(/color:\s*var\(--accent\)/)
     expect(ruleBody(css, '.prose pre')).toMatch(/background:\s*var\(--panel\)/)
+  })
+})
+
+describe('opening sequence (Task 9a)', () => {
+  /**
+   * GSAP resolves an element's computed transform when it starts a tween, so a
+   * CSS `translateY` on the masked word is read back as a *pixel* offset and
+   * becomes a base `y` that the timeline's `yPercent` stacks on top of — the
+   * word then finishes 110px below its mask and never appears. The timeline
+   * applies every start value in a layout effect instead, so this rule has to
+   * stay free of transforms.
+   */
+  it('keeps the masked word free of any transform', async () => {
+    const css = await compiledStylesheet()
+    const word = ruleBody(css, '.intro__word')
+
+    expect(word).not.toBe('')
+    expect(declarations(word).filter((declaration) => declaration.startsWith('transform:'))).toEqual(
+      [],
+    )
   })
 })
 

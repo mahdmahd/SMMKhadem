@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
   about,
@@ -17,6 +17,7 @@ import {
   type Project,
 } from '../data/portfolio'
 import Home from '../routes/Home'
+import { stubMotionPreference } from '../test/stubs'
 import ProjectDetail from '../routes/ProjectDetail'
 import About from './About'
 import Contact from './Contact'
@@ -30,6 +31,13 @@ import Toolkit from './Toolkit'
 
 afterEach(cleanup)
 
+afterEach(() => {
+  // The opening sequence reads a motion preference and a session flag; both are
+  // stubbed per test, so neither may leak into the next one.
+  vi.unstubAllGlobals()
+  window.sessionStorage.clear()
+})
+
 /** The section a component owns, by anchor id. */
 function section(id: string): HTMLElement {
   const element = document.getElementById(id)
@@ -37,6 +45,15 @@ function section(id: string): HTMLElement {
   if (!element) throw new Error(`no section #${id} in the document`)
 
   return element
+}
+
+/** The wrapper Home puts around its nine sections. */
+function sectionsWrapper(): HTMLElement {
+  const wrapper = section('top').parentElement
+
+  if (!wrapper) throw new Error('the hero has no wrapper in the document')
+
+  return wrapper
 }
 
 /** The featured and archived projects in one lookup, as the routes see them. */
@@ -745,5 +762,32 @@ describe('Home composition', () => {
       'blog',
       'contact',
     ])
+  })
+
+  it('takes the sections out of the tab order while the opening sequence is up', () => {
+    stubMotionPreference(false)
+    window.sessionStorage.clear()
+
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    )
+
+    // The sections sit behind an opaque overlay, so a keyboard user must not be
+    // able to walk into links they cannot see.
+    expect(sectionsWrapper()).toHaveAttribute('inert')
+  })
+
+  it('leaves the sections focusable when the sequence does not play', () => {
+    stubMotionPreference(true)
+
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    )
+
+    expect(sectionsWrapper()).not.toHaveAttribute('inert')
   })
 })

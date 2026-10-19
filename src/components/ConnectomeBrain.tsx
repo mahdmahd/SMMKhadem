@@ -271,6 +271,8 @@ export default function ConnectomeBrain({ density = 200, className }: Connectome
 
     let box = measure(canvas)
     let frame = 0
+    /** Seconds of animation already played, carried across a pause. */
+    let elapsed = 0
     let startedAt = 0
     let running = false
     let disposed = false
@@ -372,11 +374,16 @@ export default function ConnectomeBrain({ density = 200, className }: Connectome
       if (disposed || running) return
 
       running = true
-      startedAt = performance.now()
+      // Rebase the clock on the seconds already played rather than on "now", so
+      // a tab that comes back resumes the sweep where it left off instead of
+      // snapping the rotation back to its starting phase.
+      startedAt = performance.now() - elapsed * 1000
       frame = requestAnimationFrame(tick)
     }
 
     const stop = () => {
+      if (running) elapsed = (performance.now() - startedAt) / 1000
+
       running = false
       cancelAnimationFrame(frame)
       frame = 0
@@ -393,13 +400,13 @@ export default function ConnectomeBrain({ density = 200, className }: Connectome
         : new ResizeObserver(() => {
             box = measure(canvas)
             // A paused tab still needs the still frame to match its new size.
-            if (!running) draw(0)
+            if (!running) draw(elapsed)
           })
     observer?.observe(canvas)
 
     if (prefersReducedMotion()) {
       // No loop: one frame, at rest.
-      draw(0)
+      draw(elapsed)
     } else {
       document.addEventListener('visibilitychange', onVisibilityChange)
       start()

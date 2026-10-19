@@ -95,8 +95,14 @@ export function stubCanvasContext(options?: {
 
 /**
  * jsdom lays nothing out, so a canvas reports 0x0 and the components correctly
- * decline to draw. Give them a box: `offsetWidth`/`offsetHeight` are what the
- * components measure, and the rect is stubbed for anything that asks for it.
+ * decline to draw. Give them a box.
+ *
+ * The rect is deliberately **twice** the layout box. The two APIs are not
+ * interchangeable here: `offsetWidth`/`offsetHeight` are the layout box, while
+ * `getBoundingClientRect` reports the box *after* any transform on an ancestor,
+ * which is what the intro's 3D tilt does to both canvases. Stubbing them with
+ * the same numbers would let a regression back to the rect pass unnoticed, so
+ * the mismatch is the assertion: only the layout-box API measures 320x400.
  */
 export function stubCanvasLayout(width: number, height: number): () => void {
   const originalRect = HTMLCanvasElement.prototype.getBoundingClientRect
@@ -116,12 +122,12 @@ export function stubCanvasLayout(width: number, height: number): () => void {
   })
   HTMLCanvasElement.prototype.getBoundingClientRect = () =>
     ({
-      width,
-      height,
+      width: width * 2,
+      height: height * 2,
       top: 0,
       left: 0,
-      right: width,
-      bottom: height,
+      right: width * 2,
+      bottom: height * 2,
       x: 0,
       y: 0,
       toJSON: () => ({}),
