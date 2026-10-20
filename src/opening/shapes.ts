@@ -61,6 +61,8 @@ export async function sampleHalftone(
   bulgeDepth: number,
   /** Tone levels: cell tones are stretched so `lo` → 0 and `hi` → 1. */
   levels: [number, number] = [0, 1],
+  /** Contrast curve after levels: above 1 dims the mids and keeps the highlights. */
+  gamma = 1,
 ): Promise<Halftone> {
   const img = await loadImage(url)
   const aspect = (img.naturalWidth || 1) / (img.naturalHeight || 1)
@@ -84,7 +86,7 @@ export async function sampleHalftone(
           const i = ((cy * sub + sy) * w + cx * sub + sx) * 4
           sum += pixelTone(data[i], data[i + 1], data[i + 2])
         }
-      const tone = Math.min(Math.max((sum / (sub * sub) - levels[0]) / (levels[1] - levels[0]), 0), 1)
+      const tone = Math.min(Math.max((sum / (sub * sub) - levels[0]) / (levels[1] - levels[0]), 0), 1) ** gamma
       if (tone <= 0.1) continue
       cells.push({ cx, cy, tone })
       x0 = Math.min(x0, cx)

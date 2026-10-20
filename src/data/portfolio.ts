@@ -156,9 +156,10 @@ export const formAction: string | null = 'https://formspree.io/f/xkonleag'
  * eight of them, the load-bearing phrases of the arc.
  */
 export const about: string[] = [
-  'I came to data science through medicine. My M.D. thesis at Iran University of Medical Sciences asked whether **routine clinical MRI** could explain cognitive decline in **frontotemporal dementia**. The scans were never made for research, so I had to learn **neuroimaging** properly: slice to volume reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
-  'Then came general practice at Foolad Clinic, where research questions arrive as people and not as datasets. That is where I found that I genuinely enjoy mathematics and statistics, as long as they meet a real clinical problem.',
-  'At the Minimally Invasive Surgery Research Center I moved to **bariatric surgery**: **explainable AI** that clinicians can inspect, bedside scores instead of black boxes, and **RAG** question answering grounded in the textbook surgeons trust. At Saman Insurance I work on **clinical NLP** for **Persian medical documents**, with humans in the loop. I do not want to be a clinician who uses AI. I want to understand it deeply enough to make it trustworthy.',
+  'I came to data science through medicine. My M.D. thesis asked whether **routine clinical MRI** could explain cognitive decline in **frontotemporal dementia**, and answering it meant learning **neuroimaging** properly: reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
+  'General practice taught me that research questions arrive as people, not datasets, and that I enjoy mathematics most when it meets a real clinical problem.',
+  'At the Minimally Invasive Surgery Research Center I moved to **bariatric surgery**: **explainable AI** that clinicians can inspect, bedside scores instead of black boxes, and **RAG** grounded in the textbook surgeons trust. At Saman Insurance I build **clinical NLP** for **Persian medical documents**, with humans in the loop.',
+  'Now, as Principal Medical AI Product and Innovation Lead at AIMedic, I take clinical imaging AI from prototype to pilot: vision language models, mammography and brain CT, structured radiology reporting. I do not want to be a clinician who uses AI. I want to understand it deeply enough to make it trustworthy.',
 ]
 
 export type TimelineEntry = {
@@ -190,13 +191,18 @@ export const timeline: TimelineEntry[] = [
     organisation: 'Saman Insurance',
     period: '2025 – present',
   },
+  {
+    role: 'Principal Medical AI Product & Innovation Lead',
+    organisation: 'AIMedic',
+    period: '2026 – present',
+  },
 ]
 
 /* ----------------------------------------------------------------- toolkit */
 
 /** Chip rows for the methods marquee: one row per method family, CV order. */
 export const toolkit: string[][] = [
-  ['Python', 'R', 'MATLAB', 'SQL', 'Git', 'Linux', 'Docker'],
+  ['Python', 'R', 'MATLAB', 'SQL', 'Git', 'Linux', 'Docker', 'JavaScript', 'HTML/CSS'],
   ['FreeSurfer', 'SPM', 'ITK-SNAP', 'SVRTK', 'SynthSeg'],
   ['Meta-analysis', 'SEM', 'Mplus', 'Stata', 'SPSS', 'Study Design'],
   ['LangChain', 'RAG Pipelines', 'ChromaDB', 'Ollama', 'Scikit-learn', 'SHAP'],
@@ -243,7 +249,8 @@ export const researchAreas: ResearchArea[] = [
     bullets: [
       'PERSiMED: a Persian medical document reader that pairs CNN segmentation with vision language models, processing over 96% of 2,000 real insurance documents.',
       'Retrieval augmented question answering grounded in the ASMBS textbook: GPT-5 reached 94% on 200 board style questions, eleven points above the earlier benchmark.',
-      'LLM workflows for insurance medicine: claims automation, duplicate-claim and upcoding detection, and longitudinal patient-record construction.',
+      'LLM workflows for insurance medicine: claims automation, duplicate claim and upcoding detection, and longitudinal patient records.',
+      'At AIMedic: vision language models for structured radiology reporting, and mammography and brain CT analysis taken from prototype to pilot.',
       'Privacy aware outputs (annotated image, layout preserving HTML and structured JSON) instead of raw OCR text.',
     ],
   },

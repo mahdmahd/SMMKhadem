@@ -81,7 +81,7 @@ export class PointField {
       sampleHalftone(this.opts.avatarUrl, n, CELL, AVATAR_HEIGHT, whiteTone, 0.35).catch(() =>
         fallback(n, 99),
       ),
-      sampleHalftone(this.opts.brainUrl, n, CELL, BRAIN_IMAGE_HEIGHT, blueKeyTone, 0.9, [0.3, 0.75]).catch(
+      sampleHalftone(this.opts.brainUrl, n, CELL, BRAIN_IMAGE_HEIGHT, blueKeyTone, 0.9, [0.47, 0.8], 1.9).catch(
         () => fallback(n, 14),
       ),
     ])

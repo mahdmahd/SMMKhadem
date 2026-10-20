@@ -129,7 +129,7 @@ describe('channels', () => {
 describe('toolkit', () => {
   it('has four rows, one per method family, in CV order', () => {
     expect(toolkit).toHaveLength(4)
-    expect(toolkit[0]).toEqual(['Python', 'R', 'MATLAB', 'SQL', 'Git', 'Linux', 'Docker'])
+    expect(toolkit[0]).toEqual(['Python', 'R', 'MATLAB', 'SQL', 'Git', 'Linux', 'Docker', 'JavaScript', 'HTML/CSS'])
     expect(toolkit[1]).toEqual(['FreeSurfer', 'SPM', 'ITK-SNAP', 'SVRTK', 'SynthSeg'])
     expect(toolkit[2]).toEqual(['Meta-analysis', 'SEM', 'Mplus', 'Stata', 'SPSS', 'Study Design'])
     expect(toolkit[3]).toEqual([

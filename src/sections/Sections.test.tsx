@@ -159,7 +159,7 @@ describe('About', () => {
     }
   })
 
-  it('renders the four-step timeline', () => {
+  it('renders the five-step timeline', () => {
     render(<About />)
 
     const aboutSection = section('about')
@@ -167,8 +167,8 @@ describe('About', () => {
     const entryText = entries.map((entry) => entry.textContent ?? '')
     const text = aboutSection.textContent ?? ''
 
-    expect(entries).toHaveLength(4)
-    expect(timeline).toHaveLength(4)
+    expect(entries).toHaveLength(5)
+    expect(timeline).toHaveLength(5)
 
     for (const entry of timeline) {
       expect(entryText.some((candidate) => candidate.includes(entry.organisation))).toBe(true)
@@ -179,6 +179,7 @@ describe('About', () => {
       'Foolad Clinic',
       'Minimally Invasive Surgery Research Center',
       'Saman Insurance',
+      'AIMedic',
     ]) {
       expect(text).toContain(organisation)
     }
