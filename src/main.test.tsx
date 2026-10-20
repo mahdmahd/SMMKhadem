@@ -25,5 +25,7 @@ describe('app entry', () => {
     expect(root).not.toBeNull()
     expect(root?.textContent).toContain(profile.name)
     expect(root?.querySelector('#research')).not.toBeNull()
-  })
+    // The first import pulls in the whole app, three.js included; under a busy
+    // test run (or a CI runner) that alone can outlast the default 5s.
+  }, 20_000)
 })

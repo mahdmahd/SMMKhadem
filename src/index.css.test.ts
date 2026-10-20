@@ -180,23 +180,19 @@ describe('prose (Task 7)', () => {
   })
 })
 
-describe('opening sequence (Task 9a)', () => {
+describe('opening', () => {
   /**
-   * GSAP resolves an element's computed transform when it starts a tween, so a
-   * CSS `translateY` on the masked word is read back as a *pixel* offset and
-   * becomes a base `y` that the timeline's `yPercent` stacks on top of — the
-   * word then finishes 110px below its mask and never appears. The timeline
-   * applies every start value in a layout effect instead, so this rule has to
+   * The intro splits the name by animating each half's `x`, and a skip writes
+   * the settled `translateX` inline. A CSS transform on the halves would be
+   * read back as a base offset and stack on top of both, so the rule has to
    * stay free of transforms.
    */
-  it('keeps the masked word free of any transform', async () => {
+  it('keeps the name halves free of any transform', async () => {
     const css = await compiledStylesheet()
-    const word = ruleBody(css, '.intro__word')
+    const half = ruleBody(css, '.opening__half')
 
-    expect(word).not.toBe('')
-    expect(declarations(word).filter((declaration) => declaration.startsWith('transform:'))).toEqual(
-      [],
-    )
+    expect(half).not.toBe('')
+    expect(declarations(half).filter((declaration) => declaration.startsWith('transform:'))).toEqual([])
   })
 })
 

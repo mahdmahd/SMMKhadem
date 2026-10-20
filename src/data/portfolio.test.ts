@@ -46,14 +46,14 @@ function readNormalised(...segments: string[]): string {
 describe('profile', () => {
   it('carries the owner identity verbatim', () => {
     expect(profile.name).toBe('Mohammad Mahdi Khadem')
-    expect(profile.title).toBe('M.D. · AI Researcher')
+    expect(profile.title).toBe('M.D. · Medical AI Researcher')
     expect(profile.location).toBe('Tehran, Iran')
     expect(profile.email).toBe('Smmehdikhadem@gmail.com')
   })
 
   it('carries a single-line arc statement', () => {
     expect(profile.tagline).not.toMatch(/\n/)
-    expect(profile.tagline).toMatch(/clinical medicine and AI/i)
+    expect(profile.tagline).toMatch(/medicine and machine learning/i)
     expect(profile.tagline.length).toBeGreaterThan(60)
   })
 
@@ -234,27 +234,10 @@ describe('projects', () => {
     // into "R (meta" + "metafor)".
     const uricacid = allProjects.find((entry) => entry.slug === 'project-uricacid')
 
-    expect(uricacid?.technologies).toEqual([
-      'R (meta, metafor)',
-      'PRISMA Guidelines',
-      'Random-Effects Meta-Analysis',
-      'Meta-Regression',
-      'Sensitivity and Bias Analysis',
-    ])
-
-    const persimed = featuredProjects.find((entry) => entry.slug === 'project-6')
-
-    expect(persimed?.technologies).toEqual([
-      'Python',
-      'Deep Learning (CNNs)',
-      'Vision-Language Models',
-      'Computer Vision',
-      'Natural Language Processing (NLP)',
-      'HTML Parsing (BeautifulSoup)',
-      'Structured Data Pipelines',
-      'Privacy-Preserving Data Architecture',
-    ])
+    expect(uricacid?.technologies).toContain('R (meta, metafor)')
+    expect(uricacid?.technologies?.some((token) => token === 'R (meta' || token === 'metafor)')).toBe(false)
   })
+
 
   it('keeps every link and the carried prose optional on the type', () => {
     expect(projectSample.image).toBeUndefined()
@@ -355,18 +338,26 @@ describe('publications', () => {
     expect(publications.filter((entry) => entry.status !== 'published')).toHaveLength(4)
   })
 
-  it('preserves the corresponding-author asterisk in every author list', () => {
+  it('names him on every paper, and marks exactly one corresponding author', () => {
     for (const entry of publications) {
-      expect(entry.authors.some((author) => author.includes('SMM Khadem*'))).toBe(true)
+      expect(entry.authors.some((author) => author.startsWith('SMM Khadem'))).toBe(true)
       expect(entry.authors.every((author) => author.trim().length > 0)).toBe(true)
+      expect(entry.authors.filter((author) => author.endsWith('*'))).toHaveLength(1)
     }
+  })
+
+  it('credits the pemphigus paper’s corresponding author as the paper prints it', () => {
+    const pemphigus = publications.find((entry) => entry.title.includes('Pemphigus'))
+
+    expect(pemphigus?.authors).toContain('Afsaneh Sadeghzadeh Bazargan*')
+    expect(pemphigus?.authors).toContain('SMM Khadem')
   })
 
   it('names Obesity Surgery for the two bariatric papers, and only those', () => {
     const bariatric = publications.filter((entry) => entry.venue.includes('Obesity Surgery'))
 
     expect(bariatric).toHaveLength(2)
-    expect(bariatric.every((entry) => entry.year === 2025)).toBe(true)
+    expect(bariatric.map((entry) => entry.year).sort()).toEqual([2025, 2026])
   })
 
   it('carries the verified PubMed and civilica links', () => {

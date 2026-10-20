@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
@@ -7,6 +7,7 @@ import {
   allProjects,
   channels,
   featuredProjects,
+  opening,
   posts,
   profile,
   publications,
@@ -16,12 +17,12 @@ import {
   toolkit,
   type Project,
 } from '../data/portfolio'
+import Opening, { OPENING_STORAGE_KEY, swapLetters } from '../opening/Opening'
 import Home from '../routes/Home'
 import { stubMotionPreference } from '../test/stubs'
 import ProjectDetail from '../routes/ProjectDetail'
 import About from './About'
 import Contact from './Contact'
-import Hero from './Hero'
 import LatestWriting from './LatestWriting'
 import Projects from './Projects'
 import Publications from './Publications'
@@ -32,10 +33,11 @@ import Toolkit from './Toolkit'
 afterEach(cleanup)
 
 afterEach(() => {
-  // The opening sequence reads a motion preference and a session flag; both are
-  // stubbed per test, so neither may leak into the next one.
+  // The opening reads a motion preference and a session flag, and locks the
+  // root's overflow while its intro plays; none of it may leak into the next test.
   vi.unstubAllGlobals()
   window.sessionStorage.clear()
+  document.documentElement.style.overflow = ''
 })
 
 /** The section a component owns, by anchor id. */
@@ -45,15 +47,6 @@ function section(id: string): HTMLElement {
   if (!element) throw new Error(`no section #${id} in the document`)
 
   return element
-}
-
-/** The wrapper Home puts around its nine sections. */
-function sectionsWrapper(): HTMLElement {
-  const wrapper = section('top').parentElement
-
-  if (!wrapper) throw new Error('the hero has no wrapper in the document')
-
-  return wrapper
 }
 
 /** The featured and archived projects in one lookup, as the routes see them. */
@@ -67,47 +60,64 @@ function project(slug: string): Project {
   return found
 }
 
-describe('Hero', () => {
-  it('splits the name across display lines', () => {
-    render(<Hero />)
+describe('Opening', () => {
+  const [, fullName] = opening.words
 
-    const hero = section('top')
-    const lines = Array.from(hero.querySelectorAll('.hero__line')).map((line) => line.textContent)
+  it('names the page with the full name and the role', () => {
+    stubMotionPreference(true)
+    render(<Opening />)
 
-    expect(hero.querySelector('.display')).not.toBeNull()
-    expect(lines.length).toBeGreaterThan(1)
-    // Rejoining the split lines must give the name back verbatim.
-    expect(lines.join(' ')).toBe(profile.name)
+    const top = section('top')
+
+    expect(within(top).getByRole('heading', { level: 1, name: fullName })).toBeInTheDocument()
+    expect(top.textContent).toContain(`${opening.role.bold} ${opening.role.light}`)
   })
 
-  it('states the title and the one-line arc', () => {
-    render(<Hero />)
+  it('offers the contact pill and a way down to the about section', () => {
+    stubMotionPreference(true)
+    render(<Opening />)
 
-    const hero = section('top')
+    const top = section('top')
 
-    expect(hero.textContent).toContain('M.D. · AI RESEARCHER')
-    expect(hero.textContent).toContain(profile.tagline)
+    expect(within(top).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact')
+    expect(within(top).getByRole('link', { name: /scroll to about/i })).toHaveAttribute('href', '#about')
   })
 
-  it('renders the portrait as a dot mosaic, never as a raster image', () => {
-    render(<Hero />)
+  it('swaps one letter at a time from the first word to the full name', () => {
+    const [first] = opening.words
 
-    const hero = section('top')
-
-    // The portrait is sampled into a canvas of dots, so the photograph itself
-    // is never an element in the document — at hero scale or any other.
-    expect(hero.querySelectorAll('img')).toHaveLength(0)
-    expect(hero.querySelector('.hero__art canvas')).not.toBeNull()
+    expect(swapLetters(first, fullName, 0)).toBe(first)
+    expect(swapLetters(first, fullName, fullName.length)).toBe(fullName)
   })
 
-  it('offers a scroll cue and a contact pill', () => {
-    render(<Hero />)
+  it('skips the intro under reduced motion: no scroll lock, no skip button', () => {
+    stubMotionPreference(true)
+    render(<Opening />)
 
-    const hero = section('top')
-    const contact = within(hero).getByRole('link', { name: /get in touch/i })
+    expect(document.documentElement.style.overflow).toBe('')
+    expect(section('top').querySelector('.opening__skip')).toHaveAttribute('hidden')
+  })
 
-    expect(contact).toHaveAttribute('href', '/#contact')
-    expect(within(hero).getByRole('link', { name: /scroll/i })).toBeInTheDocument()
+  it('locks scrolling while the intro plays, and Skip settles and unlocks it', () => {
+    stubMotionPreference(false)
+    render(<Opening />)
+
+    expect(document.documentElement.style.overflow).toBe('hidden')
+
+    act(() => {
+      fireEvent.click(screen.getByRole('button', { name: 'Skip' }))
+    })
+
+    expect(document.documentElement.style.overflow).toBe('')
+    expect(window.sessionStorage.getItem(OPENING_STORAGE_KEY)).toBe('1')
+  })
+
+  it('plays the intro once per session', () => {
+    stubMotionPreference(false)
+    window.sessionStorage.setItem(OPENING_STORAGE_KEY, '1')
+    render(<Opening />)
+
+    expect(document.documentElement.style.overflow).toBe('')
   })
 })
 
@@ -167,7 +177,7 @@ describe('About', () => {
     for (const organisation of [
       'Iran University of Medical Sciences',
       'Foolad Clinic',
-      'Minimally Invasive Research Center',
+      'Minimally Invasive Surgery Research Center',
       'Saman Insurance',
     ]) {
       expect(text).toContain(organisation)
@@ -464,7 +474,7 @@ describe('ProjectDetail', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(entry.title)
 
     // A fragment that only exists in the Project Details section.
-    expect(screen.getByText(/mixed Persian–English scripts/i)).toBeInTheDocument()
+    expect(screen.getByText(/mix Persian and English/i)).toBeInTheDocument()
 
     expect(screen.getByRole('heading', { name: /^overview$/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /^project details$/i })).toBeInTheDocument()
@@ -742,7 +752,7 @@ describe('Contact (home)', () => {
 })
 
 describe('Home composition', () => {
-  it('orders all nine blocks: hero → about → toolkit → research → projects → publications → teaching → writing → contact', () => {
+  it('orders all nine blocks: opening → about → toolkit → research → projects → publications → teaching → writing → contact', () => {
     render(
       <MemoryRouter>
         <Home />
@@ -762,32 +772,5 @@ describe('Home composition', () => {
       'blog',
       'contact',
     ])
-  })
-
-  it('takes the sections out of the tab order while the opening sequence is up', () => {
-    stubMotionPreference(false)
-    window.sessionStorage.clear()
-
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>,
-    )
-
-    // The sections sit behind an opaque overlay, so a keyboard user must not be
-    // able to walk into links they cannot see.
-    expect(sectionsWrapper()).toHaveAttribute('inert')
-  })
-
-  it('leaves the sections focusable when the sequence does not play', () => {
-    stubMotionPreference(true)
-
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>,
-    )
-
-    expect(sectionsWrapper()).not.toHaveAttribute('inert')
   })
 })

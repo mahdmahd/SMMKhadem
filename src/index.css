@@ -168,12 +168,34 @@
   }
 
   .mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--text);
     text-decoration: none;
     white-space: nowrap;
+  }
+
+  .mark__logo {
+    display: block;
+    flex: none;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Narrow phones: the monogram alone; the name stays as the link's text. */
+  @media (max-width: 479px) {
+    .mark__name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
   }
 
   .site-header__actions {
@@ -297,97 +319,6 @@
   .section__placeholder {
     margin: 0.5rem 0 0;
     color: var(--text-dim);
-  }
-
-  /* Hero (Task 4) -------------------------------------------------------- */
-  .hero {
-    display: flex;
-    align-items: center;
-    /* The header is fixed above the page, so its height comes off the fold. */
-    min-height: calc(100svh - var(--header-h));
-    padding-block: var(--section-pad);
-  }
-
-  .hero__inner {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-    width: 100%;
-  }
-
-  /* The title sizes against this column rather than the viewport, so the art
-     panel can take its share at any width without the display type overflowing
-     it. The longest line is 6.12em, so 13cqw leaves a fifth of the column free. */
-  .hero__text {
-    container-type: inline-size;
-  }
-
-  .hero__title {
-    margin: 0;
-    /* Louder than .display's default: this is the page's biggest type. */
-    font-size: clamp(2.75rem, 13cqw, 8rem);
-  }
-
-  .hero__line {
-    display: block;
-  }
-
-  .hero__subtitle {
-    margin: 1.75rem 0 0;
-  }
-
-  .hero__tagline {
-    max-width: 44ch;
-    margin: 0.75rem 0 0;
-    color: var(--text-dim);
-    font-size: 1.0625rem;
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-
-  .hero__cue {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-dim);
-    text-decoration: none;
-  }
-
-  .hero__cue:hover {
-    color: var(--text);
-  }
-
-  .hero__cue-arrow {
-    animation: hero-cue 2.6s ease-in-out infinite;
-  }
-
-  /* Frame for the dot portrait. The canvas inside paints every pixel, so this
-     supplies only the geometry, the crop and the corner. `overflow: hidden` is
-     what makes the radius clip the canvas. */
-  .hero__art {
-    display: none;
-    overflow: hidden;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    background: var(--panel);
-  }
-
-  @media (min-width: 900px) {
-    .hero__inner {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
-    }
-
-    .hero__art {
-      display: block;
-    }
   }
 
   /* About (Task 4) ------------------------------------------------------- */
@@ -692,6 +623,73 @@
     color: var(--text-dim);
   }
 
+  .project-card__venue {
+    color: var(--text-dim);
+    opacity: 0.8;
+  }
+
+  .project-card__role {
+    margin: 1.25rem 0 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Headline numbers: display weight over a mono label, ruled like a table. */
+  .highlights {
+    display: grid;
+    /* One row however many numbers there are: each gets an equal column. */
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 0;
+    max-width: 34rem;
+    margin: 1.75rem 0 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Value on top, label below, so the numbers align whatever the labels wrap to. */
+  .highlights__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    padding: 1rem 1rem 0 0;
+  }
+
+  .highlights__item + .highlights__item {
+    padding-left: 1rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .highlights__value {
+    order: -1;
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background-image: var(--display-glow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .highlights__label {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  /* Pill chips, the toolkit marquee's grammar, used for a project's methods. */
+  .chip {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
   .project-card__actions {
     display: flex;
     flex-wrap: wrap;
@@ -807,6 +805,24 @@
     font-size: clamp(2rem, 5.5vw, 4rem);
     letter-spacing: -0.03em;
     text-transform: none;
+  }
+
+  .project-detail__role {
+    margin: 1.25rem 0 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .project-detail__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
   }
 
   .project-detail__meta {
@@ -1484,113 +1500,236 @@
     }
   }
 
-  /* Opening sequence + dot portrait (Task 9a) ---------------------------- */
-  /* The hero portrait. The canvas paints its own background and every dot, so
-     this rule is only the shape: the frame's proportions, and nothing about the
-     image, which is sampled rather than scaled. */
-  .dot-portrait {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    background: var(--bg);
+  /* Opening (the homepage hero) ------------------------------------------ */
+  /* A tall scroll track with a sticky stage. The dots are a WebGL canvas; the
+     wordmark, captions and HUD are ordinary DOM on top of it. The track pulls
+     itself up under the fixed header so the stage fills the whole viewport. */
+  .opening {
+    position: relative;
+    height: 420vh;
+    margin-top: calc(-1 * var(--header-h));
   }
 
-  .connectome {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* The overlay. Its own clip-path is the curtain: the sequence clips itself
-     away from the bottom up, revealing the page underneath. Every animated
-     element also starts at its timeline "from" value here, so a frame painted
-     before GSAP runs shows an empty stage rather than a stack of all four. */
-  .intro {
-    position: fixed;
-    inset: 0;
-    /* The header is fixed at 100; the curtain has to cover it. */
-    z-index: 200;
-    display: grid;
-    place-items: center;
-    background: var(--bg);
-    clip-path: inset(0% 0% 0% 0%);
-    cursor: pointer;
-    will-change: clip-path;
-  }
-
-  /* All four stages share one grid cell, so they cross-fade in place. */
-  .intro__stage {
-    grid-area: 1 / 1;
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.12em;
-    opacity: 0;
-  }
-
-  .intro__mask {
-    display: inline-block;
+  .opening__stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
     overflow: hidden;
-    padding-bottom: 0.06em;
+    background: radial-gradient(ellipse at 50% 55%, #0d0d0f 0%, var(--bg) 70%);
   }
 
-  /* No transform here on purpose. A CSS `translateY` would be read back by
-     GSAP as a pixel offset, and the timeline's `yPercent` would stack on top of
-     it, leaving the word parked below its mask. The timeline applies the start
-     state in a layout effect, before the first paint. */
-  .intro__word {
-    display: inline-block;
-    font-size: clamp(2.5rem, 11vw, 6.5rem);
-  }
-
-  .intro__bang {
-    /* .display carries the metallic gradient; the bang is the sequence's one
-       accent mark, so it drops the gradient for the flat token. */
-    background-image: none;
-    color: var(--accent);
-    font-size: clamp(2.5rem, 11vw, 6.5rem);
-    transform-origin: 50% 80%;
-  }
-
-  /* Capped at 320px on purpose: the source portrait is 266px wide, and a
-     halftone survives that better than a photograph does. */
-  .intro__photo {
-    width: min(320px, 64vw);
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    background: var(--panel);
-    box-shadow: 0 2rem 5rem rgb(0 0 0 / 65%);
-    clip-path: inset(100% 0% 0% 0%);
-  }
-
-  .intro__photo-img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.3);
-  }
-
-  /* The brain stage is the only one that needs depth: the tilt is a real 3D
-     rotation, so the parent has to supply the perspective. */
-  .intro__stage--brain {
-    perspective: 900px;
-  }
-
-  .intro__brain {
-    width: min(26rem, 78vw);
-    aspect-ratio: 1 / 1;
-    transform-style: preserve-3d;
-    opacity: 0;
-  }
-
-  .intro__skip {
+  .opening__field {
     position: absolute;
-    right: clamp(1rem, 4vw, 2.5rem);
-    bottom: clamp(1rem, 4vw, 2.5rem);
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .opening__layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* The intro animates `top` (50% → settled) on this element, and the halves'
+     transforms; nothing else may set a transform on them. */
+  .opening__wordmark-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max-content;
+    transform: translate(-50%, -50%);
+  }
+
+  /* `.display` supplies the family, weight, tracking and case; this sizes it
+     for a two-word name and leaves room for the split. */
+  .opening__wordmark {
+    margin: 0;
+    font-size: clamp(2.25rem, 7.6vw, 8.25rem);
+    line-height: 0.85;
+    white-space: pre;
+    /* The gradient lives on each half instead: a transformed inline-block
+       child cannot inherit a parent's clipped background. */
+    background-image: none;
+    color: inherit;
+    transition: opacity 0.3s;
+  }
+
+  .opening__half {
+    display: inline-block;
+    padding: 0 0.04em 0.12em;
+    margin-bottom: -0.12em;
+    white-space: pre;
+    background-image: var(--display-glow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 10px 40px rgb(0 0 0 / 55%));
+  }
+
+  .opening__dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s;
+  }
+
+  .opening__role {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0.5rem;
+    margin: 0;
+    white-space: nowrap;
+    color: var(--text);
+    font-size: clamp(1rem, 2vw, 1.75rem);
+    letter-spacing: -0.01em;
+  }
+
+  .opening__role b {
+    font-weight: 700;
+  }
+
+  .opening__role i {
+    font-weight: 300;
+    color: var(--text-dim);
+  }
+
+  .opening__actions {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    pointer-events: auto;
+  }
+
+  .opening__round {
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+  }
+
+  .opening__captions {
+    position: absolute;
+    top: 24%;
+    left: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    width: min(15rem, calc(100% - 2 * var(--gutter)));
+  }
+
+  .opening__caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .opening__caption p {
+    margin: 0.6rem 0 0;
+    color: var(--text);
+    font-size: clamp(0.95rem, 1.3vw, 1.125rem);
+    line-height: 1.45;
+  }
+
+  .opening__stages {
+    position: absolute;
+    top: 50%;
+    right: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 11px;
+    text-align: right;
+    transform: translateY(-50%);
+  }
+
+  .opening__stages li {
+    opacity: 0.4;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .opening__stages li.is-active {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .opening__hud {
+    position: absolute;
+    right: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    bottom: 1.75rem;
+    left: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .opening__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .opening__hint-wrap {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .opening__hint {
+    animation: cue-bob 2.6s ease-in-out infinite;
+  }
+
+  .opening__enter {
+    position: absolute;
+    right: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    bottom: 4rem;
+  }
+
+  .opening__skip {
+    position: absolute;
+    right: max(var(--gutter), calc((100vw - var(--shell-width)) / 2 + var(--gutter)));
+    bottom: 4rem;
+    z-index: 3;
+  }
+
+  /* Phones: centre with layout, not transforms (the intro animates them),
+     and move the captions under the portrait. */
+  @media (max-width: 767px) {
+    .opening__role {
+      right: 0;
+      left: 0;
+      text-align: center;
+    }
+
+    .opening__actions {
+      top: calc(100% + 3rem);
+      right: 0;
+      left: 0;
+      justify-content: center;
+    }
+
+    .opening__captions {
+      top: auto;
+      bottom: 7.5rem;
+    }
+
+    .opening__caption {
+      top: auto;
+      bottom: 0;
+    }
+
+    .opening__stages {
+      display: none;
+    }
   }
 }
 
@@ -1608,7 +1747,7 @@
   }
 }
 
-@keyframes hero-cue {
+@keyframes cue-bob {
   0%,
   100% {
     transform: translateY(0);
@@ -1650,6 +1789,10 @@
   .marquee__track {
     animation: none !important;
     transform: none !important;
+  }
+
+  .opening__hint {
+    animation: none !important;
   }
 
   .reveal {

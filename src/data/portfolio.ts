@@ -25,12 +25,56 @@ export type Profile = {
 
 export const profile: Profile = {
   name: 'Mohammad Mahdi Khadem',
-  title: 'M.D. · AI Researcher',
+  title: 'M.D. · Medical AI Researcher',
   tagline:
-    'Physician-turned-researcher working at the intersection of clinical medicine and AI — from neuroimaging of dementia to surgical data science and clinical NLP.',
+    'A medical doctor and AI developer at the intersection of medicine and machine learning. I build clinical AI that is interpretable, validated and actually usable, from routine brain MRI to bariatric surgery and Persian medical documents.',
   location: 'Tehran, Iran',
   email: 'Smmehdikhadem@gmail.com',
   cvUrl: '/cv.pdf',
+}
+
+/* ----------------------------------------------------------------- opening */
+
+export type OpeningStage = {
+  /** Label in the stage list on the right of the opening. */
+  label: string
+  eyebrow: string
+  line: string
+}
+
+export type OpeningCopy = {
+  /** The intro writes the first word in dots, then letter-swaps to the second. */
+  words: [string, string]
+  /** Where the second word splits once it settles (`Mehdi` | ` Khadem`). */
+  splitAt: number
+  role: { bold: string; light: string }
+  /** Threshold-traced portrait: the face is in the unfilled white. */
+  avatarUrl: string
+  /** Shaded brain on a flat blue backdrop; the blue is keyed out. */
+  brainUrl: string
+  /** One per stage: starfield + name, avatar, brain. */
+  stages: [OpeningStage, OpeningStage, OpeningStage]
+}
+
+export const opening: OpeningCopy = {
+  words: ['Mehdi', 'Mehdi Khadem'],
+  splitAt: 5,
+  role: { bold: 'Medical AI', light: 'Researcher' },
+  avatarUrl: '/images/opening/avatar.svg',
+  brainUrl: '/images/opening/brain.png',
+  stages: [
+    { label: 'Name', eyebrow: '', line: '' },
+    {
+      label: 'Face',
+      eyebrow: 'This is me',
+      line: 'A medical doctor who builds AI that clinicians can trust and actually use.',
+    },
+    {
+      label: 'Mind',
+      eyebrow: 'How I think',
+      line: 'Real clinical data is noisy and imperfect. That is exactly where I like to work.',
+    },
+  ],
 }
 
 /* --------------------------------------------------------------------- nav */
@@ -112,9 +156,9 @@ export const formAction: string | null = 'https://formspree.io/f/xkonleag'
  * eight of them, the load-bearing phrases of the arc.
  */
 export const about: string[] = [
-  'I came to data science through medicine. My M.D. thesis at Iran University of Medical Sciences asked how regional structural change on **routine clinical MRI** tracks cognitive decline in **frontotemporal dementia** — and answering it meant learning **neuroimaging** properly: slice-to-volume reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
-  'Then came the years I value most: full-time general practice at Foolad Clinic, where research questions arrive as people rather than as datasets — and where I found that I genuinely enjoy mathematics and statistics once they meet a real clinical problem.',
-  'At the Minimally Invasive Research Center I moved to **bariatric surgery**: predictive models and **explainable AI** that clinicians can inspect, bedside scores instead of black boxes, and **RAG** clinical question answering grounded in the bariatric surgery textbook. Now, at Saman Insurance, I work on **clinical NLP** — **Persian medical documents**, and LLM workflows for claims, fraud detection and patient records.',
+  'I came to data science through medicine. My M.D. thesis at Iran University of Medical Sciences asked whether **routine clinical MRI** could explain cognitive decline in **frontotemporal dementia**. The scans were never made for research, so I had to learn **neuroimaging** properly: slice to volume reconstruction, FreeSurfer and SPM pipelines, and the statistics to defend the result.',
+  'Then came general practice at Foolad Clinic, where research questions arrive as people and not as datasets. That is where I found that I genuinely enjoy mathematics and statistics, as long as they meet a real clinical problem.',
+  'At the Minimally Invasive Surgery Research Center I moved to **bariatric surgery**: **explainable AI** that clinicians can inspect, bedside scores instead of black boxes, and **RAG** question answering grounded in the textbook surgeons trust. At Saman Insurance I work on **clinical NLP** for **Persian medical documents**, with humans in the loop. I do not want to be a clinician who uses AI. I want to understand it deeply enough to make it trustworthy.',
 ]
 
 export type TimelineEntry = {
@@ -138,7 +182,7 @@ export const timeline: TimelineEntry[] = [
   },
   {
     role: 'AI Researcher & Developer',
-    organisation: 'Minimally Invasive Research Center',
+    organisation: 'Minimally Invasive Surgery Research Center',
     period: '2024 – present',
   },
   {
@@ -176,8 +220,8 @@ export const researchAreas: ResearchArea[] = [
     title: 'Neuroimaging & Neurodegeneration',
     bullets: [
       'Linking regional structural findings on routine clinical MRI to MMSE and MoCA sub-domain performance in frontotemporal dementia.',
-      'Slice-to-volume reconstruction (SVRTK) that lifts 1.5T, low-resolution 2D hospital scans back to analysable volumes.',
-      'SynthSeg-based segmentation robust to heterogeneous contrast and resolution, so routine hospital imaging stays usable at scale.',
+      'Slice to volume reconstruction (SVRTK) that lifts 1.5T, low resolution 2D hospital scans back to analysable volumes.',
+      'SynthSeg segmentation that survives heterogeneous contrast and resolution, so routine hospital imaging stays usable at scale.',
       'Hippocampal subfield shape and thickness across ApoE genotypes in ADNI, using tetrahedral mesh geometry beyond global volume.',
     ],
   },
@@ -187,8 +231,8 @@ export const researchAreas: ResearchArea[] = [
     title: 'Surgical Data Science & Bariatric AI',
     bullets: [
       'Building and harmonising multimodal clinical datasets from bariatric surgery cohorts of several thousand patients.',
-      'A predictive scoring system for hypoalbuminemia after one-anastomosis gastric bypass (AUROC 0.80, cutoff score 55) built on the AutoScore framework.',
-      'Computer-vision measurement of biliopancreatic limb length from laparoscopic video, calibrated from pixels to real-world centimetres.',
+      'A bedside score for hypoalbuminemia after one anastomosis gastric bypass (AUROC 0.80 at cutoff 55), validated on a later year of patients.',
+      'Computer vision measurement of biliopancreatic limb length from laparoscopic video, calibrated from pixels to centimetres.',
       'Weight-trajectory modelling with latent class analysis and structural equation modelling, paired with explainable ML for patient-level prediction.',
     ],
   },
@@ -197,10 +241,10 @@ export const researchAreas: ResearchArea[] = [
     index: '03',
     title: 'Clinical NLP & Medical Documents',
     bullets: [
-      'PERSiMED: a Persian medical document reader combining CNN segmentation with vision-language models, above 96% end-to-end processing on 2,000 real insurance documents.',
-      'Retrieval-augmented clinical question answering grounded in the ASMBS bariatric surgery textbook — 82% to 94% accuracy with far fewer hallucinations.',
+      'PERSiMED: a Persian medical document reader that pairs CNN segmentation with vision language models, processing over 96% of 2,000 real insurance documents.',
+      'Retrieval augmented question answering grounded in the ASMBS textbook: GPT-5 reached 94% on 200 board style questions, eleven points above the earlier benchmark.',
       'LLM workflows for insurance medicine: claims automation, duplicate-claim and upcoding detection, and longitudinal patient-record construction.',
-      'Privacy-preserving outputs — annotated image, layout-preserving HTML and ingestible JSON — instead of raw OCR text.',
+      'Privacy aware outputs (annotated image, layout preserving HTML and structured JSON) instead of raw OCR text.',
     ],
   },
   {
@@ -208,7 +252,7 @@ export const researchAreas: ResearchArea[] = [
     index: '04',
     title: 'Evidence Synthesis & Meta-Analysis',
     bullets: [
-      'PRISMA-compliant systematic reviews with pre-specified search, screening, extraction and risk-of-bias protocols.',
+      'PRISMA compliant systematic reviews with prespecified search, screening, extraction and risk of bias protocols.',
       'Random-effects meta-analysis and meta-regression in R (meta, metafor), with sensitivity analysis and publication-bias assessment.',
       'A 42-study, 9,468-patient synthesis of serum uric acid after metabolic and bariatric surgery, tracing the reduction to renal urate handling and visceral adiposity.',
       'Subgroup and robustness checks that separate durable effects from transient postoperative noise.',
@@ -219,15 +263,21 @@ export const researchAreas: ResearchArea[] = [
     index: '05',
     title: 'Explainable ML & Clinical Prediction',
     bullets: [
-      'Interpretability methods (attribution scores, rule-based scores), so the drivers behind every model stay inspectable by the clinicians who act on it.',
-      'AutoScore-style conversion of model coefficients into integer bedside scores, rather than opaque probabilities.',
-      'Translating models into point-of-care tools — risk strata, cutoffs and monitoring windows a ward can actually use.',
-      'Honest validation reporting: discrimination, calibration, and the limits of single-centre retrospective data.',
+      'Interpretability methods (attribution scores, rule-based scores), so the clinicians who act on a model can see what drives it.',
+      'AutoScore conversion of models into integer bedside scores, rather than opaque probabilities.',
+      'Temporal validation: train on earlier years, test on a later one, so the model is honest about the future.',
+      'Honest reporting of discrimination, calibration and the limits of single centre retrospective data.',
     ],
   },
 ]
 
 /* --------------------------------------------------------------- projects */
+
+/** One headline number on a project: `94%` over `GPT-5 with retrieval`. */
+export type Highlight = {
+  value: string
+  label: string
+}
 
 export type ProjectFields = {
   slug: string
@@ -239,6 +289,12 @@ export type ProjectFields = {
   year?: number
   /** Technology list, verbatim from the frontmatter, for the detail meta line. */
   technologies?: string[]
+  /** Where it appeared (or its status), printed as the card's eyebrow. */
+  venue?: string
+  /** His part in it, from the paper's author contributions. */
+  role?: string
+  /** Two or three headline numbers, printed as a stat row. */
+  highlights?: Highlight[]
   /** Rendered as a Paper button only when present and verified. */
   paperUrl?: string
   /** Rendered as a Code button only when present and verified. */
@@ -279,97 +335,117 @@ export const featuredProjects: Project[] = [
   {
     slug: 'project-6',
     index: '01',
-    title: 'PERSiMED: PERSian Intelligent MEDical Document Reader: A Smart NLP-based Framework for Persian Medical Documents',
-    summary: 'A deep learning–based framework for intelligent extraction, semantic understanding, and structured digitization of Persian medical documents, designed to automate health insurance workflows and fraud detection.',
+    title: 'PERSiMED: Reading Persian Medical Documents with Vision Language Models',
+    summary:
+      'Insurance staff in Iran still read thousands of scanned medical documents by hand. PERSiMED turns those scans into structured, searchable data: a CNN cleans and straightens each page, then a vision language model reads Persian and English together.',
     year: 2025,
+    venue: 'Conference on Insurance and Development · 2025',
+    role: 'First author · Designed and built the pipeline',
+    highlights: [
+      { value: '2,000', label: 'real insurance documents' },
+      { value: '96%', label: 'processed end to end' },
+      { value: '3', label: 'outputs per page: image, HTML, JSON' },
+    ],
     technologies: [
       'Python',
-      'Deep Learning (CNNs)',
-      'Vision-Language Models',
-      'Computer Vision',
-      'Natural Language Processing (NLP)',
-      'HTML Parsing (BeautifulSoup)',
-      'Structured Data Pipelines',
-      'Privacy-Preserving Data Architecture',
+      'CNN segmentation',
+      'Vision language models',
+      'Computer vision',
+      'BeautifulSoup',
+      'Structured data pipelines',
     ],
     image: '/images/projects/persimed-flowchart.webp',
     imageAlt:
       'Three panels of the PERSiMED pipeline on one Persian sonography report: the scanned page, the extracted text with its bounding boxes and confidence scores as JSON, and the same page with the detected regions outlined.',
     paperUrl: 'https://en.civilica.com/doc/2472372/',
     codeUrl: 'https://github.com/mahdmahd/PERSiMED',
-    overview: 'A deep learning–based framework for intelligent extraction, semantic understanding, and structured digitization of Persian medical documents, designed to automate health insurance workflows and fraud detection.',
+    overview:
+      'A complete pipeline that reads scanned Persian medical documents and returns structured, privacy aware outputs that an insurance company can actually use.',
     details: [
-      'Let’s be direct: manual processing of medical documents in Persian-speaking healthcare systems is slow, expensive, and error-prone. Mixed Persian–English scripts, right-to-left layouts, handwritten annotations, and non-standard formatting make traditional OCR pipelines unreliable. PERSiMED was built to deal with that reality, not an idealized dataset.',
-      'PERSiMED (PERSian Intelligent MEDical document reader) is an end-to-end AI framework that automates the entire medical document processing pipeline—from raw scanned images to structured, searchable, and privacy-preserving outputs. The system combines modern computer vision, deep learning–based segmentation, and Vision-Language (VL) models to move beyond simple character recognition toward real semantic understanding of medical content.',
-      'The core idea is straightforward but powerful: instead of treating OCR and NLP as separate, brittle steps, PERSiMED integrates document preprocessing, layout correction, multilingual text understanding, and semantic annotation into a unified pipeline. CNN-based segmentation models handle document boundary detection, orientation correction, and geometric rectification, while Vision-Language models perform simultaneous text recognition and contextual interpretation of Persian and English medical terminology.',
-      'The framework produces three synchronized outputs for every document: annotated images for visual validation, clean HTML that preserves logical and spatial layout, and structured JSON objects suitable for database ingestion and downstream analytics. This design makes PERSiMED practical for real insurance operations, not just academic benchmarks.',
-      'From an application standpoint, PERSiMED directly targets high-impact insurance use cases: claims processing automation, fraud detection (duplicate claims, upcoding, temporal anomalies), and longitudinal patient record construction. In evaluation on 2,000 real insurance documents, the system achieved over 96% successful end-to-end processing, with failures largely attributable to severely degraded input quality rather than model limitations.',
-      'Ultimately, PERSiMED is about replacing slow human bottlenecks with scalable, auditable AI—while respecting privacy constraints and the linguistic realities of Persian medical documentation.',
+      'In Persian speaking healthcare, medical documents are still processed by hand. The pages mix Persian and English, run right to left, carry handwritten notes and follow no standard format. Classic OCR breaks on exactly these pages, so the work stays slow, expensive and error prone.',
+      'I asked a simple question: why treat reading and understanding as two separate steps? PERSiMED joins them. A CNN finds the document boundary, fixes the orientation and straightens the page. A vision language model then reads the text and interprets the medical terms in context, in both languages at once.',
+      'Every page comes out in three synchronized forms: an annotated image for visual checking, clean HTML that keeps the layout, and structured JSON ready for a database. I also benchmarked several models on mixed Persian and English documents and ran a cost analysis, so the choice of model is an affordable one and not only an accurate one.',
+      'On 2,000 real insurance documents, more than 96% were processed successfully from scan to structured output. Most failures came from badly degraded scans, not from the models. The targets are concrete: faster claims, detection of duplicate claims and upcoding, and longitudinal patient records built from documents that already exist.',
+      'The project was funded by Saman Insurance and presented at the 32nd National and 13th International Conference on Insurance and Development.',
     ],
   },
   {
     slug: 'project-5',
     index: '02',
-    title: 'Retrieval-Augmented Clinical Question Answering for Bariatric Surgery',
-    summary: 'A retrieval-augmented generation (RAG) system that uses the ASMBS bariatric surgery textbook as a knowledge base to answer medical questions with higher accuracy and fewer hallucinations than general-purpose AI models.',
-    year: 2025,
-    technologies: [
-      'retrieval-augmented generation (RAG)',
-      'LangChain',
-      'ChromaDB',
+    title: 'RAG for Bariatric Surgery: From Good to Great',
+    summary:
+      'Large language models answer surgical questions with confidence, even when they are wrong. I built a retrieval augmented system that answers only from the ASMBS Textbook of Bariatric Surgery. On 200 board style questions, GPT-5 with retrieval reached 94% accuracy.',
+    year: 2026,
+    venue: 'Research Square preprint · 2026 · under review',
+    role: 'First author · Designed the method, built the system and the web app',
+    highlights: [
+      { value: '94%', label: 'GPT-5 with retrieval' },
+      { value: '+14', label: 'points for GPT-4o-mini' },
+      { value: '200', label: 'questions across 56 chapters' },
     ],
-    overview: 'A retrieval-augmented generation (RAG) system that uses the ASMBS bariatric surgery textbook as a knowledge base to answer medical questions with higher accuracy and fewer hallucinations than general-purpose AI models.',
+    technologies: ['Python', 'LangChain', 'ChromaDB', 'OpenAI API', 'Flask', 'LLM evaluation'],
+    image: '/images/projects/rag-pipeline.webp',
+    imageAlt:
+      'Flow chart of the retrieval pipeline: the user query passes through query augmentation, the textbook retriever over a ChromaDB index built from chunked textbook text, a two stage relevance and usefulness filter, and the LLM reader, to the final answer.',
+    paperUrl: 'https://doi.org/10.21203/rs.3.rs-9979413/v1',
+    overview:
+      'A clinical question answering system grounded in the ASMBS Textbook of Bariatric Surgery, so the answer comes from the source surgeons trust and not from what the model happens to remember.',
     details: [
-      "Large language models like ChatGPT are impressive, but they have a glaring problem when it comes to specialized medical knowledge: they hallucinate. They'll confidently make up answers that sound plausible but are actually wrong – not exactly what you want when studying for board exams or making clinical decisions! We came across a study showing that ChatGPT correctly answered about 82% of ASMBS (American Society for Metabolic and Bariatric Surgery) end-chapter questions. That's decent, but our key question was: could we push that accuracy higher while cutting down on the made-up nonsense?\nTurns out, we could! I designed a retrieval-augmented generation (RAG) system that grounds the AI's answers in a specific, authoritative source: the ASMBS bariatric surgery textbook. Instead of letting the model rely solely on whatever it memorized during training (and risk hallucinating), the system actually looks up relevant information from the textbook before answering.\nHere's how it works: when you ask a question, the system first rewrites and expands your query to capture different phrasings and related concepts. Then it searches through a vector database (built using ChromaDB) containing the entire ASMBS textbook, finding semantically similar and relevant passages. These passages get filtered for quality and relevance, and only then are they fed to the LLM (along with your original question) so it can generate an answer that's actually grounded in the textbook content.\nWe tested this rigorously, evaluating accuracy with and without RAG across different models – GPT-4, GPT-4o-mini, and some newer models. The results were pretty awesome! We achieved about 94% accuracy on those end-chapter questions (up from 82%), and the hallucinations dropped dramatically. When the model doesn't know something, it's much more likely to say so rather than making stuff up, because it's constrained by what's actually in the textbook.\nI built a restricted-access demo that's available at medrag.liararun.ir (credentials provided on request – we have to keep it locked down due to textbook copyright constraints). It's a functional web service where you can ask bariatric surgery questions and get textbook-grounded answers in real-time.\nThis project shows how RAG can make AI genuinely useful for medical education and clinical decision support by keeping it honest and accurate. A manuscript describing this work is currently under review, so hopefully we'll be able to share the full details soon!\nSoftware used: Python, LangChain, ChromaDB, OpenAI API, Flask (for the web-service demo).",
+      'A published benchmark showed ChatGPT answering about 83% of the ASMBS end of chapter questions correctly. Good, but not good enough for a field where a confident wrong answer can reach a patient. So the question was clear: can we move from good to great, and stop the hallucinations at the same time?',
+      'The system follows the LLM AMT design. First it rewrites each question into precise medical terms and expands it. Then it searches a ChromaDB index of the whole textbook, built with text-embedding-3-large, and takes the ten most relevant passages. An LLM filters those passages twice, first for relevance and then for usefulness, and only the survivors reach the model that writes the answer.',
+      'I tested it on 200 end of chapter questions covering all 56 chapters, with and without retrieval, and reported accuracy with Wilson 95% confidence intervals. GPT-5 rose from 87.0% to 94.0% (188 of 200). GPT-4 rose from 81.0% to 89.5%, and GPT-4o-mini from 70.5% to 84.5%. The best result is eleven points above the earlier ChatGPT benchmark. The weakest domains were operative technique and complications, at 88.9% each.',
+      'There is a working web application on top of it. Access is restricted because the textbook is copyrighted, and the full question set cannot be published for the same reason.',
     ],
   },
   {
     slug: 'project-8',
     index: '03',
-    title: 'Unveiling Predictors of Hypoalbuminemia Following One Anastomosis Gastric Bypass (OAGB): A Retrospective Analysis',
-    summary: 'A machine learning-based clinical scoring system designed to predict hypoalbuminemia risk following One-Anastomosis Gastric Bypass (OAGB) surgery, enabling early intervention and personalized patient care.',
+    title: 'Predicting Hypoalbuminemia After One Anastomosis Gastric Bypass',
+    summary:
+      'Which patients will lose albumin after gastric bypass, and can we know before surgery? From 3,242 patients in the national obesity surgery database, I built an interpretable model and turned it into a points score a surgeon can add up at the bedside.',
     year: 2025,
-    technologies: [
-      'Machine Learning',
-      'XGBoost',
-      'Random Forest Explainable AI (SHAP values)',
-      'AutoScore Framework',
-      'AutoScore',
-      'Python',
-      'Scikit-learn',
-      'Scoring System',
+    venue: 'Obesity Surgery · 2025',
+    role: 'Coauthor · Data analysis, modelling and interpretation',
+    highlights: [
+      { value: '0.80', label: 'AUROC of the bedside score' },
+      { value: '3,242', label: 'patients, 2018 to 2023' },
+      { value: '83%', label: 'sensitivity at cutoff 55' },
     ],
-    image: '/images/projects/oagb-study-design.webp',
+    technologies: ['Python', 'Scikit-learn', 'XGBoost', 'Random Forest', 'SHAP', 'AutoScore', 'KNN imputation'],
+    image: '/images/projects/oagb-shap-summary.webp',
     imageAlt:
-      'Study-design flow chart: the 3,242-patient OAGB cohort split by year into a 2,536-patient training set and a 706-patient 2023 hold-out, then the machine-learning models, hyperparameter tuning, AutoScore conversion and SHAP feature ranking.',
+      'SHAP summary plot ranking the predictors of hypoalbuminemia: age first, then biliopancreatic limb length adjusted for height, ferritin, BMI, height and haemoglobin, each dot one patient coloured by feature value.',
     paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/41201758/',
-    overview: 'A machine learning-based clinical scoring system designed to predict hypoalbuminemia risk following One-Anastomosis Gastric Bypass (OAGB) surgery, enabling early intervention and personalized patient care.',
+    overview:
+      'An interpretable prediction model for hypoalbuminemia within a year of one anastomosis gastric bypass, converted into an integer score for use before and after surgery.',
     details: [
-      "Let's be honest, managing post-bariatric surgery complications like hypoalbuminemia can be challenging, especially when trying to identify at-risk patients before symptoms manifest. After analyzing data from over 3,200 patients who underwent OAGB procedures between 2018-2023, our research team developed a practical scoring system that transforms complex clinical predictors into an actionable risk assessment tool – as straightforward as checking a patient's vital signs.",
-      'The core innovation is a transparent, clinically interpretable scoring algorithm derived from advanced machine learning models. We identified key predictors that independently increase hypoalbuminemia risk: age ≥ 41 years, lower ferritin and hemoglobin levels, severe obesity (BMI 40-59.9 kg/m² or higher), shorter height, and a higher biliopancreatic-limb-to-height ratio. Using the AutoScore framework, we converted these complex relationships into an easy-to-use integer scoring system with remarkable accuracy (AUROC 0.80).',
-      'What makes this tool truly valuable in clinical practice is its simplicity – with a cutoff score of 55, healthcare providers can quickly stratify patients into low-risk (<55) and high-risk (≥55) categories. Those scoring high should receive intensified nutritional monitoring during the vulnerable early recovery period, particularly within the first 6 months when hypoalbuminemia most commonly develops. While this single-center retrospective study awaits external validation, this scoring system represents our commitment to precision medicine in bariatric care.',
-      "This research represents years of collaborative work across multiple specialties, and I'm particularly grateful to my colleagues at the Minimally Invasive Surgery Research Center for their invaluable insights and dedication to improving patient outcomes after metabolic surgery.",
+      'My colleagues first wanted to compare two groups of patients. I asked a different question: what if we could predict who will develop hypoalbuminemia, and give the surgeon a simple score to act on?',
+      'We used 3,242 OAGB patients from the Iranian National Obesity Surgery Database, 74 of whom developed serum albumin below 3.5 g/dL within a year. Missing values were filled with KNN imputation. Random Forest, XGBoost and logistic regression were tuned with leave one year out cross validation, then tested on a separate 2023 cohort of 706 patients. Splitting by time, not at random, is what keeps the model honest about the future.',
+      'The models reached AUROCs of 0.81, 0.83 and 0.78. SHAP showed what drives the risk: age, biliopancreatic limb length adjusted for height, ferritin, BMI, height and haemoglobin. AutoScore converted these into integer points. The final score reached an AUROC of 0.80, with 83.3% sensitivity and 67% specificity at a cutoff of 55, and stayed between 0.82 and 0.88 across surgery years.',
+      'Most cases appeared early, about two thirds within the first six months. So a high score means one practical thing: closer nutritional follow up in that window. A model is only worth something if the clinician can read it and use it.',
     ],
   },
   {
     slug: 'project-3',
     index: '04',
-    title: 'ApoE Genotype–Specific Hippocampal Shape Alterations in Alzheimer’s Disease',
-    summary: 'A neuroimaging study investigating how hippocampal subfield structure and shape differ across ApoE genotypes, using high-resolution MRI and computational geometry–based morphometric analysis.',
-    year: 2025,
-    technologies: [
-      'FreeSurfer',
-      'HIPSTA',
-      'Computational Geometry',
-      'High-Resolution MRI',
-      'ADNI Dataset',
+    title: 'ApoE and the Shape of the Hippocampus',
+    summary:
+      'ApoE ε4 is the strongest common genetic risk factor for Alzheimer’s disease. Using high resolution ADNI scans of cognitively normal adults, I asked whether the hippocampus already differs in shape across ApoE genotypes, before any global atrophy shows.',
+    year: 2026,
+    venue: 'Manuscript in preparation',
+    role: 'First author · Analysis and writing',
+    highlights: [
+      { value: '3', label: 'genotype groups: ε4/ε4, ε3/ε4, ε3/ε3' },
+      { value: 'ADNI', label: 'high resolution hippocampal MRI' },
     ],
-    overview: 'A neuroimaging study investigating how hippocampal subfield structure and shape differ across ApoE genotypes, using high-resolution MRI and computational geometry–based morphometric analysis.',
+    technologies: ['FreeSurfer', 'HIPSTA', 'Computational geometry', 'High resolution MRI', 'ADNI'],
+    overview:
+      'A morphometric study of hippocampal subfields across ApoE genotypes, looking at local shape and thickness instead of global volume.',
     details: [
-      'Apolipoprotein E (ApoE) genotype—particularly the ε4 allele—is the strongest common genetic risk factor for Alzheimer’s disease, yet the structural brain mechanisms through which ApoE4 confers risk remain incompletely understood. In this project, I tested the hypothesis that hippocampal morphology differs systematically across ApoE genotype groups even in the absence of overt dementia.',
-      'Using high-resolution hippocampal MRI data from the Alzheimer’s Disease Neuroimaging Initiative (ADNI), I stratified cognitively healthy individuals by ApoE genotype (ε4/ε4, ε3/ε4, and ε3/ε3). I performed hippocampal subfield segmentation using FreeSurfer and applied the HIPSTA framework, which uses tetrahedral mesh modeling and computational geometry, to quantify hippocampal thickness and shape beyond conventional volumetric measures.',
-      'Rather than focusing solely on global hippocampal volume, the analysis targeted localized shape and thickness differences that may reflect early vulnerability of specific hippocampal subfields. This approach allowed for spatially resolved comparisons across genotype groups and provided a more sensitive structural phenotype linked to genetic risk.',
-      'The project is currently in its final stages, with analyses complete and manuscript preparation underway. The results support the view that ApoE4-related neurodegenerative processes may manifest as subtle, regionally specific hippocampal shape alterations before measurable global atrophy occurs.',
+      'We know ApoE ε4 raises the risk of Alzheimer’s disease. We know much less about where in the brain that risk first becomes visible. My hypothesis was that hippocampal shape differs across genotypes even in people with no cognitive complaint.',
+      'I stratified cognitively healthy ADNI participants into ε4/ε4, ε3/ε4 and ε3/ε3 groups. Hippocampal subfields were segmented with FreeSurfer, and HIPSTA built a tetrahedral mesh of each hippocampus to measure thickness and shape point by point.',
+      'Volume is a single number for the whole structure. Shape is a map. Looking at local thickness lets us see which subfields change first, and that is a more sensitive marker of genetic vulnerability than global atrophy.',
+      'The analysis is complete and the manuscript is in preparation. The results support the idea that ApoE ε4 shows up first as subtle, regional changes in hippocampal shape.',
     ],
   },
 ]
@@ -382,179 +458,166 @@ export const allProjects: Project[] = [
   {
     slug: 'project-1',
     index: '01',
-    title: 'M.D. Thesis: Neuroimaging–Cognition Relationships in Frontotemporal Dementia Using Routine Clinical MRI',
-    summary: 'An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.',
-    year: 2025,
-    technologies: [
-      'SVRTK (Slice-to-Volume Reconstruction Toolkit)',
-      'FreeSurfer',
-      'SPM (Statistical Parametric Mapping)',
-      'SynthSeg',
-      'Clinical MRI',
-      'Slice-to-Volume Reconstruction',
-    ],
+    title: 'M.D. Thesis: Frontotemporal Dementia on Routine Clinical MRI',
+    summary:
+      'Can the ordinary MRI scans of a hospital tell us something real about cognition in frontotemporal dementia? I reconstructed low resolution clinical scans into analysable volumes and linked regional brain changes to MMSE and MoCA subdomains.',
+    year: 2022,
+    venue: 'M.D. thesis · Iran University of Medical Sciences · 2022',
+    role: 'Sole investigator · Thesis graded 90%',
+    technologies: ['SVRTK', 'FreeSurfer', 'SPM', 'SynthSeg', 'Clinical MRI'],
     image: '/images/projects/cortical-surface.webp',
     imageAlt:
-      'Three-dimensional cortical surface model in a colour-coded viewer, shown with superior, posterior and anterior orientation labels.',
-    overview: 'An M.D. thesis project investigating structural neuroimaging correlates of cognitive impairment in frontotemporal dementia (FTD), with a focus on extracting meaningful information from low-resolution routine clinical MRI data.',
+      'Three dimensional cortical surface model in a colour coded viewer, shown with superior, posterior and anterior orientation labels.',
+    overview:
+      'An M.D. thesis on structural correlates of cognitive impairment in frontotemporal dementia, using the routine 1.5T scans that hospitals already have.',
     details: [
-      'Frontotemporal dementia is a clinically and biologically heterogeneous neurodegenerative disorder in which cognitive and behavioral deficits are often poorly captured by routine imaging reports. As part of my M.D. thesis, I studied whether structural patterns observable in standard hospital MRI scans could be meaningfully linked to neuropsychological performance in patients with FTD.',
-      'I analyzed 1.5T, low-resolution 2D clinical MRI scans obtained from Firoozgar and Rasoul Akram Hospitals and related regional brain findings to neuropsychological test scores, including MMSE, MoCA, and their subdomains. Because the available imaging data were not optimized for research use, I applied slice-to-volume reconstruction using the Slice-to-Volume Reconstruction Toolkit (SVRTK) to generate higher-quality volumetric representations suitable for downstream analysis.',
-      'I independently learned, implemented, and optimized neuroimaging pipelines using FreeSurfer and SPM, including segmentation, cortical and subcortical analysis, and statistical modeling. As the project progressed, I refined the original hypotheses based on data quality and preliminary results and proposed additional analyses to strengthen interpretability and robustness.',
-      'A key component of the work was integrating imaging findings with cognitive data. I routinely reviewed primary neurodegeneration and neuroanatomy literature to interpret associations between regional brain changes and specific MMSE and MoCA sub-scores, rather than relying solely on global cognitive scores.',
-      'I presented and defended this work in my thesis, “Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul-Akram Hospitals”, receiving a final grade of 90%.',
-      'Following the thesis defense, I extended the project by improving slice-to-volume reconstruction and segmentation of 2D clinical MRIs using SynthSeg, a generative AI–based framework capable of handling heterogeneous contrasts and resolutions. This continuation reflects my broader research position: understanding neurodegenerative disease mechanisms should not rely exclusively on high-resolution research scans, but must also leverage the vast and underused body of routine hospital imaging data.',
+      'Frontotemporal dementia is heterogeneous, and routine imaging reports rarely capture what the patient is actually losing. For my M.D. thesis I asked whether standard hospital MRI could be linked to neuropsychological performance in a meaningful way.',
+      'The data were 1.5T, low resolution 2D scans from Firoozgar and Rasoul Akram hospitals, never meant for research. I used slice to volume reconstruction (SVRTK) to rebuild them into volumes, then learned and tuned FreeSurfer and SPM pipelines for segmentation, cortical and subcortical analysis, and statistics.',
+      'Instead of relying on global scores, I related regional findings to MMSE and MoCA subdomains, and read the neuroanatomy literature closely to interpret each association. As the data revealed their limits, I refined the hypotheses and added analyses to make the results robust.',
+      'The thesis, “Evaluation of Neuroimaging Findings and Neuropsychological Test Data in Frontotemporal Dementia Patients in Firoozgar and Rasoul Akram Hospitals”, received a final grade of 90%. The lesson stayed with me: imperfect, heterogeneous clinical data can still answer real questions if you treat it carefully.',
     ],
   },
   {
     slug: 'project-2',
     index: '02',
-    title: 'Post-Thesis: Advanced Neuroimaging Analysis Using GenAI',
-    summary: 'An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans.',
+    title: 'After the Thesis: Generative AI for Clinical Brain MRI',
+    summary:
+      'Hospitals hold far more brain MRI than any research study, but most of it is low resolution and ignored. This ongoing work combines slice to volume reconstruction with SynthSeg so routine scans can be analysed at scale.',
     year: 2023,
-    technologies: [
-      'FreeSurfer',
-      'SynthSeg',
-      'Clinical MRI',
-      'Slice-to-Volume Reconstruction',
-    ],
-    overview: 'An ongoing research effort to improve brain MRI reconstruction techniques, enabling large-scale neurodegeneration studies using routine clinical imaging data rather than relying solely on high-resolution research scans.',
+    venue: 'Ongoing research',
+    technologies: ['FreeSurfer', 'SynthSeg', 'Slice to volume reconstruction', 'Clinical MRI'],
+    overview:
+      'Ongoing work to make routine clinical brain MRI usable for large neurodegeneration studies, not only the small set of research grade scans.',
     details: [
-      "Here's the thing about neurodegenerative disease research: we have access to tons of clinical MRI scans from hospitals – images taken during routine patient care – but they're often lower resolution and less standardized than the fancy research-grade scans. Most studies ignore this treasure trove of data and stick with high-resolution research MRIs. But what if we could unlock the potential of all that clinical data? That's exactly what I set out to do!\nAfter successfully defending my M.D. thesis, I wasn't quite done with the neuroimaging world. I kept pushing forward with this work, focusing on improving the slice-to-volume reconstruction techniques I'd been using. The key innovation? Incorporating SynthSeg, a really clever generative AI-based framework that can segment MRIs regardless of their contrast or resolution. Unlike traditional segmentation tools that are picky about image quality, SynthSeg is remarkably robust.\nMy working hypothesis drives this whole effort: if we want to truly understand neurodegenerative disease mechanisms, we shouldn't limit ourselves to the relatively small number of high-resolution research MRIs out there. Instead, we should be exploiting the massive volumes of routine hospital imaging data that already exist. These clinical scans represent real-world patient populations, diverse scanning protocols, and longitudinal follow-up data that you just can't get easily in traditional research settings.\nBy combining improved slice-to-volume reconstruction with SynthSeg's flexible segmentation capabilities, I'm working to make these lower-quality clinical scans analyzable at scale. This could potentially transform how we study neurodegeneration – moving from small, highly controlled studies to large-scale analyses that better represent the full spectrum of disease. It's ongoing work, but the goal is to bridge the gap between clinical reality and research potential!",
+      'Most neurodegeneration studies use high resolution research scans and ignore the routine MRI that hospitals produce every day. That routine data is noisier, but it covers real patients, real protocols and years of follow up.',
+      'After my thesis I kept improving the reconstruction pipeline and added SynthSeg, a generative AI segmentation model that works across contrasts and resolutions. Where classic tools reject a scan for its quality, SynthSeg still produces a usable segmentation.',
+      'The aim is to move from small, highly controlled cohorts to large analyses that represent the full spectrum of disease, using data that already exists.',
     ],
   },
   {
     slug: 'project-7',
     index: '03',
-    title: 'SnapExplain',
-    summary: 'SnapExplain is an Android utility that brings large language model (LLM) explanations directly into your reading workflow.It integrates with Android’s native text-selection menu, allowing users to highlight any sentence in a PDF, ebook, or article and receive an instant, contextual explanation — without leaving the app they’re reading in.',
+    title: 'SnapExplain: An LLM in the Android Text Selection Menu',
+    summary:
+      'Reading a dense paper on a phone breaks every time you need an explanation. SnapExplain adds an Explain action to Android’s text selection menu: highlight a sentence, get a short answer from the model of your choice, and keep reading.',
     year: 2025,
-    technologies: [
-      'Kotlin',
-      'Android SDK',
-      'HTTP/REST APIs (OpenAI-compatible)',
-      'Large Language Models (LLMs)',
-      'Android Text Selection API',
-      'Gradle',
-    ],
+    venue: 'Open source Android app · 2025',
+    role: 'Author',
+    technologies: ['Kotlin', 'Android SDK', 'OpenAI compatible APIs', 'LLMs', 'Android text selection API', 'Gradle'],
     image: '/images/projects/snapexplain.webp',
     imageAlt:
-      'SnapExplain on Android: a paper open in a PDF reader with the text-selection menu showing the “Explain (≤100 words)” action.',
+      'SnapExplain on Android: a paper open in a PDF reader with the text selection menu showing the “Explain (≤100 words)” action.',
     codeUrl: 'https://github.com/mahdmahd/SnapExplain',
     demoUrl: 'https://github.com/mahdmahd/SnapExplain/releases/tag/V0.1',
-    overview: 'SnapExplain is an Android utility that brings large language model (LLM) explanations directly into your reading workflow.\nIt integrates with Android’s native text-selection menu, allowing users to highlight any sentence in a PDF, ebook, or article and receive an instant, contextual explanation — without leaving the app they’re reading in.\nNo app switching. No prompt rewriting. No broken focus.',
+    overview:
+      'An Android utility that brings LLM explanations into the reading app you are already using. No app switching, no prompt rewriting, no broken focus.',
     details: [
-      'reading dense academic or technical text on mobile is inefficient.\nYou hit a sentence that needs interpretation, nuance, or translation — and the workflow collapses:',
-      'Copy.\nSwitch apps.\nPaste.\nRe-explain context.\nRead.\nSwitch back.',
-      'That friction kills comprehension and momentum.',
-      'I built SnapExplain to remove that friction entirely.',
-      'SnapExplain hooks into Android’s text-selection action menu. When you highlight text, an Explain action appears. One tap sends the highlighted text — along with your own predefined system prompt — to an LLM of your choice. The response appears instantly in a lightweight popup, letting you continue reading without disruption.',
-      'You stay inside your book.\nThe explanation comes to you.',
-      'The system is intentionally model-agnostic. You can use OpenAI-compatible APIs, AvalAI, self-hosted endpoints, or local servers. You control the prompt, model, temperature, and output limits — not the app.',
-      'A core design principle of SnapExplain is minimizing cognitive and interface overhead. The popup interface is deliberately constrained, with an optional word limit to keep explanations readable and non-intrusive. The user’s custom prompt defines the explanation style (e.g., simplified language, comparative analysis, translation with nuance), eliminating the need to restate instructions repeatedly.',
-      'SnapExplain works with most Android reader applications, including Moon+ Reader and Librera, and requires no special integration from those apps beyond standard text selection. API keys are stored locally on the device, and highlighted text is transmitted only to the endpoint explicitly configured by the user. The application performs no data collection, logging, or analytics.',
-      'The project is aimed at readers of academic, technical, or linguistically complex material who need rapid, contextual understanding without interrupting their reading flow. The long-term roadmap focuses on features that further reduce friction—such as offline LLM support, explanation history, and prompt presets—while avoiding unnecessary complexity.',
+      'Reading academic text on a phone has a familiar failure. You hit a sentence that needs interpretation or translation, and the workflow collapses: copy, switch apps, paste, explain the context again, read, switch back. That friction kills comprehension.',
+      'SnapExplain hooks into the text selection menu. Highlight text and an Explain action appears. One tap sends the selection, with your own predefined prompt, to the model you chose, and the answer opens in a small popup over the page.',
+      'It is model agnostic: OpenAI compatible APIs, AvalAI, self hosted or local servers. You control the prompt, the model, the temperature and an optional word limit. It works with readers such as Moon+ Reader and Librera without any special integration.',
+      'API keys stay on the device, and the selected text goes only to the endpoint you configured. There is no data collection, logging or analytics. Next on the roadmap are offline models, an explanation history and prompt presets.',
     ],
   },
   {
     slug: 'project-bpll',
     index: '04',
-    title: 'Computer Vision–Based Intraoperative Measurement of Biliopancreatic Limb Length',
-    summary: 'A pilot study evaluating whether computer vision can replace subjective visual estimation of biliopancreatic limb (BPL) length during gastric bypass surgery with objective, calibrated intraoperative measurements.',
-    year: 2025,
-    technologies: [
-      'YOLOv11 (Pose Estimation)',
-      'Computer Vision',
-      'Roboflow',
-      'PyTorch',
-      'Statistical Agreement Analysis',
+    title: 'Measuring Biliopancreatic Limb Length with Computer Vision',
+    summary:
+      'In gastric bypass, surgeons still estimate bowel length by eye. This pilot asks whether computer vision can move us from estimation to measurement, using the grasper tip already in the frame as a ruler.',
+    year: 2026,
+    venue: 'Manuscript in preparation · pilot study',
+    role: 'Lead · Pipeline, annotation review and analysis',
+    highlights: [
+      { value: '−0.02 cm', label: 'mean error against a sterile ruler' },
+      { value: '56.8%', label: 'of surgeon estimates within 1 cm' },
+      { value: '98.6%', label: 'precision, YOLOv11M' },
     ],
+    technologies: ['YOLOv11 pose estimation', 'ByteTrack', 'PyTorch', 'Roboflow', 'Bland Altman analysis'],
     image: '/images/projects/bpll-measurement.webp',
     imageAlt:
-      'Laparoscopic video frame from the biliopancreatic limb measurement: two instrument tips detected and labelled with 0.92 and 0.86 confidence, with a 4.77 cm segment measured between them.',
-    overview: 'A data-driven project that models long-term postoperative weight trajectories after bariatric surgery and translates these patterns into clinically interpretable, patient-level predictions.',
+      'Laparoscopic video frame from the limb measurement pipeline: two graspers detected with keypoints on their tips, a line drawn between them and a 4.92 cm distance readout, with the pixel to centimetre rate shown.',
+    overview:
+      'A computer vision pipeline that measures the distance between two laparoscopic instruments in centimetres, to replace visual estimation of biliopancreatic limb length.',
     details: [
-      'In gastric bypass surgery, biliopancreatic limb length is a key technical variable that influences metabolic outcomes and nutrition-related complications. Despite this, limb length is commonly estimated visually, a subjective practice that varies widely between surgeons. This project addressed whether a measurement-oriented computer vision system could provide accurate and reproducible intraoperative length estimates.',
-      'I developed and evaluated a YOLOv11-based pose estimation pipeline that detects laparoscopic instruments, estimates their spatial pose, and computes calibrated inter-instrument distances using an in-scene reference segment on the grasper tip. The system converts pixel distances into real-world centimeters without requiring external tracking hardware.',
-      'Two model variants (YOLOv11M and YOLOv11L) were trained and benchmarked on annotated laparoscopic video frames adapted from a public dataset. Performance was assessed using COCO detection and pose metrics, with additional agreement analyses comparing computer vision–derived measurements to surgeon estimates and to ruler-based ground truth.',
-      'The results showed strong detection and pose performance, with YOLOv11M achieving higher precision and fewer false positives, making it more suitable for safety-critical intraoperative workflows. Surgeon visual estimates demonstrated a consistent bias and wide limits of agreement relative to the computer vision measurements, highlighting the limitations of fixed visual estimation. External validation using a sterile ruler confirmed that the system could recover real-world distances with minimal error.',
-      'This study demonstrates the feasibility of objective, calibrated intraoperative limb-length measurement using computer vision and outlines the technical requirements for real-time deployment in bariatric surgery. A manuscript describing this work is currently under review.',
-      'A manuscript describing this work is currently under review.',
+      'Biliopancreatic limb length shapes metabolic results and nutritional complications after gastric bypass, yet it is usually measured by eye. Visual estimation varies between surgeons, and nobody can audit it afterwards.',
+      'I built GB LimbCalc around YOLOv11 pose estimation. Each grasper gets two keypoints, ByteTrack follows the instruments across frames, and the visible 2.5 cm grasper tip becomes the scale that converts pixels into centimetres. No extra tracking hardware is needed.',
+      'The medium and large models were fine tuned on 1,632 frames from 29 public laparoscopic videos (3,948 after augmentation). The medium model won on precision, 98.62% against 96.01%, with pose mAP of 92.8% for both. In the safety critical setting of an operation, fewer false positives matter more than a slightly higher recall.',
+      'Across 74 measurements in 9 patients, the system read a mean of 5.42 cm where surgeons intended 5 cm. Bland Altman bias was −0.42 cm with wide limits of agreement, and only 56.8% of surgeon estimates fell within 1 cm. Against a sterile ruler the mean error was −0.022 cm. Yes, measurement is feasible.',
     ],
   },
   {
     slug: 'project-pemphigus',
     index: '05',
-    title: 'Diagnostic Delay and Clinical Course of Pemphigus Vulgaris: An Iranian Cohort Study',
-    summary: 'A cross-sectional clinical study examining presentation patterns, diagnostic delays, and treatment outcomes in patients with pemphigus vulgaris, highlighting systemic barriers to early diagnosis.',
-    year: 2025,
-    technologies: [
-      'SPSS',
-      'Cross-Sectional Study Design',
-      'Clinical Data Collection',
-      'Statistical Association Analysis',
+    title: 'Diagnostic Delay in Pemphigus Vulgaris: An Iranian Cohort',
+    summary:
+      'Patients with pemphigus vulgaris waited a mean of 16.7 months for a diagnosis, and most saw other specialists first. Longer delay meant more relapses and slower control of the disease.',
+    year: 2026,
+    venue: 'Immunity, Inflammation and Disease · 2026',
+    role: 'Second author · Study design, analysis and interpretation',
+    highlights: [
+      { value: '16.7 mo', label: 'mean time to diagnosis' },
+      { value: '87%', label: 'first saw a non dermatologist' },
+      { value: '63', label: 'biopsy confirmed patients' },
     ],
+    technologies: ['SPSS', 'Nonparametric statistics', 'Retrospective cohort design', 'Clinical data collection'],
+    image: '/images/projects/pemphigus-symptom-interval.webp',
+    imageAlt:
+      'Dot plot of the interval between the first and second symptom of pemphigus vulgaris: most patients cluster near zero months, with a long tail reaching almost 100 months.',
     paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/41640030/',
-    overview: 'A cross-sectional clinical study examining presentation patterns, diagnostic delays, and treatment outcomes in patients with pemphigus vulgaris, highlighting systemic barriers to early diagnosis.',
+    overview:
+      'A retrospective study of how patients with pemphigus vulgaris reach their diagnosis, and what the delay costs them.',
     details: [
-      'Pemphigus vulgaris (PV) is a rare autoimmune blistering disease in which delayed diagnosis can substantially worsen disease severity, recurrence risk, and treatment burden. Despite this, real-world data on diagnostic pathways and delays—particularly in Middle Eastern populations—remain limited.',
-      'In this study, I analyzed clinical and epidemiological data from 63 patients with biopsy-confirmed PV treated at tertiary referral centers in Iran. Data were collected via structured telephone interviews and medical record review, focusing on initial symptoms, time to diagnosis, prior consultations, misdiagnoses, treatment patterns, recurrence, and disease control.',
-      'Most patients initially presented with mucosal lesions and consulted non-dermatology specialists before receiving a definitive diagnosis. Diagnostic delay was substantial, often exceeding one year, and was significantly associated with higher relapse frequency, greater relapse severity, delayed disease control, and longer time to taper systemic corticosteroids.',
-      'The study also characterized real-world treatment patterns, showing widespread use of systemic corticosteroids and rituximab, frequent polypharmacy, and high recurrence rates despite treatment. Earlier diagnosis was consistently associated with fewer relapses and improved clinical trajectories.',
-      'This work provides population-specific evidence that diagnostic delay—rather than disease severity alone—is a key driver of poor outcomes in pemphigus vulgaris. The findings support targeted education for non-dermatology clinicians and earlier referral pathways for persistent mucosal lesions. The manuscript has been accepted in Immunity, Inflammation and Disease',
+      'Pemphigus vulgaris is a rare autoimmune blistering disease, and a late diagnosis makes everything harder. Real world data on how patients reach that diagnosis in the Middle East is scarce.',
+      'We studied 63 patients confirmed by biopsy, direct immunofluorescence and ELISA at two Tehran laboratories between 2011 and 2021, and interviewed them by phone with a structured questionnaire. The analysis used Mann Whitney U, Kruskal Wallis and Spearman correlation.',
+      'Seventy percent first presented with mucosal lesions. The mean time to diagnosis was 16.7 months, 87.3% first consulted clinicians outside dermatology, and aphthous ulcer was the most common misdiagnosis (31.7%). Treatment was mostly prednisolone (84.7%) and rituximab (57.6%), and 49.2% relapsed.',
+      'Longer delay was associated with more relapses (p = 0.031), slower disease control (p = 0.029) and a longer time to taper prednisolone to 7.5 mg (p < 0.0001). The message is practical: persistent mucosal lesions deserve early referral.',
     ],
   },
   {
     slug: 'project-uricacid',
     index: '06',
-    title: 'Effects of Metabolic and Bariatric Surgery on Serum Uric Acid, Renal Function, and Visceral Adiposity',
-    summary: 'A comprehensive systematic review and meta-analysis examining how metabolic and bariatric surgery (MBS) affects serum uric acid over time, and how these changes relate to renal function and visceral adiposity.',
-    year: 2025,
-    technologies: [
-      'R (meta, metafor)',
-      'PRISMA Guidelines',
-      'Random-Effects Meta-Analysis',
-      'Meta-Regression',
-      'Sensitivity and Bias Analysis',
+    title: 'Uric Acid After Metabolic and Bariatric Surgery: A Meta-Analysis',
+    summary:
+      'Across 42 studies and 9,468 patients, serum uric acid rose briefly after surgery, then fell for up to four years. The largest drop came at 12 months, and it tracked kidney function and visceral fat.',
+    year: 2026,
+    venue: 'Obesity Surgery · 2026',
+    role: 'Second author · Supervision, data validation and methods',
+    highlights: [
+      { value: '42', label: 'studies, 9,468 patients' },
+      { value: '−1.43', label: 'mg/dL at 12 months' },
+      { value: 'RYGB', label: 'larger drop than sleeve gastrectomy' },
     ],
-    image: '/images/projects/uricacid-prisma.webp',
+    technologies: ['R (meta, metafor)', 'PRISMA', 'Multilevel random effects', 'Meta regression', 'Sensitivity analysis'],
+    image: '/images/projects/uricacid-trajectory.webp',
     imageAlt:
-      'PRISMA flow diagram for the systematic review: records identified from databases and from other methods, screened, assessed for eligibility, and the reports included.',
+      'Trajectory of uric acid change over time after bariatric surgery: a pooled mean difference with 95% confidence intervals, above zero at 7 days and below zero from 3 months to 48 months, with patient counts at each time point.',
     paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/41840314/',
-    overview: 'A comprehensive systematic review and meta-analysis examining how metabolic and bariatric surgery (MBS) affects serum uric acid over time, and how these changes relate to renal function and visceral adiposity.',
+    overview:
+      'A systematic review and meta-analysis of serum uric acid over time after metabolic and bariatric surgery, and of what drives the change.',
     details: [
-      'Hyperuricemia is common in obesity and is closely linked to insulin resistance, visceral fat accumulation, and impaired renal urate excretion. While metabolic and bariatric surgery is known to improve multiple metabolic outcomes, its longitudinal effects on serum uric acid—and the mechanisms underlying these changes—had not been comprehensively synthesized.',
-      'In this project, I conducted a PRISMA-compliant systematic review and meta-analysis of 42 studies encompassing 9,468 patients to quantify temporal changes in serum uric acid following bariatric surgery and to examine their associations with renal function markers (creatinine, blood urea nitrogen) and visceral adiposity (waist circumference).',
-      'Using random-effects models and meta-regression, I showed that serum uric acid exhibits a brief, non-significant rise in the immediate postoperative period, followed by a sustained and clinically meaningful reduction lasting up to four years, with the greatest decline occurring at 12 months. Subgroup analyses demonstrated that Roux-en-Y gastric bypass produced larger urate reductions than sleeve gastrectomy.',
-      'Meta-regression analyses revealed that postoperative serum uric acid levels were positively associated with creatinine, waist circumference, and body mass index, but not with blood urea nitrogen. These findings suggest that urate reduction after surgery is driven primarily by improvements in renal handling of uric acid and reductions in visceral adiposity rather than nonspecific changes in nitrogen metabolism.',
-      'Sensitivity analyses, publication bias assessment, and multiple robustness checks confirmed the stability of the results. This work clarifies the metabolic and renal pathways through which bariatric surgery improves hyperuricemia and supports the consideration of uric acid and kidney-related outcomes when selecting surgical strategies for high-risk patients. A full manuscript is currently under review.\nA manuscript describing this work is currently under review.',
+      'Obesity raises serum uric acid through insulin resistance, visceral fat and poorer renal excretion. Surgery improves many metabolic outcomes, but its effect on uric acid over time had not been pooled properly.',
+      'We searched PubMed, Embase, Scopus and Web of Science and included 42 studies with 9,468 patients, rated with the Newcastle Ottawa Scale. The analysis used random effects and multilevel models by time point in R (meta, metafor), subgroups by procedure, meta regression with Knapp Hartung adjustment, Egger’s test and leave one out sensitivity analysis.',
+      'Uric acid rose slightly and not significantly at 7 days (+1.51 mg/dL), then fell, with the largest reduction at 12 months (mean difference −1.43 mg/dL, 95% CI −1.80 to −1.07). The drop was larger after Roux en Y gastric bypass than after sleeve gastrectomy (−1.30 against −0.72).',
+      'After surgery, uric acid tracked creatinine, waist circumference and BMI, but not blood urea nitrogen. So the reduction most likely comes from better renal handling of urate and less visceral fat, which matters when choosing a procedure for a patient at high risk.',
     ],
   },
   {
     slug: 'project-weightlosstrajectory',
     index: '07',
-    title: 'Post-Bariatric Weight Trajectory Modelling and Clinical Prediction',
-    summary: 'A data-driven project that models long-term postoperative weight trajectories after bariatric surgery and translates these patterns into clinically interpretable, patient-level predictions.',
+    title: 'Weight Trajectories After Bariatric Surgery',
+    summary:
+      'Averages hide the patients who regain. I modelled long term weight change as distinct trajectories, linked them to behaviour and comorbidity, and trained explainable models to predict a new patient’s likely trajectory.',
     year: 2025,
-    technologies: [
-      'Python',
-      'Mplus',
-      'scikit-learn',
-      'matplotlib',
-      'SHAP',
-      'LIME',
-      'Structural Equation Modeling (SEM)',
-      'latent class analysis',
-    ],
-    overview: 'A data-driven project that models long-term postoperative weight trajectories after bariatric surgery and translates these patterns into clinically interpretable, patient-level predictions.',
+    venue: 'Manuscript in preparation',
+    role: 'First author · Modelling and prediction',
+    technologies: ['Python', 'Mplus', 'Scikit-learn', 'SHAP', 'LIME', 'Structural equation modelling', 'Latent class analysis'],
+    overview:
+      'Trajectory modelling of long term weight change after bariatric surgery, turned into explainable predictions for individual patients.',
     details: [
-      'long-term outcomes after bariatric surgery are highly variable, and clinicians often lack tools to anticipate which patients are likely to maintain weight loss and which may struggle over time. This project was my attempt to make those trajectories explicit, measurable, and clinically usable.',
-      'I first analysed long-term postoperative weight change using structural equation modelling and latent class approaches to identify distinct weight-trajectory patterns, such as early weight loss with partial regain, late weight loss, steady loss, and rapid loss followed by regain. These latent classes captured clinically meaningful heterogeneity that is usually hidden when outcomes are summarised with averages.',
-      'Once these trajectories were established, I examined their associations with key clinical factors, including physical activity, eating behaviours, and obesity-related comorbidities. This step was critical: without linking trajectories to modifiable and non-modifiable factors, the classifications would remain descriptive rather than actionable.',
-      'To move from explanation to prediction, I developed machine-learning models to assign patients to weight-trajectory classes using baseline demographic, clinical, and biochemical variables. I applied explainable AI techniques (SHAP and LIME) to ensure that predictions were transparent and could be interpreted at the individual patient level, rather than functioning as a black box.',
-      'During external validation, I extended the framework by modelling additional longitudinal trajectories—such as exercise behaviour, fasting blood glucose, and HbA1c—and examining how these interacted with weight trajectories. This substantially improved the clinical interpretability of the results and helped contextualise weight change within broader metabolic health.',
-      'Finally, I implemented a prototype web-based service that predicts the most probable postoperative weight-trajectory class for a new patient based on their baseline profile. The tool allows clinicians to explore different postoperative scenarios and serves as a proof of concept for integrating trajectory-based predictions into clinical decision support.',
-      'A manuscript describing this work is currently under review.',
+      'Outcomes after bariatric surgery vary widely, and clinicians have few tools to see who will keep the weight off and who will struggle. This project makes those trajectories explicit.',
+      'With structural equation modelling and latent class analysis I identified distinct patterns: early loss with partial regain, late loss, steady loss, and rapid loss followed by regain. Then I linked each pattern to physical activity, eating behaviour and comorbidities, so the classes become actionable and not only descriptive.',
+      'Machine learning models then assign a new patient to a trajectory from baseline data, and SHAP and LIME explain each prediction at the level of the individual patient. During external validation I added trajectories for exercise, fasting glucose and HbA1c to place weight change inside broader metabolic health.',
+      'A prototype web service predicts the most likely trajectory for a new patient and lets clinicians explore scenarios. The manuscript is in preparation.',
     ],
   },
 ]
@@ -583,10 +646,10 @@ export type Publication = {
 }
 
 /**
- * The CV's Publications section, canonical and verbatim: four published
- * manuscripts (two in Obesity Surgery), then the four ongoing ones. The
- * `*` on `SMM Khadem*` marks corresponding authorship; the section prints the
- * legend. The CV's own dot-run placeholder for omitted co-authors is preserved.
+ * Publications, checked against the papers themselves (2026-10-20): full
+ * author lists, volumes and years as printed. `*` marks the corresponding
+ * author where the paper names one; the section prints the legend. Four
+ * published, then the preprint under review, then manuscripts in preparation.
  */
 export const publications: Publication[] = [
   {
@@ -597,32 +660,49 @@ export const publications: Publication[] = [
       'Shahab Shahabi',
       'Delaram Moosavi',
       'SMM Khadem*',
-      '.....',
+      'Farid Ahmad Qaderi',
+      'Fahimeh Yarigholi',
+      'Abdolreza Pazouki',
       'Mohammad Kermansaravi',
     ],
-    venue: 'Obesity Surgery (Springer)',
+    venue: 'Obesity Surgery (Springer) 35:5275–5287',
     year: 2025,
     impact: 'IF 3.1 · Q1 (2024)',
     url: 'https://pubmed.ncbi.nlm.nih.gov/41201758/',
     status: 'published',
   },
   {
-    title: 'Navigating the Complexities of Pemphigus Vulgaris: A Comprehensive Iranian Study',
-    authors: ['Delaram Moosavi', 'SMM Khadem*', '.....', 'Azadeh Goodarzi'],
-    venue: 'Immunity, Inflammation and Disease (Wiley)',
-    year: 2025,
-    impact: 'IF 2.7 · Q1 (2024)',
-    url: 'https://pubmed.ncbi.nlm.nih.gov/41640030/',
+    title:
+      'Effects of Metabolic and Bariatric Surgery on Serum Uric Acid and its Association with Renal Function, and Visceral Adiposity: A Systematic Review and Meta-Analysis',
+    authors: [
+      'Delaram Moosavi',
+      'SMM Khadem*',
+      'Nogol Motamed-Gorji',
+      'Seyed Arash Javadmoosavi',
+      'Shahab Shahabi',
+    ],
+    venue: 'Obesity Surgery (Springer) 36:1975–1987',
+    year: 2026,
+    impact: 'IF 3.1 · Q1 (2024)',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/41840314/',
     status: 'published',
   },
   {
-    title:
-      'Effects of Metabolic and Bariatric Surgery on Serum Uric Acid and its relation with Renal Function, and Visceral Adiposity: A Systematic Review and Meta-Analysis',
-    authors: ['Delaram Moosavi', 'SMM Khadem*', '.....', 'Seyed Arash Javadmoosavi'],
-    venue: 'Obesity Surgery (Springer)',
-    year: 2025,
-    impact: 'IF 3.1 · Q1 (2024)',
-    url: 'https://pubmed.ncbi.nlm.nih.gov/41840314/',
+    title: 'Navigating the Complexities of Pemphigus Vulgaris: A Comprehensive Iranian Study',
+    authors: [
+      'Delaram Moosavi',
+      'SMM Khadem',
+      'Afsaneh Sadeghzadeh Bazargan*',
+      'Kambiz Kamyab Hesari',
+      'Mehrnaz Azh',
+      'Hamed Zarei Sharif',
+      'Nasrin Shayanfar',
+      'Azadeh Goodarzi',
+    ],
+    venue: 'Immunity, Inflammation and Disease (Wiley) 14:e70317',
+    year: 2026,
+    impact: 'IF 2.7 · Q1 (2024)',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/41640030/',
     status: 'published',
   },
   {
@@ -637,14 +717,6 @@ export const publications: Publication[] = [
   },
   {
     title:
-      'ApoE Genotype Related Differences in Hippocampal Shape and Subfield Structure in Cognitively Normal Adults',
-    authors: ['SMM Khadem*', 'AmirHussein Abdolalizadeh'],
-    venue: 'Manuscript in preparation',
-    year: 2026,
-    status: 'in-preparation',
-  },
-  {
-    title:
       'Retrieval-Augmented Clinical Question-Answering System for Bariatric Surgery Built on the ASMBS Textbook: From Good to Great',
     authors: [
       'SMM Khadem*',
@@ -653,16 +725,26 @@ export const publications: Publication[] = [
       'Mohammad Kermansaravi',
       'Shahab Shahabi',
     ],
-    venue: 'Research Square',
+    venue: 'Research Square (preprint)',
     year: 2026,
+    url: 'https://doi.org/10.21203/rs.3.rs-9979413/v1',
     status: 'under-review',
     note: 'Under review at Obesity Surgery',
   },
   {
-    title: 'Biliopancreatic Limb Length: From Estimation to Measurement: A Pilot Study',
+    title:
+      'ApoE Genotype Related Differences in Hippocampal Shape and Subfield Structure in Cognitively Normal Adults',
+    authors: ['SMM Khadem*', 'AmirHussein Abdolalizadeh'],
+    venue: 'Manuscript in preparation',
+    year: 2026,
+    status: 'in-preparation',
+  },
+  {
+    title:
+      'From Visual Estimation to Computer Vision–Based Intraoperative Distance Measurement for Biliopancreatic Limb Assessment: A Pilot Study',
     authors: ['SMM Khadem*', '.....', 'Mohammad Kermansaravi'],
     venue: 'Manuscript in preparation',
-    year: 2025,
+    year: 2026,
     status: 'in-preparation',
   },
   {
@@ -755,14 +837,14 @@ export const teaching: TeachingService = {
   ],
   grants: [
     {
-      title: 'PERSiMED — Persian Intelligent Medical Document Reader',
+      title: 'PERSiMED: Persian Intelligent Medical Document Reader',
       funder: 'Saman Insurance Company',
       year: '2025',
       amount: '€1,000',
     },
     {
-      title: 'Biliopancreatic Limb Length — From Estimation to Measurement (Pilot Study)',
-      funder: 'Minimally Invasive Research Center',
+      title: 'Biliopancreatic Limb Length: From Estimation to Measurement (Pilot Study)',
+      funder: 'Minimally Invasive Surgery Research Center',
       year: '2024',
       amount: '€800',
     },
@@ -790,7 +872,7 @@ export const teaching: TeachingService = {
       since: '2022 – present',
     },
     {
-      name: 'iAIMS — AI x MS community',
+      name: 'iAIMS: AI x MS community',
       role: 'Board candidate, Coding Lead',
       since: '2025 – present',
     },

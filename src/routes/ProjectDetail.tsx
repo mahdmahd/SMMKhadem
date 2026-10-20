@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router'
 
 import ProjectActions from '../components/ProjectActions'
+import ProjectHighlights from '../components/ProjectHighlights'
 import { allProjects, featuredProjects } from '../data/portfolio'
 import { usePageTitle } from '../hooks/usePageTitle'
 import NotFound from './NotFound'
@@ -28,15 +29,31 @@ export default function ProjectDetail() {
 
   if (!project) return <NotFound />
 
-  const meta = [project.year, project.technologies?.join(' · ')].filter(Boolean).join(' — ')
 
   return (
     <article className="shell section project-detail">
-      <p className="eyebrow">Project · {project.index}</p>
+      <p className="eyebrow">
+        Project · {project.index}
+        {project.year ? ` · ${project.year}` : ''}
+      </p>
 
       <h1 className="display project-detail__title">{project.title}</h1>
 
-      {meta && <p className="project-detail__meta">{meta}</p>}
+      {(project.venue || project.role) && (
+        <p className="project-detail__role">{[project.venue, project.role].filter(Boolean).join(' · ')}</p>
+      )}
+
+      <ProjectHighlights highlights={project.highlights} />
+
+      {project.technologies && project.technologies.length > 0 && (
+        <ul className="project-detail__tech" aria-label="Methods and tools">
+          {project.technologies.map((technology) => (
+            <li key={technology} className="eyebrow chip">
+              {technology}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {project.image && (
         <div className="project-detail__figure">

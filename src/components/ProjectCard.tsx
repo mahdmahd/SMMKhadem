@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 
 import type { Project } from '../data/portfolio'
 import ProjectActions from './ProjectActions'
+import ProjectHighlights from './ProjectHighlights'
 
 export type ProjectCardProps = {
   project: Project
@@ -23,8 +24,9 @@ export function splitTitle(title: string): [string, string] {
 }
 
 /**
- * Featured case-study card: number, mixed-case title, summary, the verified
- * Paper/Code/Demo buttons that exist, and a link to the full-prose route.
+ * Featured case-study card: number and venue, mixed-case title, summary, the
+ * headline numbers, his role, the verified Paper/Code/Demo buttons that exist,
+ * and a link to the full-prose route.
  */
 export default function ProjectCard({ project, imageSide = 'right' }: ProjectCardProps) {
   const [lead, rest] = splitTitle(project.title)
@@ -39,7 +41,10 @@ export default function ProjectCard({ project, imageSide = 'right' }: ProjectCar
   return (
     <article className={classes}>
       <div className="project-card__body">
-        <p className="eyebrow project-card__index">{project.index}</p>
+        <p className="eyebrow project-card__index">
+          {project.index}
+          {project.venue && <span className="project-card__venue"> · {project.venue}</span>}
+        </p>
 
         <h3 className="project-card__title">
           <span className="project-card__title-lead">{lead}</span>{' '}
@@ -47,6 +52,10 @@ export default function ProjectCard({ project, imageSide = 'right' }: ProjectCar
         </h3>
 
         <p className="project-card__summary">{project.summary}</p>
+
+        <ProjectHighlights highlights={project.highlights} />
+
+        {project.role && <p className="project-card__role">{project.role}</p>}
 
         <div className="project-card__actions">
           <ProjectActions project={project} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
 import { nav, profile } from '../data/portfolio'
+import Logo from './Logo'
 
 const NAV_ID = 'site-nav'
 const SCROLL_THRESHOLD = 8
@@ -32,7 +33,9 @@ export default function Header() {
     <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
       <div className="shell site-header__inner">
         <Link className="mark" to="/">
-          {profile.name}
+          {/* The MK monogram; the name beside it is the link's accessible text. */}
+          <Logo className="mark__logo" />
+          <span className="mark__name">{profile.name}</span>
         </Link>
 
         <nav
