@@ -2,6 +2,7 @@ import { lazy, Suspense, type ComponentType } from 'react'
 import { Link, useParams } from 'react-router'
 
 import { formatPostDate, posts } from '../data/portfolio'
+import { usePageTitle } from '../hooks/usePageTitle'
 import NotFound from './NotFound'
 
 /**
@@ -58,6 +59,10 @@ export default function PostPage() {
   const canonical = slug ? (LEGACY_SLUGS[slug] ?? slug) : undefined
   const post = posts.find((entry) => entry.slug === canonical)
   const Body = canonical ? POST_BODIES[canonical] : undefined
+
+  // Called before the guard so the hook order is stable; an unresolved slug
+  // passes null and leaves the document title alone.
+  usePageTitle(post ? `${post.title} — Mahdi Khadem` : null)
 
   if (!post || !Body) return <NotFound />
 

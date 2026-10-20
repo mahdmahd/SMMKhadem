@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Intro, { shouldPlayIntro } from '../components/Intro'
+import { usePageTitle } from '../hooks/usePageTitle'
 import About from '../sections/About'
 import Contact from '../sections/Contact'
 import Hero from '../sections/Hero'
@@ -32,6 +33,8 @@ import Toolkit from '../sections/Toolkit'
  */
 export default function Home() {
   const [intro, setIntro] = useState(shouldPlayIntro)
+
+  usePageTitle('Mohammad Mahdi Khadem — M.D. · AI Researcher')
 
   return (
     <>

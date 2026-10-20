@@ -1,4 +1,5 @@
 import AboutStory from '../content/about.mdx'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 /**
  * `/about` — the full long-form story, not the condensed homepage bio.
@@ -10,6 +11,8 @@ import AboutStory from '../content/about.mdx'
  * survive. Only the framing chrome is new.
  */
 export default function AboutPage() {
+  usePageTitle('About — Mahdi Khadem')
+
   return (
     <article id="about" className="shell section about-page">
       <p className="eyebrow">About</p>

@@ -279,7 +279,7 @@ export const featuredProjects: Project[] = [
   {
     slug: 'project-6',
     index: '01',
-    title: 'PERSiMED: PERSian Intelligent MEDical Document Reader :A Smart NLP-based Framework for Persian Medical Documents',
+    title: 'PERSiMED: PERSian Intelligent MEDical Document Reader: A Smart NLP-based Framework for Persian Medical Documents',
     summary: 'A deep learning–based framework for intelligent extraction, semantic understanding, and structured digitization of Persian medical documents, designed to automate health insurance workflows and fraud detection.',
     year: 2025,
     technologies: [

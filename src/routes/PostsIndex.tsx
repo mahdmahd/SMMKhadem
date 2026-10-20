@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 
 import Reveal from '../components/Reveal'
 import { formatPostDate, posts } from '../data/portfolio'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 /**
  * `/posts` — the full index, newest first. Same card grammar as the homepage
@@ -9,6 +10,8 @@ import { formatPostDate, posts } from '../data/portfolio'
  * shows the first three.
  */
 export default function PostsIndex() {
+  usePageTitle('Writing — Mahdi Khadem')
+
   return (
     <section id="posts" className="shell section posts-index">
       <Reveal>

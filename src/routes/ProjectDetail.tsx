@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router'
 
 import ProjectActions from '../components/ProjectActions'
 import { allProjects, featuredProjects } from '../data/portfolio'
+import { usePageTitle } from '../hooks/usePageTitle'
 import NotFound from './NotFound'
 
 /**
@@ -20,6 +21,10 @@ const projects = [...featuredProjects, ...allProjects]
 export default function ProjectDetail() {
   const { slug } = useParams()
   const project = projects.find((entry) => entry.slug === slug)
+
+  // Called before the guard so the hook order is stable; an unknown slug passes
+  // null and leaves the document title alone.
+  usePageTitle(project ? `${project.title} — Mahdi Khadem` : null)
 
   if (!project) return <NotFound />
 

@@ -2,6 +2,7 @@ import ChannelIcon from '../components/ChannelIcon'
 import ContactForm from '../components/ContactForm'
 import Reveal from '../components/Reveal'
 import { channels, formAction, profile } from '../data/portfolio'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 /**
  * `/contact` — the four channels and the message form.
@@ -12,6 +13,8 @@ import { channels, formAction, profile } from '../data/portfolio'
  * discards a message.
  */
 export default function ContactPage() {
+  usePageTitle('Contact — Mahdi Khadem')
+
   return (
     <section id="contact" className="shell section contact-page">
       <Reveal>
